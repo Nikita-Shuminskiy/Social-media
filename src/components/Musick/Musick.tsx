@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './Musick.module.css'
-import Dialogs from '../Dialogs/Dialogs';
 
 type MessageType = {}
 

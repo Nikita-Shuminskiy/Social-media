@@ -7,8 +7,16 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import { BrowserRouter, Route } from 'react-router-dom'
 import Dialogs from './components/Dialogs/Dialogs';
+import { stateType } from './Redux/state';
 
-function App() {
+ type AppType = {
+    state: stateType
+ }
+
+
+
+function App(props:AppType) {
+
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
@@ -17,12 +25,13 @@ function App() {
                     alt={'logo'}/>
                 <NavBar Pro={'Profile'} Mess={'Message'} News={'News'} Music={'Musick'} Set={'Setting'}/>
                 <div className={'app-wrapper-content'}>
-                    <Route  path={'/dialogs'} render={() => <Dialogs/>}/>
-                    <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs state={props.state}/>}/>
+                    <Route path={'/profile'} render={() => <Profile state={props.state}/>}/>
                 </div>
                 <Settings/>
             </div>
         </BrowserRouter>
     );
 }
+
 export default App;
