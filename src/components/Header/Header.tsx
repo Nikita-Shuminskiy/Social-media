@@ -3,7 +3,7 @@ import s from './Header.module.css'
 
 type HeaderType = {
     img: string
-
+    alt: string
 }
 
 const Header: React.FC<HeaderType> = (props) => {
