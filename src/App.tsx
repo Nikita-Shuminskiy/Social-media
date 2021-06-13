@@ -13,8 +13,6 @@ import { stateType } from './Redux/state';
     state: stateType
  }
 
-
-
 function App(props:AppType) {
 
     return (
@@ -23,7 +21,7 @@ function App(props:AppType) {
                 <Header
                     img={'https://st4.depositphotos.com/9449108/25247/i/600/depositphotos_252470670-stock-photo-illustration-of-a-japanese-warrior.jpg'}
                     alt={'logo'}/>
-                <NavBar Pro={'Profile'} Mess={'Message'} News={'News'} Music={'Musick'} Set={'Setting'}/>
+                <NavBar state={props.state}/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'} render={() => <Dialogs state={props.state}/>}/>
                     <Route path={'/profile'} render={() => <Profile state={props.state}/>}/>

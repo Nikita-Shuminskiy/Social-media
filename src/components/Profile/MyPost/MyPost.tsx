@@ -18,9 +18,6 @@ const MyPost = (props: MyPostType) => {
            <div className={s.post}>
                {PostElementData}
                {PostElementData}
-               {PostElementData}
-               {PostElementData}
-               {PostElementData}
            </div>
          </div>
     )

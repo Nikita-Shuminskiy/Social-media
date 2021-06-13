@@ -1,0 +1,9 @@
+.img_avatar{
+	width: 40px;
+	border-radius: 20px;
+	display: table-cell;
+}
+.name{
+	padding-right: 5px;
+	margin: 0 auto;
+}

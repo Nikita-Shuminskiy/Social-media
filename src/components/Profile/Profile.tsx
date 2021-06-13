@@ -9,12 +9,12 @@ import { stateType } from '../../Redux/state';
 type ProfileType = {
     state: stateType
 }
+
 const Profile = (props:ProfileType) => {
     return (
         <div>
             <ProfileInfo
-                img={'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg'}
-                imgAvatar={'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg'}/>
+                state={props.state} />
             <MyPost state={props.state}/>
         </div>
     )

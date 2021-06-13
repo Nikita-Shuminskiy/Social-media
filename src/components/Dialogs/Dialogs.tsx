@@ -6,7 +6,7 @@ import { stateType } from '../../Redux/state';
 
 
 export type DialogsType = {
-   state:stateType
+   state: stateType
 }
 
 const Dialogs = (props:DialogsType) => {
