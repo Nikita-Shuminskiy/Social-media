@@ -1,9 +1,12 @@
+import { renderEntire } from '../Render';
+
 export type postType = {
     id: number
     messege: string
     img: string
     imgLogo: string
     likesCount: number
+
 }
 export type messegeType = {
     messege: string
@@ -15,10 +18,12 @@ export type dialogType = {
 }
 export type profilePageType = {
     postData: Array<postType>
+    newValue: string
 }
 export type dialogPageType = {
     dialogs: Array<dialogType>
     messege: Array<messegeType>
+    newMessage:string
 }
 export type DataBlockSideBarType = {
     img: string
@@ -45,6 +50,7 @@ export type stateType = {
 }
 let state: stateType = {
     profilePage: {
+        newValue: '',
         postData: [
             {
                 id: 1,
@@ -53,13 +59,7 @@ let state: stateType = {
                 img: 'https://www.meme-arsenal.com/memes/a5dd2f55b36488a10172f4f84352846b.jpg',
                 imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640'
             },
-            {
-                id: 2,
-                messege: 'helo World',
-                likesCount: 1,
-                img: 'https://www.meme-arsenal.com/memes/a5dd2f55b36488a10172f4f84352846b.jpg',
-                imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640'
-            }]
+        ]
     },
     dialogPage: {
         dialogs: [
@@ -68,15 +68,16 @@ let state: stateType = {
             {name: 'Nastya', id: 3,},
             {name: 'Egor', id: 4,},
         ],
+        newMessage: '',
         messege: [
             {
-                messege: 'Hello= )', id: 1,
+                messege: 'как дела', id: 1,
             }, {
                 messege: 'как дела', id: 2,
             }, {
-                messege: '12', id: 3,
+                messege: 'как дела', id: 3,
             }, {
-                messege: 'what &&', id: 4,
+                messege: 'как дела', id: 4,
             }
         ],
     },
@@ -94,5 +95,34 @@ let state: stateType = {
         }
     }
 }
+export function addPost (message:string) {
+    const postNew:postType = {
+        id: new Date().getTime(),
+        messege: message,
+        likesCount: 0,
+        img: 'https://www.meme-arsenal.com/memes/a5dd2f55b36488a10172f4f84352846b.jpg',
+        imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640'
+    }
+    state.profilePage.postData.push(postNew)
+    renderEntire(state)
+}
+export const addMessage = (message:string) => {
+    const newPostMessage:messegeType = {
+        messege: message,
+        id: new Date().getTime(),
+    }
+    state.dialogPage.messege.push(newPostMessage)
+    renderEntire(state)
+    console.log(newPostMessage)
+}
+export const MessageADDpost = (newMessage:string) => {
+    state.dialogPage.newMessage = newMessage
+    renderEntire(state)
+}
+export const newChangePost = (newPost:string) => {
+    state.profilePage.newValue = newPost
+    renderEntire(state)
+}
+
 
 export default state

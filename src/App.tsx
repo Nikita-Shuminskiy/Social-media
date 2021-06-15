@@ -7,13 +7,14 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import { BrowserRouter, Route } from 'react-router-dom'
 import Dialogs from './components/Dialogs/Dialogs';
-import { stateType } from './Redux/state';
+import { addMessage, addPost, MessageADDpost, newChangePost, stateType } from './Redux/state';
 
- type AppType = {
+type AppType = {
     state: stateType
- }
+    newMessage:string
+}
 
-function App(props:AppType) {
+function App(props: AppType) {
 
     return (
         <BrowserRouter>
@@ -23,8 +24,10 @@ function App(props:AppType) {
                     alt={'logo'}/>
                 <NavBar state={props.state}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={() => <Dialogs state={props.state}/>}/>
-                    <Route path={'/profile'} render={() => <Profile state={props.state}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs newMessage={props.newMessage} MessageADDpost={MessageADDpost} addMessage={addMessage} addPost={addPost} state={props.state}/>}/>
+                    <Route path={'/profile'}
+                           render={() => <Profile newChangePost={newChangePost} newValue={props.state.profilePage.newValue} addPost={addPost}
+                                                  state={props.state}/>}/>
                 </div>
                 <Settings/>
             </div>

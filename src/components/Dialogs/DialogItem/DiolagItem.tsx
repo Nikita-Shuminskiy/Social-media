@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 type dialogsType = {
     name: string
     id: number
+
 }
 
 const DialogItem: React.FC<dialogsType> = (props) => {
