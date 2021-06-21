@@ -1,14 +1,12 @@
 import React, { ChangeEvent } from 'react';
 import s from '../Dialogs.module.css';
+import { ActionsTypes, AddPostAC, MessageAddPostAC } from '../../../Redux/state';
 
 export type MesageType = {
     messege: string
-    addPost:(message:string) => void
-    addMessage:(message:string) => void
-    MessageADDpost:(newMessage:string) => void
     newMessage:string
+    dispatch:(action:ActionsTypes) => void
 }
-
 
 const Messege: React.FC<MesageType> = (props) => {
     const MessegeRef = React.createRef<HTMLTextAreaElement>()
@@ -16,12 +14,16 @@ const Messege: React.FC<MesageType> = (props) => {
 
     const sendMessage = () => {
        if(MessegeRef.current) {
+           let text = (MessegeRef.current?.value)
         /*   const textMessage = MessegeRef.current?.value*/
-           props.addMessage(MessegeRef.current?.value)
+          /* props.addMessage(MessegeRef.current?.value)*/
+           props.dispatch(AddPostAC(text))
        }
     }
     const changeMessageAdd = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.MessageADDpost(e.currentTarget.value)
+        let text = (e.currentTarget.value)
+       /* props.MessageADDpost(e.currentTarget.value)*/
+        props.dispatch(MessageAddPostAC(text))
     }
     return (<div className={s.messeges}>
             <span>{props.messege}</span>

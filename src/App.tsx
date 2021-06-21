@@ -16,27 +16,26 @@ type AppType = {
 }
 
 function App(props: AppType) {
-        const state = props.store.getState
+    const state = props.store.getState
     return (
-            <div className={'app-wrapper'}>
-                <Header
-                    img={'https://st4.depositphotos.com/9449108/25247/i/600/depositphotos_252470670-stock-photo-illustration-of-a-japanese-warrior.jpg'}
-                    alt={'logo'}/>
-                <NavBar state={props.store._state}/>
-                <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={() => <Dialogs newMessage={props.store._state.dialogPage.newMessage}
-                                                                    MessageADDpost={props.store.MessageADDpost.bind(props.store)}
-                                                                    addMessage={props.store.addMessage.bind(props.store)}
-                                                                    addPost={props.store.addPost.bind(props.store)}
-                                                                    state={props.store._state.dialogPage}/>}/>
-                    <Route path={'/profile'}
-                           render={() => <Profile newChangePost={props.store.newChangePost.bind(props.store)}
-                                                  newValue={props.store._state.profilePage.newValue}
-                                                  addPost={props.store.addPost.bind(props.store)}
-                                                  profilePage={props.store._state.profilePage}/>}/>
-                </div>
-                <Settings/>
+        <div className={'app-wrapper'}>
+            <Header
+                img={'https://st4.depositphotos.com/9449108/25247/i/600/depositphotos_252470670-stock-photo-illustration-of-a-japanese-warrior.jpg'}
+                alt={'logo'}/>
+            <NavBar state={props.store.getState()}/>
+            <div className={'app-wrapper-content'}>
+                <Route path={'/dialogs'}
+                       render={() => <Dialogs newMessage={props.store._state.dialogPage.newMessage}
+                                              dispatch={props.store.dispatch.bind(props.store)}
+                                              store={props.store.getState().dialogPage}/>}/>
+                <Route path={'/profile'}
+                       render={() => <Profile
+                           newValue={props.store.getState().profilePage.newValue}
+                           dispatch={props.store.dispatch.bind(props.store)}
+                           profilePage={props.store.getState().profilePage}/>}/>
             </div>
+            <Settings/>
+        </div>
     );
 }
 

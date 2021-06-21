@@ -8,20 +8,25 @@ type ProfileInfoType = {
 }
 
 
-
 const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
-    const imgHeader = props.proFileHeader.headerImg.map( img =>  <img className={s.img} src={img.img} alt={'12'}/> )
-    const imgAvatar = props.proFileHeader.headerImg.map( img =>  <img className={s.img_avatar} src={img.imgAvatar} alt={'sa'}/>  )
+    const img = props.proFileHeader.headerImg
+        .filter(el => el.hasOwnProperty('img'))
+        .map(img => <img className={s.img} src={img.img} alt={'12'}/>)
+    const imgAvatar = props.proFileHeader.headerImg
+        .filter(el => el.hasOwnProperty('imgAvatar'))
+        .map(img => <img className={s.img_avatar} src={img.imgAvatar} alt={'sa'}/>)
+
+    debugger
 
     return (
         <div>
-            {imgHeader}
+            {img}
             {imgAvatar}
-             <div className={s.info}>
-                 <span> FirstName: Nick</span>
-                 <span> FirstName: Nick</span>
-                 <span> FirstName: Nick</span>
-             </div>
+            <div className={s.info}>
+                <span> FirstName: Nick</span>
+                <span> FirstName: Nick</span>
+                <span> FirstName: Nick</span>
+            </div>
 
         </div>
     )
