@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from 'react';
+import React, { ChangeEvent } from 'react';
 import s from '../Dialogs.module.css';
 
 export type MesageType = {
@@ -27,7 +27,7 @@ const Messege: React.FC<MesageType> = (props) => {
             <span>{props.messege}</span>
             <textarea onChange={changeMessageAdd}
              cols={10} ref={MessegeRef} value={props.newMessage}/>
-            <button onClick={sendMessage} >Send</button>
+            <button onClick={sendMessage}>Send</button>
     </div>
 
     )

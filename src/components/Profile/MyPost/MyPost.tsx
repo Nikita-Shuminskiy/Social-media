@@ -1,19 +1,19 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { stateType } from '../../../Redux/state';
+import { postType } from '../../../Redux/state';
 
 
 
 type MyPostType = {
-    state: stateType
+    postData:  Array<postType>
     addPost: (message:string) => void
-    newValue:string
-    newChangePost:(newPost:string) => void
+    newValue: string
+    newChangePost: (newPost:string) => void
 }
 
 const MyPost = (props: MyPostType) => {
-    let PostElementData = props.state.profilePage.postData.map(p => <Post img={p.img} post={p.messege} like={p.likesCount} imgLogo={p.imgLogo}/>)
+    let PostElementData = props.postData.map(p => <Post img={p.img} post={p.messege} like={p.likesCount} imgLogo={p.imgLogo}/>)
     const postTextArea = React.createRef<HTMLTextAreaElement>() // создаем ссылку и типизируем
     const addPostic = () => {
         props.newChangePost('')
@@ -27,7 +27,7 @@ const MyPost = (props: MyPostType) => {
     }
     return (
         <div className={s.item}>
-            <textarea value={props.newValue} onChange={callValue} ref={postTextArea}></textarea>
+            <textarea value={props.newValue} onChange={callValue} ref={postTextArea}/>
             <button onClick={addPostic}  >add post</button>
            <div className={s.post}>
                {PostElementData}

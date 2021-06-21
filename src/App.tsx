@@ -5,33 +5,38 @@ import Musick from './components/Musick/Musick';
 import NavBar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Dialogs from './components/Dialogs/Dialogs';
-import { addMessage, addPost, MessageADDpost, newChangePost, stateType } from './Redux/state';
+import { StoreType } from './Redux/state';
 
 type AppType = {
-    state: stateType
-    newMessage:string
+    store: StoreType
+    /*newMessage:string
+    addPost: (m:string) => void*/
 }
 
 function App(props: AppType) {
-
+        const state = props.store.getState
     return (
-        <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header
                     img={'https://st4.depositphotos.com/9449108/25247/i/600/depositphotos_252470670-stock-photo-illustration-of-a-japanese-warrior.jpg'}
                     alt={'logo'}/>
-                <NavBar state={props.state}/>
+                <NavBar state={props.store._state}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={() => <Dialogs newMessage={props.newMessage} MessageADDpost={MessageADDpost} addMessage={addMessage} addPost={addPost} state={props.state}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs newMessage={props.store._state.dialogPage.newMessage}
+                                                                    MessageADDpost={props.store.MessageADDpost.bind(props.store)}
+                                                                    addMessage={props.store.addMessage.bind(props.store)}
+                                                                    addPost={props.store.addPost.bind(props.store)}
+                                                                    state={props.store._state.dialogPage}/>}/>
                     <Route path={'/profile'}
-                           render={() => <Profile newChangePost={newChangePost} newValue={props.state.profilePage.newValue} addPost={addPost}
-                                                  state={props.state}/>}/>
+                           render={() => <Profile newChangePost={props.store.newChangePost.bind(props.store)}
+                                                  newValue={props.store._state.profilePage.newValue}
+                                                  addPost={props.store.addPost.bind(props.store)}
+                                                  profilePage={props.store._state.profilePage}/>}/>
                 </div>
                 <Settings/>
             </div>
-        </BrowserRouter>
     );
 }
 
