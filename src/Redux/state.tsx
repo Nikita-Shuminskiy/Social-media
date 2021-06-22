@@ -58,25 +58,14 @@ export type StoreType = {
     dispatch:(action:ActionsTypes) => void
 }
 export type ActionsTypes =
-      ReturnType<typeof AddPostAC >
-    | ReturnType<typeof AddMessageAC >
-    | ReturnType<typeof MessageAddPostAC >
-    | ReturnType<typeof newChangePostAC >
-export const AddPostAC = (text:string) => {
-    return {type:'ADD-POST', message:text} as const
-}
-export const AddMessageAC = (message:string) => {
-    return {
-        type:'ADD-MESSAGE',
-        message:message
-    } as const
-}
-export const MessageAddPostAC = (text:string) => {
-    return{type:'MESSAGE-ADD-POST', newMessage:text}as const
-}
-export const newChangePostAC = (text:string) => {
-    return  {type:'NEW-CHANGE-POST', newPost: text } as const
-}
+      ReturnType<typeof addPostAC >
+    | ReturnType<typeof sendMessageAC >
+    | ReturnType<typeof messageValueAC >
+    | ReturnType<typeof postValueChangeAC >
+export const addPostAC = (text:string) => ({type:'ADD-POST', message:text} as const) // () - значит что мы вернули обьект
+export const sendMessageAC = (textMessage:string) => ({ type:'SEND-MESSAGE', message:textMessage } as const)
+export const messageValueAC = (textValue:string) => ({ type:'MESSEGE-VALUE', newMessage:textValue }as const )
+export const postValueChangeAC = (textValue:string) => ({type:'POST-VALUE-CHANGE', newPost: textValue }as const)
 
 const store:StoreType = {
     _state: {
@@ -175,7 +164,7 @@ const store:StoreType = {
             this._state.profilePage.newValue= ''
             this._change()
         }
-        else if(action.type === 'ADD-MESSAGE'){
+        else if(action.type === 'SEND-MESSAGE'){
             const newPostMessage: messegeType = {
                 messege: action.message,
                 id: new Date().getTime(),
@@ -183,11 +172,11 @@ const store:StoreType = {
             this._state.dialogPage.messege.push(newPostMessage)
             this._change()
         }
-        else if (action.type === 'MESSAGE-ADD-POST'){
+        else if (action.type === 'MESSEGE-VALUE'){
             this._state.dialogPage.newMessage = action.newMessage
             this._change()
         }
-        else if(action.type === 'NEW-CHANGE-POST'){
+        else if(action.type === 'POST-VALUE-CHANGE'){
             this._state.profilePage.newValue = action.newPost
             this._change()
         }

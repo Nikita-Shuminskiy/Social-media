@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { ActionsTypes, AddPostAC, newChangePostAC, postType } from '../../../Redux/state';
+import { ActionsTypes, addPostAC, postType, postValueChangeAC } from '../../../Redux/state';
 
 
 
@@ -14,25 +14,24 @@ type MyPostType = {
 }
 
 const MyPost = (props: MyPostType) => {
-    let PostElementData = props.postData.map(p => <Post img={p.img} post={p.messege} like={p.likesCount} imgLogo={p.imgLogo}/>)
+    const PostElementData = props.postData.map(p => <Post img={p.img} post={p.messege} like={p.likesCount} imgLogo={p.imgLogo}/>)
     const postTextArea = React.createRef<HTMLTextAreaElement>() // создаем ссылку и типизируем
-    const addPostic = () => {
-        /*props.newChangePost('')*/
-        props.dispatch(newChangePostAC(''))
+    const addPost = () => {
+        props.dispatch(postValueChangeAC(''))
         if(postTextArea.current) {
            /* let message = postTextArea.current?.value*/
             /*props.addPost(props.newValue)*/
-            props.dispatch(AddPostAC(props.newValue))
+            props.dispatch(addPostAC(props.newValue))
         }
     }
-    const newPostValue = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        const text = (e.currentTarget.value)
-        props.dispatch(newChangePostAC(text))
+    const changePostAdd = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        const textValue = (e.currentTarget.value)
+        props.dispatch(postValueChangeAC(textValue))
     }
     return (
         <div className={s.item}>
-            <textarea value={props.newValue} onChange={newPostValue} ref={postTextArea}/>
-            <button onClick={addPostic} >add post</button>
+            <textarea value={props.newValue} onChange={changePostAdd} ref={postTextArea}/>
+            <button onClick={addPost} >add post</button>
            <div className={s.post}>
                {PostElementData}
            </div>
