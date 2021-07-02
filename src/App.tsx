@@ -7,7 +7,7 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import { Route } from 'react-router-dom'
 import Dialogs from './components/Dialogs/Dialogs';
-import { StoreType } from './Redux/state';
+import { StoreType } from './Redux/store';
 
 type AppType = {
     store: StoreType

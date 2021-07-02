@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './friendsBlock.module.css'
 import Friends from './Friends/Friends';
-import { stateType } from '../../../Redux/state';
+import { StateType } from '../../../Redux/store';
 
 type friendsBlockType = {
     title:string
-    state: stateType
+    state: StateType
 
 }
 

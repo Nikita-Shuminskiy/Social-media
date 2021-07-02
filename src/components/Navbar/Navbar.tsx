@@ -2,11 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Navbar.module.css'
 import FriendsBlock from './FriendsBlock/FriendsBlock';
-import { stateType } from '../../Redux/state';
+import { StateType } from '../../Redux/store';
 
 
 type NavbarType = {
-    state: stateType
+    state: StateType
 }
 const NavBar: React.FC<NavbarType> = (props) => {
     return (

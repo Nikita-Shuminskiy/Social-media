@@ -1,12 +1,13 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { ActionsTypes, addPostAC, postType, postValueChangeAC } from '../../../Redux/state';
+import { ActionsTypes, PostType } from '../../../Redux/store';
+import { addPostAC, postValueChangeAC } from '../../../Redux/Profile-Reduser';
 
 
 
 type MyPostType = {
-    postData:  Array<postType>
+    postData:  Array<PostType>
    /* addPost: (message:string) => void*/
     dispatch:(action:ActionsTypes) => void
     newValue: string
@@ -14,8 +15,10 @@ type MyPostType = {
 }
 
 const MyPost = (props: MyPostType) => {
+
     const PostElementData = props.postData.map(p => <Post img={p.img} post={p.messege} like={p.likesCount} imgLogo={p.imgLogo}/>)
     const postTextArea = React.createRef<HTMLTextAreaElement>() // создаем ссылку и типизируем
+
     const addPost = () => {
         props.dispatch(postValueChangeAC(''))
         if(postTextArea.current) {
@@ -24,10 +27,13 @@ const MyPost = (props: MyPostType) => {
             props.dispatch(addPostAC(props.newValue))
         }
     }
+
     const changePostAdd = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        const textValue = (e.currentTarget.value)
+        debugger
+        const textValue = e.currentTarget.value
         props.dispatch(postValueChangeAC(textValue))
     }
+
     return (
         <div className={s.item}>
             <textarea value={props.newValue} onChange={changePostAdd} ref={postTextArea}/>

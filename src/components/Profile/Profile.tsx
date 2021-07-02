@@ -2,12 +2,12 @@ import React from 'react';
 import s from './Profile.module.css'
 import MyPost from './MyPost/MyPost';
 import ProfileInfo from './MyPost/Profile-Info/ProfileInfo';
-import { ActionsTypes, profilePageType } from '../../Redux/state';
+import { ActionsTypes, ProfilePageType } from '../../Redux/store';
 
 
 
 type ProfileType = {
-    profilePage: profilePageType
+    profilePage: ProfilePageType
     /*addPost: (message:string) => void
     newChangePost:(newPost:string) => void*/
     newValue: string
