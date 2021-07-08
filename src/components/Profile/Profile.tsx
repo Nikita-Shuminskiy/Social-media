@@ -1,8 +1,10 @@
 import React from 'react';
 import s from './Profile.module.css'
-import MyPost from './MyPost/MyPost';
 import ProfileInfo from './MyPost/Profile-Info/ProfileInfo';
-import { ActionsTypes, ProfilePageType } from '../../Redux/store';
+import { ProfilePageType } from '../../Redux/ProfileReducer';
+import { ActionsTypes, StoreType } from '../../Redux/store';
+import MyPostContainer from './MyPost/MyPostContainer';
+
 
 
 
@@ -12,13 +14,14 @@ type ProfileType = {
     newChangePost:(newPost:string) => void*/
     newValue: string
     dispatch:(action:ActionsTypes) => void
+    store:StoreType
 }
 
 const Profile = (props:ProfileType) => {
     return (
         <div>
             <ProfileInfo proFileHeader={props.profilePage.proFileHeader} />
-            <MyPost dispatch={props.dispatch.bind(props.dispatch)} newValue={props.newValue} postData={props.profilePage.postData}/>
+            <MyPostContainer store={props.store} />
         </div>
     )
 }

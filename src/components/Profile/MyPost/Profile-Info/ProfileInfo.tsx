@@ -16,7 +16,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
         .filter(el => el.hasOwnProperty('imgAvatar'))
         .map(img => <img className={s.img_avatar} src={img.imgAvatar} alt={'sa'}/>)
 
-    debugger
+
 
     return (
         <div>

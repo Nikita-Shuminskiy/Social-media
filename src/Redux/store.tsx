@@ -1,5 +1,6 @@
-import { addPostAC, postValueChangeAC, profileReduser } from './Profile-Reduser';
-import { dialogReduser, messageValueAC, sendMessageAC } from './Dialog-Reduser';
+import { addPostAC, postValueChangeAC, profileReducer } from './ProfileReducer';
+import { dialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
+import { sideBarReducer } from './Friends-Reduser';
 
 export type MessegeType = {
     messege: string
@@ -14,13 +15,14 @@ export type DialogPageType = {
     messege: Array<MessegeType>
     newMessage: string
 }
-export type DataBlockSideBarType = {
+export type FriendsPageType = {
     img: string
     name: string
     alt: string
+    id:number
 }
 export type SidBarType = {
-    sidebar: Array<DataBlockSideBarType>
+    friendsPage: FriendsPageType[]
 }
 export type PostType = {
     id: number
@@ -30,10 +32,7 @@ export type PostType = {
     likesCount: number
 
 }
-export type HeaderImg = {
-    img?: string
-    imgAvatar?: string
-}
+
 export type ProFileHeaderType = {
     headerImg: Array<HeaderImg>
 }
@@ -42,18 +41,9 @@ export type ProfilePageType = {
     proFileHeader: ProFileHeaderType
     newValue: string
 }
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogPage: DialogPageType
-    friendsPage: SidBarType
-}
-export type StoreType = {
-    _state: StateType
-   /* _change: () => void*/
-    // _subscribe: (observer: () => void) => void
-    _subscribe: any
-    getState: () => StateType
-    dispatch: (action: ActionsTypes) => void
+export type HeaderImg = {
+    img?: string
+    imgAvatar?: string
 }
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -61,7 +51,22 @@ export type ActionsTypes =
     | ReturnType<typeof messageValueAC>
     | ReturnType<typeof postValueChangeAC>
 
-const store: StoreType = {
+export type StateType = {
+    profilePage: ProfilePageType
+    dialogPage: DialogPageType
+    sideBar: SidBarType
+}
+
+export type StoreType = {
+    _state: StateType
+   /* _change: () => void*/
+    // _subscribe: (observer: () => void) => void
+    subscribe: any
+    getState: () => StateType
+    dispatch: (action: ActionsTypes) => void
+}
+
+export const store: StoreType = {
     _state: {
         profilePage: {
             newValue: '',
@@ -101,39 +106,31 @@ const store: StoreType = {
                 }
             ],
         },
-        friendsPage: {
-            sidebar: [
-                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Nastya', alt: 'qwq'},
-                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Vivaldi', alt: 'qwzxq'},
-                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Nana', alt: 'qwe'},
+        sideBar: {
+            friendsPage: [
+                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Nastya', alt: 'qwq' , id:1},
+                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Vivaldi', alt: 'qwzxq' , id:2},
+                {img: 'https://mir-avatarok.3dn.ru/_si/0/92302704.jpg', name: 'Nana', alt: 'qwe' , id:3},
             ]
         },
     },
   /*  _change() {
         console.log('subscriber call')
     },*/
-    _subscribe(observer: any) {
-        this._subscribe = observer // pattern observer // publisher-subscriber // addEventListener
+    subscribe(observer: any) {
+        this.subscribe = observer
     },
-    getState() {
+    getState(): StateType {
         return this._state
     },
-    dispatch(action) { // type: 'ADD POST'
-        this._state.profilePage = profileReduser(this._state.profilePage, action)
-        this._state.dialogPage = dialogReduser(this._state.dialogPage, action)
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action)
 
-        debugger
-        this._subscribe(this._state)
+        this.subscribe(this._state)
     }
 }
-/*
-export const subscribe = (observer:any) => {
-    renderEntireTree = observer
-}
-*/
-
-
-export default store
 
 
 
