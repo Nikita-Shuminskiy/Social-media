@@ -2,28 +2,25 @@ import React, { ChangeEvent } from 'react'
 import DialogItem from './DialogItem/DiolagItem'
 import s from './Dialogs.module.css'
 import Messege from './Messege/Messege'
-import { ActionsTypes } from '../../Redux/store';
-import { DialogPageType, messageValueAC, sendMessageAC } from '../../Redux/DialogReducer';
+import { DialogPageType } from '../../Redux/DialogReducer';
 
 
 export type DialogsType = {
     store: DialogPageType
-    newMessage:string
-    dispatch:(action:ActionsTypes) => void
+    changeMessageAdd: (body:string) => void
+    addMessage: () => void
 }
 
-const Dialogs = (props:DialogsType) => {
-    let DialogsElement = props.store.dialogs.map(d => <DialogItem  id={d.id} name={d.name}/>)
+const Dialogs = (props: DialogsType) => {
+    let DialogsElement = props.store.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
     let MessegeElement = props.store.messege.map(m => <Messege messege={m.messege}/>)
-    const addMessage = () => {
-        let textMessage = (props.newMessage)
-        props.dispatch(sendMessageAC(textMessage))
-        props.dispatch(messageValueAC(''))
+
+    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value
+        props.changeMessageAdd(body)
     }
-    const changeMessageAdd = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let textValue = (e.currentTarget.value)
-        /* props.MessageADDpost(e.currentTarget.value)*/
-        props.dispatch(messageValueAC(textValue))
+    const onAddMessage = () => {
+        props.addMessage()
     }
     return (
         <div className={s.dialogs}>
@@ -33,9 +30,9 @@ const Dialogs = (props:DialogsType) => {
             <div className={s.meseges_item}>
                 {MessegeElement}
                 <div>
-                     <textarea onChange={changeMessageAdd}
-                               cols={10} value={props.newMessage}/>
-                    <button onClick={addMessage}>Send</button>
+                     <textarea onChange={onChangeMessage}
+                               cols={10} value={props.store.newMessage}/>
+                    <button onClick={onAddMessage}>Send</button>
                 </div>
             </div>
 

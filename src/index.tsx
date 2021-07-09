@@ -5,11 +5,14 @@ import { store } from './Redux/store'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { StateType} from './Redux/store';
+import { StoreContext } from './StoreContext';
 
 let renderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
+            <StoreContext.Provider value={store}>
             <App dispatch={store.dispatch.bind(store)} store={store} state={state}/>
+                </StoreContext.Provider>
         </BrowserRouter>, document.getElementById('root')
     );
 }

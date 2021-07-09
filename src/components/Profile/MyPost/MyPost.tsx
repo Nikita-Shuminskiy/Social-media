@@ -8,10 +8,9 @@ import { PostType } from '../../../Redux/store';
 
 type MyPostType = {
     addPost: () => void
-    newChangePost: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    newChangePost: (body:string) => void
     postData:PostType[]
     newValue:string
-    postTextArea:any
 }
 
 
@@ -20,19 +19,19 @@ const MyPost = (props: MyPostType) => {
                                                           imgLogo={p.imgLogo}/>)
 
 
-    /*const onAddPost = () => {
+    const onAddPost = () => {
         props.addPost()
     }
-    const onChangePost = () => {
-        let text = postTextArea.current.value
-        props.newChangePost(text)
-    }*/
+    const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const body = e.currentTarget.value
+        props.newChangePost(body)
+    }
 
     return (
 
         <div className={s.item}>
-            <textarea value={props.newValue} onChange={props.postTextArea} ref={props.postTextArea}/>
-            <button onClick={props.addPost}>add post</button>
+            <textarea value={props.newValue} onChange={onChangePost} />
+            <button onClick={onAddPost}>add post</button>
            <div className={s.post}>
                {PostElementData}
            </div>
