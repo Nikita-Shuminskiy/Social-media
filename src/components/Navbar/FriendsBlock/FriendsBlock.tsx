@@ -1,22 +1,22 @@
 import React from 'react';
 import s from './friendsBlock.module.css'
 import Friends from './Friends/Friends';
-import {  SidBarType } from '../../../Redux/store';
+import { SidBarType } from '../../../Redux/React_Redux_StoreType/types/StateType';
+
 
 type friendsBlockType = {
-    title:string
-    state: SidBarType
+    friendsPage: SidBarType
 
 }
 
 
 const FriendsBlock= (props:friendsBlockType) => {
 
-  /*  let FriendsElementAdd = props.state.friendsPage.map(e => <Friends key={e.id} img={e.img} alt={e.alt} name={e.name}/>)*/
+    let FriendsElementAdd = props.friendsPage.friendsPage.map(e => <Friends key={e.id} img={e.img} alt={e.alt} name={e.name}/>)
     return (
         <div>
-            <h1>{props.title}</h1>
-          {/*  {FriendsElementAdd}*/}
+            <h1>Friends</h1>
+            {FriendsElementAdd}
         </div>
     );
 };

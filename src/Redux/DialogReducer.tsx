@@ -1,38 +1,27 @@
-import { ActionsTypes } from './store';
+import { DialogPageType, MessegeType } from './React_Redux_StoreType/types/StateType';
+import { ActionsTypes } from './redux-store';
 
 
 export const sendMessageAC = (textMessage: string) => ({type: 'SEND-MESSAGE', message: textMessage} as const)
-export const messageValueAC = (textValue: string) => ({type: 'MESSEGE-VALUE', newMessage: textValue} as const)
+export const messageValueAC = (textValue: string) => ({type: 'MESSEGE-VALUE', newMessagePost: textValue} as const)
 
-export type MessegeType = {
-    messege: string
-    id: number
-}
-export type DialogType = {
-    name: string
-    id: number
-}
-export type DialogPageType = {
-    dialogs: Array<DialogType>
-    messege: Array<MessegeType>
-    newMessage: string
-}
 
-let initialState = {
+let initialState:DialogPageType = {
+    newMessage: '',
     dialogs: [
         {name: 'nick', id: 1,},
         {name: 'Leks', id: 2,},
         {name: 'Nastya', id: 3,},
         {name: 'Egor', id: 4,},
     ],
-    newMessage: '',
-    messege: [
-        {messege: 'как дела', id: 1,}, {
-            messege: 'как дела', id: 2,
+    message: [
+        {
+            message: 'как дела', id: 1,
         }, {
-            messege: 'как дела', id: 3,
+            message: 'как дела', id: 2,
+        }, {
+            message: 'как дела', id: 3,
         }
-
     ]
 }
 
@@ -40,14 +29,17 @@ export function dialogReducer(state:DialogPageType  = initialState , action: Act
     switch (action.type) {
         case 'SEND-MESSAGE':
             const newPostMessage: MessegeType = {
-                messege: action.message,
+                message: action.message,
                 id: new Date().getTime(),
             }
-            state.messege.push(newPostMessage)
-            return state
+            const stateCopy = {...state}
+            stateCopy.message.push(newPostMessage)
+            stateCopy.newMessage = ''
+            return stateCopy
         case 'MESSEGE-VALUE':
-            state.newMessage = action.newMessage
-            return state
+            const stateCopy2 = {...state}
+            stateCopy2.newMessage = action.newMessagePost
+            return stateCopy2
         default:
             return state
 

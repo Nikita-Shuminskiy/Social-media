@@ -1,6 +1,5 @@
-import React, { ChangeEvent, MouseEventHandler } from 'react';
+import React from 'react';
 import s from '../Dialogs.module.css';
-import { ActionsTypes } from '../../../Redux/store';
 
 export type MesageType = {
     messege: string

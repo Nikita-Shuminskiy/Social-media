@@ -1,29 +1,35 @@
 import { addPostAC, postValueChangeAC, profileReducer } from './ProfileReducer';
 import { dialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
-import { sideBarReducer } from './Friends-Reduser';
+import { sideBarReducer } from './SideBar-Reduser';
+/*
 
 export type MessegeType = {
     messege: string
     id: number
 }
+
 export type DialogType = {
     name: string
     id: number
 }
+
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messege: Array<MessegeType>
     newMessage: string
 }
+
 export type FriendsPageType = {
     img: string
     name: string
     alt: string
     id:number
 }
+
 export type SidBarType = {
     friendsPage: FriendsPageType[]
 }
+
 export type PostType = {
     id: number
     messege: string
@@ -36,15 +42,18 @@ export type PostType = {
 export type ProFileHeaderType = {
     headerImg: Array<HeaderImg>
 }
+
 export type ProfilePageType = {
     postData: Array<PostType>
     proFileHeader: ProFileHeaderType
     newValue: string
 }
+
 export type HeaderImg = {
     img?: string
     imgAvatar?: string
 }
+
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof sendMessageAC>
@@ -59,8 +68,6 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType
-   /* _change: () => void*/
-    // _subscribe: (observer: () => void) => void
     subscribe: any
     getState: () => StateType
     dispatch: (action: ActionsTypes) => void
@@ -114,9 +121,7 @@ export const store: StoreType = {
             ]
         },
     },
-  /*  _change() {
-        console.log('subscriber call')
-    },*/
+
     subscribe(observer: any) {
         this.subscribe = observer
     },
@@ -126,11 +131,12 @@ export const store: StoreType = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
-        this._state.sideBar = sideBarReducer(this._state.sideBar, action)
+        this._state.sideBar = sideBarReducer(this._state.sideBar)
 
         this.subscribe(this._state)
     }
 }
 
+*/
 
 

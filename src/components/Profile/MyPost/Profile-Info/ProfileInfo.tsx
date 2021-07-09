@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './ProfileInfo.module.css'
-import { ProFileHeaderType } from '../../../../Redux/store';
+import { ProFileHeaderType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+
 
 
 type ProfileInfoType = {

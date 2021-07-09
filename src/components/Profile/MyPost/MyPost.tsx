@@ -1,14 +1,14 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { PostType } from '../../../Redux/store';
+import { PostType } from '../../../Redux/React_Redux_StoreType/types/StateType';
 
 
 
 
 type MyPostType = {
-    addPost: () => void
-    newChangePost: (body:string) => void
+    addPost: (text:string) => void
+    newChangePost: (textValue:string) => void
     postData:PostType[]
     newValue:string
 }
@@ -20,17 +20,17 @@ const MyPost = (props: MyPostType) => {
 
 
     const onAddPost = () => {
-        props.addPost()
+        props.addPost(props.newValue)
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const body = e.currentTarget.value
-        props.newChangePost(body)
+        const textValue = e.currentTarget.value
+        props.newChangePost(textValue)
     }
 
     return (
 
         <div className={s.item}>
-            <textarea value={props.newValue} onChange={onChangePost} />
+            <textarea   onChange={onChangePost} />
             <button onClick={onAddPost}>add post</button>
            <div className={s.post}>
                {PostElementData}

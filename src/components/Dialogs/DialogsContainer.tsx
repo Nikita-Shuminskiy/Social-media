@@ -1,33 +1,23 @@
-import React, { ChangeEvent } from 'react'
-import DialogItem from './DialogItem/DiolagItem'
+import React from 'react'
 import s from './Dialogs.module.css'
-import Messege from './Messege/Messege'
-import { ActionsTypes } from '../../Redux/store';
-import { DialogPageType, messageValueAC, sendMessageAC } from '../../Redux/DialogReducer';
+import { messageValueAC, sendMessageAC } from '../../Redux/DialogReducer';
 import Dialogs from './Dialogs';
+import { connect } from 'react-redux';
+import { AppDispatchType, AppStateType } from '../../Redux/redux-store';
 
 
-export type DialogsType = {
-    store: DialogPageType
-    newMessage:string
-    dispatch:(action:ActionsTypes) => void
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        dialogsPage: state.dialogs,
+        newValue: state.dialogs.newMessage
+    }
 }
 
-export const DialogsContainer = (props:DialogsType) => {
-
-    const addMessage = () => {
-        let textMessage = (props.newMessage)
-        props.dispatch(sendMessageAC(textMessage))
-        props.dispatch(messageValueAC(''))
+const mapDispatchToProps = (dispatch: AppDispatchType) => {
+    return {
+        changeMessageAdd: (textMessage: string) => dispatch(messageValueAC(textMessage)),
+        addMessage: (text:string) => {dispatch(sendMessageAC(text))}
     }
-    const changeMessageAdd = (body:string) => {
-      /*  let textValue = (e.currentTarget.value)*/
-        /* props.MessageADDpost(e.currentTarget.value)*/
-        props.dispatch(messageValueAC(body))
-    }
-    return (
-        <div className={s.dialogs}>
-          <Dialogs store={props.store} changeMessageAdd={changeMessageAdd} addMessage={addMessage} />
-        </div>)
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(Dialogs)

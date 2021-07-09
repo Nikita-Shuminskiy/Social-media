@@ -8,7 +8,7 @@ type dialogsType = {
 }
 
 const DialogItem: React.FC<dialogsType> = (props) => {
-    let path = '/dialogs/' + props.id // склеиваем что бы айди присвоилось в путь /dialog/1
+    let path = '/dialogs/' + props.id
     return (
         <div className={s.dialog}>
             <NavLink activeClassName={s.active} to={path}>{props.name}</NavLink>

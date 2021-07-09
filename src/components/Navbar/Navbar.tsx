@@ -1,14 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Navbar.module.css'
-import FriendsBlock from './FriendsBlock/FriendsBlock';
-import { SidBarType } from '../../Redux/store';
+import FriendsContainer from './FriendsBlock/FriendsBlockContainer';
 
 
-type NavbarType = {
-    state: SidBarType
-}
-const NavBar: React.FC<NavbarType> = (props) => {
+const NavBar = () => {
     return (
         <nav className={s.nav}>
             <div className={`${s.item}`}><NavLink activeClassName={s.active} to={'/profile'}>Profile</NavLink></div>
@@ -16,7 +12,7 @@ const NavBar: React.FC<NavbarType> = (props) => {
             <div className={s.item}><NavLink  activeClassName={s.active} to={'/news'}>News</NavLink></div>
             <div className={s.item}><NavLink  activeClassName={s.active} to={'/musick'}>Musick</NavLink></div>
             <div className={s.item + ' ' + s.setting}><NavLink  activeClassName={s.active} to={'/setting'}>Setting</NavLink></div>
-            <FriendsBlock state={props.state} title={'Friends'}/>
+            <FriendsContainer  />
         </nav>
     )
 }

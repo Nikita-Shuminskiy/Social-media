@@ -1,7 +1,7 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, Dispatch } from 'redux';
 import { dialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
-import { addPostAC, postValueChangeAC, profileReducer } from './ProfileReducer';
-import { DialogPageType, ProfilePageType, SidBarType } from './store';
+import { addPostAC, postValueChangeAC,  profileReducer } from './ProfileReducer';
+import { sideBarReducer } from './SideBar-Reduser';
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -9,28 +9,18 @@ export type ActionsTypes =
     | ReturnType<typeof messageValueAC>
     | ReturnType<typeof postValueChangeAC>
 
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogPage: DialogPageType
-    sideBar: SidBarType
-}
 
-export type StoreType = {
-    _state: StateType
-    /* _change: () => void*/
-    // _subscribe: (observer: () => void) => void
-    subscribe?: any
-    getState: () => StateType
-    dispatch: (action: ActionsTypes) => void
-}
-
- const rootReducer = combineReducers({
-    dialogs:dialogReducer,
-    profile:profileReducer
+const rootReducer = combineReducers({
+    dialogs: dialogReducer,
+    profile: profileReducer,
+    sideBar: sideBarReducer
 })
 
-export type AppStateType = ReturnType<typeof rootReducer>
+let store = createStore(rootReducer)
 
-let store: StoreType = createStore(rootReducer)
+export type AppStateType = ReturnType<typeof rootReducer>
+export type AppDispatchType = Dispatch<ActionsTypes>
+
+export type StoreType = typeof store;
 
 export default store
