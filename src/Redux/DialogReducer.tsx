@@ -28,18 +28,17 @@ let initialState:DialogPageType = {
 export function dialogReducer(state:DialogPageType  = initialState , action: ActionsTypes) {
     switch (action.type) {
         case 'SEND-MESSAGE':
-            const newPostMessage: MessegeType = {
-                message: action.message,
-                id: new Date().getTime(),
+         const body = state.newMessage
+            return {
+             ...state,
+                newMessage: '',
+                message: [...state.message, {id:4, message:body}]
             }
-            const stateCopy = {...state}
-            stateCopy.message.push(newPostMessage)
-            stateCopy.newMessage = ''
-            return stateCopy
         case 'MESSEGE-VALUE':
-            const stateCopy2 = {...state}
-            stateCopy2.newMessage = action.newMessagePost
-            return stateCopy2
+           return {
+                ...state,
+                newMessage: action.newMessagePost
+            }
         default:
             return state
 

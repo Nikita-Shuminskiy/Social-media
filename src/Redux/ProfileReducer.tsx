@@ -36,14 +36,16 @@ export function profileReducer(state:ProfilePageType = initialState, action: Act
                 img: 'https://www.meme-arsenal.com/memes/a5dd2f55b36488a10172f4f84352846b.jpg',
                 imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640'
             }
-            const stateCopy = {...state}
-            stateCopy.postData = [...state.postData]
-            stateCopy.postData.push(postNew)
-            return stateCopy
+            return  {
+                ...state,
+                postData: [...state.postData, postNew],
+                newValue: ''
+            }
         case 'POST-VALUE-CHANGE':
-            let stateCopy2 =  {...state}
-            stateCopy2.newValue = action.newPost
-            return stateCopy2
+            return {
+                ...state,
+                newValue: action.newPost
+            }
         default:
             return state
     }

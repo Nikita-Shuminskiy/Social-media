@@ -30,7 +30,7 @@ const MyPost = (props: MyPostType) => {
     return (
 
         <div className={s.item}>
-            <textarea   onChange={onChangePost} />
+            <textarea value={props.newValue}  onChange={onChangePost} />
             <button onClick={onAddPost}>add post</button>
            <div className={s.post}>
                {PostElementData}
