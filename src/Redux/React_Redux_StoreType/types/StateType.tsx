@@ -1,3 +1,5 @@
+import { UserType } from '../../UsersReducer';
+
 export type PostType = {
     id: number
     messege: string

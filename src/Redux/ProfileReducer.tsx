@@ -26,7 +26,7 @@ const initialState:ProfilePageType ={
 }
 }
 
-export function profileReducer(state:ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
+export function ProfileReducer(state:ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
     switch (action.type) {
         case 'ADD-POST':
             const postNew: PostType = {

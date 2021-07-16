@@ -1,8 +1,8 @@
 import { combineReducers, createStore, Dispatch } from 'redux';
-import { dialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
-import { addPostAC, postValueChangeAC,  profileReducer } from './ProfileReducer';
-import { sideBarReducer } from './SideBar-Reduser';
-import UsersReducer, { followAc, setUsers, unFollowAC } from './UsersReducer';
+import { DialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
+import { addPostAC, postValueChangeAC,  ProfileReducer } from './ProfileReducer';
+import { SideBarReducer } from './SideBar-Reduser';
+import { setCurrentPagesAC, followAc, setUsersAC, unFollowAC, setTotalUserCountAC, UsersReducer } from './UsersReducer';
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -11,15 +11,17 @@ export type ActionsTypes =
     | ReturnType<typeof postValueChangeAC>
     | ReturnType<typeof followAc>
     | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPagesAC>
+    | ReturnType<typeof setTotalUserCountAC>
 
 
 
 const rootReducer = combineReducers({
+    dialogs: DialogReducer,
+    profile: ProfileReducer,
+    sideBar: SideBarReducer,
     usersData: UsersReducer,
-    dialogs: dialogReducer,
-    profile: profileReducer,
-    sideBar: sideBarReducer,
 
 })
 

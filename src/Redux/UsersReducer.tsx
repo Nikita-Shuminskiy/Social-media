@@ -3,20 +3,10 @@ import { ActionsTypes } from './redux-store'
 
 export const followAc = (userID: number) => ({type: 'Follow', userID} as const)
 export const unFollowAC = (userID: number) => ({type: 'Un-Follow', userID} as const)
-export const setUsers = (users: UserType[]) => ({type: 'Set-Users', users} as const)
+export const setUsersAC = (users: UserType[]) => ({type: 'Set-Users', users} as const)
+export const setCurrentPagesAC = (pageNumberCurrent: number) => ({type: 'CURRENT-PAGES', pageNumber: pageNumberCurrent} as const)
+export const setTotalUserCountAC = (totalNumber: number) => ({type: 'TOTAL-USER-COUNT', totalNumber} as const)
 export type UserType={
-   /* id: number
-    followed: boolean
-    status: string
-    photos: {
-        small:string
-        large:string
-    }
-    name: string
-    country: {
-        title: string
-        city: string
-    }*/
     name: string
     id: number,
     photos: {
@@ -27,27 +17,23 @@ export type UserType={
     followed: boolean
 
 }
-export type PageGlobalType = {
+
+
+export type DataUsersTye = {
+    dataUsers:UserType[]
     totalCount: number
     pageSize: number
     currentPage: number
 }
-export type DataUsersTye = {
-    dataUsers:Array<UserType>
-    pageGlobal: PageGlobalType
-}
-const initialState:DataUsersTye = {
+
+ const initialState:DataUsersTye = {
     dataUsers: [],
-    pageGlobal: {
-        totalCount: 100,
-        pageSize: 5,
-        currentPage: 1
-    }
-
-
+    totalCount: 100,
+    pageSize: 6,
+    currentPage: 1
 }
 
- function UsersReducer(state:DataUsersTye = initialState, action: ActionsTypes) {
+ export function UsersReducer(state:DataUsersTye  = initialState, action: ActionsTypes):DataUsersTye {
     switch (action.type) {
         case 'Follow':
             return {
@@ -60,7 +46,6 @@ const initialState:DataUsersTye = {
                 })
             }
         case 'Un-Follow':
-            debugger
             return {
                 ...state,
                 dataUsers: state.dataUsers.map(u => {
@@ -71,12 +56,14 @@ const initialState:DataUsersTye = {
                 })
             }
         case 'Set-Users':
-            return {
-                ...state,
-                dataUsers: [...state.dataUsers, ...action.users]
+            return { ...state, dataUsers: action.users }
+        case 'CURRENT-PAGES':
+            debugger
+            return { ...state, currentPage: action.pageNumber }
+
+        case 'TOTAL-USER-COUNT':
+            return { ...state, totalCount: action.totalNumber }
+                default:
+                return state
             }
-        default:
-            return state
     }
-}
-export default UsersReducer

@@ -1,6 +1,6 @@
-import { addPostAC, postValueChangeAC, profileReducer } from './ProfileReducer';
-import { dialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
-import { sideBarReducer } from './SideBar-Reduser';
+import { addPostAC, postValueChangeAC, ProfileReducer } from './ProfileReducer';
+import { DialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
+import { SideBarReducer } from './SideBar-Reduser';
 /*
 
 export type MessegeType = {

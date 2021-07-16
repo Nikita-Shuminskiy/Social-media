@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataUsersTye, PageGlobalType, UserType } from '../../Redux/UsersReducer';
+import { DataUsersTye, UserType } from '../../Redux/UsersReducer';
 import s from './users.module.css'
 import axios from 'axios';
 import Photos
@@ -9,8 +9,12 @@ export type UsersType = {
     follow: (userID: number) => void
     unFollow: (userID: number) => void
     setUsers: (user: UserType[]) => void
+    currentPages: (pageNumberCurrent: number) => void
     users: UserType[]
-    pageGlobal:PageGlobalType
+    pageSize: number
+    currentPage: number
+    totalCount: number
+    setTotalUserCount: (totalCount:number) => void
 
 }
 export type State = {
@@ -20,30 +24,38 @@ export type State = {
 class Users extends React.Component<UsersType, State> {
     componentDidMount() {
         getUsers: {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
                 .then(response => {
                     this.props.setUsers(response.data.items)
+                    this.props.setTotalUserCount(response.data.totalCount)
                 })
         }
     }
+    pageClickChange = (page:number) => {
+        debugger
+        this.props.currentPages(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+    }
+
     render() {
-        let pageCount = Math.ceil(this.props.pageGlobal.totalCount / this.props.pageGlobal.pageSize)
+        let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize)
 
         let pages = []
-        for (let i = 1; i <= pageCount ; i++) {
+        for (let i = 1; i <= pageCount; i++) {
             pages.push(i)
         }
 
         return (
             <div className={s.userDiv}>
-               <div style={{margin:'100px'}}>
-                   {
-                       pages.map( p  => {
-                           const pagesIF = this.props.pageGlobal.currentPage === p && s.totalCount
-                           return <span className={pagesIF ? pagesIF : ''} >{p}</span>
-                       })
-                   }
-               </div>
+                <div style={{margin: '100px'}}>
+                    {
+                        pages.map(p => {
+                            const pagesIF = this.props.pageSize === p && s.totalCount
+
+                            return <span /*onClick={ (e:any) => this.pageClickChange(e) } */className={pagesIF ? pagesIF : ''}>{p}</span>
+                        })
+                    }
+                </div>
                 {this.props.users.map(u => {
                     return (
                         <div className={s.userBody} key={u.id}>
