@@ -1,80 +1,75 @@
 import React from 'react';
-import { DataUsersTye, UserType } from '../../Redux/UsersReducer';
+import { DataUsersTye, PageGlobalType, UserType } from '../../Redux/UsersReducer';
+import s from './users.module.css'
+import axios from 'axios';
+import Photos
+    from '../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png'
 
 export type UsersType = {
     follow: (userID: number) => void
     unFollow: (userID: number) => void
     setUsers: (user: UserType[]) => void
-    users:UserType[]
+    users: UserType[]
+    pageGlobal:PageGlobalType
+
+}
+export type State = {
+    getUsers: () => void
 }
 
-const Users = (props: UsersType) => {
-  if(props.users.length === 0) {
-      props.setUsers([
-          {
-           id: 1,
-           followed: true,
-           status: 'helo how are you',
-           imgLogo: 'https://pbs.twimg.com/profile_images/1138180619731705864/SauQVg5u.jpg',
-           name: 'nick',
-           country: {
-               title: 'USA',
-               city: 'New-York'
-           }
-       },
-       {
-           id: 2, followed: true,
-           status: 'helo how are you',
-           imgLogo: 'https://pbs.twimg.com/profile_images/1138180619731705864/SauQVg5u.jpg',
-           name: 'niaaack',
-           country: {
-               title: 'USA',
-               city: 'Nexxaw-York'
-           }
-
-       },
-       {
-           id: 3,
-           followed: false,
-           status: 'helo how a1212121re you',
-           imgLogo: 'https://pbs.twimg.com/profile_images/1138180619731705864/SauQVg5u.jpg',
-           name: 'nicsdsk',
-           country: {
-               title: 'USdddddA',
-               city: 'New-aaaaYork'
-           }
-
-       },
-      ]
-      )
-  }
-    return (
-        <div>
-           {props.users.map(u => {
-            return (<div key={u.id}>
-                <div>
-                    <div>
-                        <img style={{width: '60px'}} src={u.imgLogo} alt="121"/>
-                        {u.followed ?  <button onClick={() => props.unFollow(u.id)} style={{width: '60px', height: '50px'}}  >UnFollowed</button>: <button onClick={() => props.follow(u.id)} style={{width: '60px', height: '50px'}}>Followed</button> }
-                    </div>
-                    <div><span>
-                                 {u.name}
-                         </span>
-                        <span>
-                                 {u.status}
-                             </span>
-                        <span>
-                          <p>{u.country.title}</p>
-                          <p>{u.country.city}</p>
-                         </span>
-                    </div>
-                </div>
-            </div>)
-        })
+class Users extends React.Component<UsersType, State> {
+    componentDidMount() {
+        getUsers: {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                })
         }
-        </div>
+    }
+    render() {
+        let pageCount = Math.ceil(this.props.pageGlobal.totalCount / this.props.pageGlobal.pageSize)
 
-    );
-};
+        let pages = []
+        for (let i = 1; i <= pageCount ; i++) {
+            pages.push(i)
+        }
 
-export default Users;
+        return (
+            <div className={s.userDiv}>
+               <div style={{margin:'100px'}}>
+                   {
+                       pages.map( p  => {
+                           const pagesIF = this.props.pageGlobal.currentPage === p && s.totalCount
+                           return <span className={pagesIF ? pagesIF : ''} >{p}</span>
+                       })
+                   }
+               </div>
+                {this.props.users.map(u => {
+                    return (
+                        <div className={s.userBody} key={u.id}>
+                            <div>
+                                <img style={{width: '60px'}} src={u.photos.small != null ? u.photos.small : Photos}
+                                     alt="121"/>
+                                {u.followed ? <button onClick={() => this.props.unFollow(u.id)}
+                                                      style={{width: '100px', height: '20px'}}>UnFollowed</button> :
+                                    <button onClick={() => this.props.follow(u.id)}
+                                            style={{width: '100px', height: '30px'}}>Followed</button>}
+                            </div>
+                            <div className={s.textUser}>
+                                <span>{u.name}</span>
+                                <span>{u.status}</span>
+                                <span>
+                          <p>{'u.location.title'}
+                              {'u.location.city'}</p>
+                         </span>
+                            </div>
+                        </div>
+                    )
+                })
+                }
+            </div>
+        )
+    }
+}
+
+export default Users

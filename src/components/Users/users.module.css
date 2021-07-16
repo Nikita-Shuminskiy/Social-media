@@ -1,0 +1,15 @@
+.userDiv{
+}
+.userBody{
+	display: table-row;
+	width: 80%;
+}
+.textUser{
+	border: 1px solid black;
+	border-radius: 10px;
+}
+.totalCount{
+	color: darkred;
+	font-weight: bold;
+	font-size: 20px;
+}

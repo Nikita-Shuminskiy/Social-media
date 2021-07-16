@@ -10,7 +10,10 @@ import { followAc, setUsers, unFollowAC, UserType } from '../../Redux/UsersReduc
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersData.dataUsers
+        users: state.usersData.dataUsers,
+        pageGlobal: state.usersData.pageGlobal,
+
+
     }
 }
 

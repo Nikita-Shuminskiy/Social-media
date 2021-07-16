@@ -5,23 +5,46 @@ export const followAc = (userID: number) => ({type: 'Follow', userID} as const)
 export const unFollowAC = (userID: number) => ({type: 'Un-Follow', userID} as const)
 export const setUsers = (users: UserType[]) => ({type: 'Set-Users', users} as const)
 export type UserType={
-    id: number
+   /* id: number
     followed: boolean
     status: string
-    imgLogo: string
+    photos: {
+        small:string
+        large:string
+    }
     name: string
     country: {
         title: string
         city: string
+    }*/
+    name: string
+    id: number,
+    photos: {
+        small: string
+        large: string
     }
+    status: boolean
+    followed: boolean
+
+}
+export type PageGlobalType = {
+    totalCount: number
+    pageSize: number
+    currentPage: number
 }
 export type DataUsersTye = {
     dataUsers:Array<UserType>
+    pageGlobal: PageGlobalType
 }
 const initialState:DataUsersTye = {
-    dataUsers: [
+    dataUsers: [],
+    pageGlobal: {
+        totalCount: 100,
+        pageSize: 5,
+        currentPage: 1
+    }
 
-    ]
+
 }
 
  function UsersReducer(state:DataUsersTye = initialState, action: ActionsTypes) {
