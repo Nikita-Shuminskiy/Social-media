@@ -2,7 +2,15 @@ import { combineReducers, createStore, Dispatch } from 'redux';
 import { DialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
 import { addPostAC, postValueChangeAC,  ProfileReducer } from './ProfileReducer';
 import { SideBarReducer } from './SideBar-Reduser';
-import { setCurrentPagesAC, followAc, setUsersAC, unFollowAC, setTotalUserCountAC, UsersReducer } from './UsersReducer';
+import {
+    setCurrentPagesAC,
+    followAc,
+    setUsersAC,
+    unFollowAC,
+    setTotalUserCountAC,
+    UsersReducer,
+    setIsFetchingAC
+} from './UsersReducer';
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -14,6 +22,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPagesAC>
     | ReturnType<typeof setTotalUserCountAC>
+    | ReturnType<typeof setIsFetchingAC>
 
 
 
