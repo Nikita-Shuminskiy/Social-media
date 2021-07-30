@@ -1,24 +1,47 @@
-import { UserType } from '../../UsersReducer';
 
 export type PostType = {
     id: number
-    messege: string
+    message: string
+    likesCount: number
     img: string
     imgLogo: string
-    likesCount: number
-
 }
 export type ProFileHeaderType = {
-    headerImg: Array<HeaderImg>
+    headerImg: HeaderImg
 }
+
+export type ProfileUsersType = {
+    "aboutMe": null,
+    "contacts": {
+        "facebook": null,
+        "website": null,
+        "vk": null,
+        "twitter": null,
+        "instagram": null,
+        "youtube": null,
+        "github": null,
+        "mainLink": null
+    },
+    "lookingForAJob": false,
+    "lookingForAJobDescription": null,
+    "fullName": "andL",
+    "userId": 18628,
+    "photos": {
+        "small": string,
+        "large": string
+    }
+}
+
 export type ProfilePageType = {
     postData: Array<PostType>
     proFileHeader: ProFileHeaderType
     newValue: string
+    profileUsers: ProfileUsersType
+
 }
 export type HeaderImg = {
-    img?: string
-    imgAvatar?: string
+    img: string
+    imgAvatar: string
 }
 export type MessegeType = {
     message: string

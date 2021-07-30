@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './Dialogs.module.css'
-import { messageValueAC, sendMessageAC } from '../../Redux/DialogReducer';
+import { messageValue, sendMessage } from '../../Redux/DialogReducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { AppDispatchType, AppStateType } from '../../Redux/redux-store';
@@ -13,11 +13,11 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatchType) => {
+/*const mapDispatchToProps = (dispatch: AppDispatchType) => {
     return {
-        changeMessageAdd: (textMessage: string) => dispatch(messageValueAC(textMessage)),
-        addMessage: (text:string) => {dispatch(sendMessageAC(text))}
+        changeMessageAdd: (textMessage: string) => dispatch(messageValue(textMessage)),
+        addMessage: (text:string) => {dispatch(sendMessage(text))}
     }
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export default connect(mapStateToProps, { messageValue, sendMessage})(Dialogs)

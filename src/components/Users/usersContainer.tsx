@@ -1,37 +1,38 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { AppDispatchType, AppStateType } from '../../Redux/redux-store';
+import { AppStateType } from '../../Redux/redux-store';
 
 import {
-    setCurrentPagesAC,
-    followAc,
-    setUsersAC,
-    unFollowAC,
-    setTotalUserCountAC, UserType, setIsFetchingAC
+    setCurrentPages,
+    follow,
+    setUsers,
+    unFollow,
+    setTotalUserCount, UserType, setIsFetching
 } from '../../Redux/UsersReducer';
 import axios from 'axios';
 import { User } from './User';
 import Loader from '../Loader/Loader';
 
 
-export type UsersContainerApiType = {
+type UsersContainerApiType = {
     follow: (userID: number) => void
     unFollow: (userID: number) => void
     setUsers: (user: UserType[]) => void
-    currentPages: (pageNumberCurrent: number) => void
+    setCurrentPages: (pageNumberCurrent: number) => void
     users: UserType[]
     pageSize: number
     currentPage: number
     totalCount: number
     setTotalUserCount: (totalCount: number) => void
-    isFetching:boolean
-    setIsFetching:(isFetching:boolean) => void
+    isFetching: boolean
+    setIsFetching: (isFetching: boolean) => void
 
 }
 export type State = {
     getUsers: () => void
 }
-export class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
+
+class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
     componentDidMount() {
         this.props.setIsFetching(true)
         getUsers: {
@@ -46,7 +47,7 @@ export class UsersContainerAPI extends React.Component<UsersContainerApiType, St
 
     pageClickChange = (page: number) => {
         this.props.setIsFetching(true)
-        this.props.currentPages(page)
+        this.props.setCurrentPages(page)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsFetching(false)
@@ -57,7 +58,7 @@ export class UsersContainerAPI extends React.Component<UsersContainerApiType, St
     render() {
 
         return <>
-            {this.props.isFetching ? <Loader/>: null}
+            {this.props.isFetching ? <Loader/> : null}
 
             <User users={this.props.users}
                   totalCount={this.props.totalCount}
@@ -70,9 +71,7 @@ export class UsersContainerAPI extends React.Component<UsersContainerApiType, St
     }
 }
 
-
-
-const mapStateToProps = (state:AppStateType) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersData.dataUsers,
         pageSize: state.usersData.pageSize,
@@ -82,17 +81,13 @@ const mapStateToProps = (state:AppStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatchType) => {
-    return {
-        follow: (userID: number) => {
-            dispatch(followAc(userID))},
-        unFollow: (userID:number) => {dispatch(unFollowAC(userID))},
-        setUsers: (user: UserType[]) => { dispatch(setUsersAC(user))},
-        currentPages: (pageNumberCurrent: number) => {dispatch(setCurrentPagesAC(pageNumberCurrent))},
-        setTotalUserCount: (totalCount:number) => {dispatch(setTotalUserCountAC(totalCount))},
-        setIsFetching: (isFetching:boolean) => {dispatch(setIsFetchingAC(isFetching))}
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainerAPI)
+export default connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPages,
+    setTotalUserCount,
+    setIsFetching
+})(UsersContainerAPI)
 

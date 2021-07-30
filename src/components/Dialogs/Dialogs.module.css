@@ -21,12 +21,12 @@
 .dialog_item .active {
 	color: black;
 }
-.meseges_item {
+.messages_item {
 	padding: 10px;
 	padding-left: 20px;
 }
 
-.messeges {
+.messages {
 	font-size: 20px;
 	border: 1px solid blueviolet;
 	border-radius: 10px;

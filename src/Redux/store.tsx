@@ -1,10 +1,10 @@
-import { addPostAC, postValueChangeAC, ProfileReducer } from './ProfileReducer';
-import { DialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
+import { addPost, postValueChange, ProfileReducer } from './ProfileReducer';
+import { DialogReducer, messageValue, sendMessage } from './DialogReducer';
 import { SideBarReducer } from './SideBar-Reduser';
 /*
 
 export type MessegeType = {
-    messege: string
+    message: string
     id: number
 }
 
@@ -15,7 +15,7 @@ export type DialogType = {
 
 export type DialogPageType = {
     dialogs: Array<DialogType>
-    messege: Array<MessegeType>
+    message: Array<MessegeType>
     newMessage: string
 }
 
@@ -32,7 +32,7 @@ export type SidBarType = {
 
 export type PostType = {
     id: number
-    messege: string
+    message: string
     img: string
     imgLogo: string
     likesCount: number
@@ -45,7 +45,7 @@ export type ProFileHeaderType = {
 
 export type ProfilePageType = {
     postData: Array<PostType>
-    proFileHeader: ProFileHeaderType
+    profileUsers: ProFileHeaderType
     newValue: string
 }
 
@@ -55,10 +55,10 @@ export type HeaderImg = {
 }
 
 export type ActionsTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof messageValueAC>
-    | ReturnType<typeof postValueChangeAC>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof sendMessage>
+    | ReturnType<typeof messageValue>
+    | ReturnType<typeof postValueChange>
 
 export type StateType = {
     profilePage: ProfilePageType
@@ -80,13 +80,13 @@ export const store: StoreType = {
             postData: [
                 {
                     id: 1,
-                    messege: 'helo how are you',
+                    message: 'helo how are you',
                     likesCount: 12,
                     img: 'https://www.meme-arsenal.com/memes/a5dd2f55b36488a10172f4f84352846b.jpg',
                     imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640'
                 },
             ],
-            proFileHeader: {
+            profileUsers: {
                 headerImg: [
                     {img: 'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg'},
                     {imgAvatar: 'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg'},
@@ -101,15 +101,15 @@ export const store: StoreType = {
                 {name: 'Egor', id: 4,},
             ],
             newMessage: '',
-            messege: [
+            message: [
                 {
-                    messege: 'как дела', id: 1,
+                    message: 'как дела', id: 1,
                 }, {
-                    messege: 'как дела', id: 2,
+                    message: 'как дела', id: 2,
                 }, {
-                    messege: 'как дела', id: 3,
+                    message: 'как дела', id: 3,
                 }, {
-                    messege: 'как дела', id: 4,
+                    message: 'как дела', id: 4,
                 }
             ],
         },

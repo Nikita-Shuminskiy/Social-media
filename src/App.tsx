@@ -3,11 +3,12 @@ import './App.css'
 import Header from './components/Header/Header';
 import Musick from './components/Musick/Musick';
 import NavBar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import { Route } from 'react-router-dom'
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UserContainer from './components/Users/usersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
             <div className={'app-wrapper-content'}>
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer />}/>
-                <Route path={'/profile'}
-                       render={() => <Profile />}/>
+                <Route path={'/profile/:userId?'}
+                       render={() => <ProfileContainer />}/>
                 <Route path={'/users'}
                        render={() => <UserContainer/>}/>
             </div>

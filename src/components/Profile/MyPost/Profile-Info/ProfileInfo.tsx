@@ -1,37 +1,22 @@
 import React from 'react'
-import s from './ProfileInfo.module.css'
-import { ProFileHeaderType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { HeaderImg, ProfileUsersType,  } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import s from './ProfileInfo.module.css';
+import { Profile } from './Profile';
+import MyPostContainer from '../MyPostContainer';
 
 
 
 type ProfileInfoType = {
-    proFileHeader: ProFileHeaderType
+    profile: HeaderImg
+    profileUsers:ProfileUsersType
 }
-
-
-const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
-    const img = props.proFileHeader.headerImg
-        .filter(el => el.hasOwnProperty('img'))
-        .map(img => <img className={s.img} src={img.img} alt={'12'}/>)
-    const imgAvatar = props.proFileHeader.headerImg
-        .filter(el => el.hasOwnProperty('imgAvatar'))
-        .map(img => <img className={s.img_avatar} src={img.imgAvatar} alt={'sa'}/>)
-
-
+export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 
     return (
-        <div>
-            {img}
-            {imgAvatar}
-            <div className={s.info}>
-                <span> FirstName: Nick</span>
-                <span> FirstName: Nick</span>
-                <span> FirstName: Nick</span>
-            </div>
-
-        </div>
+        <>
+            <Profile profileUsers={props.profileUsers} profile={props.profile} />
+            <MyPostContainer/>
+        </>
     )
 }
 
-
-export default ProfileInfo

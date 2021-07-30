@@ -1,21 +1,22 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { PostType } from '../../../Redux/React_Redux_StoreType/types/StateType';
+import { PostType, ProfileUsersType } from '../../../Redux/React_Redux_StoreType/types/StateType';
 
 
 
 
 type MyPostType = {
     addPost: (text:string) => void
-    newChangePost: (textValue:string) => void
+    postValueChange: (textValue:string) => void
     postData:PostType[]
     newValue:string
+    profileUsers:ProfileUsersType
 }
 
 
 const MyPost = (props: MyPostType) => {
-    const PostElementData = props.postData.map(p => <Post key={p.id} img={p.img} post={p.messege} like={p.likesCount}
+    const PostElementData = props.postData.map(p => <Post key={p.id} post={p.message}  like={p.likesCount} img={ props.profileUsers.photos.large !== null ? props.profileUsers.photos.small : p.img}
                                                           imgLogo={p.imgLogo}/>)
 
 
@@ -24,7 +25,7 @@ const MyPost = (props: MyPostType) => {
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const textValue = e.currentTarget.value
-        props.newChangePost(textValue)
+        props.postValueChange(textValue)
     }
 
     return (

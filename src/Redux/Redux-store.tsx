@@ -1,28 +1,29 @@
 import { combineReducers, createStore, Dispatch } from 'redux';
-import { DialogReducer, messageValueAC, sendMessageAC } from './DialogReducer';
-import { addPostAC, postValueChangeAC,  ProfileReducer } from './ProfileReducer';
+import { DialogReducer, messageValue, sendMessage } from './DialogReducer';
+import { addPost, postValueChange, ProfileReducer, setProfileUser } from './ProfileReducer';
 import { SideBarReducer } from './SideBar-Reduser';
 import {
-    setCurrentPagesAC,
-    followAc,
-    setUsersAC,
-    unFollowAC,
-    setTotalUserCountAC,
+    setCurrentPages,
+    follow,
+    setUsers,
+    unFollow,
+    setTotalUserCount,
     UsersReducer,
-    setIsFetchingAC
+    setIsFetching
 } from './UsersReducer';
 
 export type ActionsTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof messageValueAC>
-    | ReturnType<typeof postValueChangeAC>
-    | ReturnType<typeof followAc>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPagesAC>
-    | ReturnType<typeof setTotalUserCountAC>
-    | ReturnType<typeof setIsFetchingAC>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof sendMessage>
+    | ReturnType<typeof messageValue>
+    | ReturnType<typeof postValueChange>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPages>
+    | ReturnType<typeof setTotalUserCount>
+    | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof setProfileUser>
 
 
 
@@ -39,6 +40,7 @@ let store = createStore(rootReducer)
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = Dispatch<ActionsTypes>
 
-export type StoreType = typeof store;
+/*export type StoreType = typeof store;*/
+/*window.store = store*/
 
 export default store

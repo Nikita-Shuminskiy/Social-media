@@ -1,9 +1,9 @@
-import { DialogPageType, MessegeType } from './React_Redux_StoreType/types/StateType';
+import { DialogPageType } from './React_Redux_StoreType/types/StateType';
 import { ActionsTypes } from './redux-store';
 
 
-export const sendMessageAC = (textMessage: string) => ({type: 'SEND-MESSAGE', message: textMessage} as const)
-export const messageValueAC = (textValue: string) => ({type: 'MESSEGE-VALUE', newMessagePost: textValue} as const)
+export const sendMessage = (textMessage: string) => ({type: 'SEND-MESSAGE', message: textMessage} as const)
+export const messageValue = (textValue: string) => ({type: 'MESSAGE-VALUE', newMessagePost: textValue} as const)
 
 
 let initialState:DialogPageType = {
@@ -34,7 +34,7 @@ export function DialogReducer(state:DialogPageType  = initialState , action: Act
                 newMessage: '',
                 message: [...state.message, {id:4, message:body}]
             }
-        case 'MESSEGE-VALUE':
+        case 'MESSAGE-VALUE':
            return {
                 ...state,
                 newMessage: action.newMessagePost
