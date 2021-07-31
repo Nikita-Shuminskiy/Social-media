@@ -1,5 +1,5 @@
-import { ActionsTypes } from './redux-store'
 import { PostType, ProfilePageType, ProfileUsersType } from './React_Redux_StoreType/types/StateType';
+import { ActionsTypes } from './Redux_Store';
 
 
 export const addPost = (text: string) => ({type: 'ADD-POST', message: text} as const)
@@ -49,7 +49,7 @@ const initialState: ProfilePageType = {
     }
 }
 
-export function ProfileReducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
+export function Profile_Reducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
     switch (action.type) {
         case 'ADD-POST':
             const postNew: PostType = {

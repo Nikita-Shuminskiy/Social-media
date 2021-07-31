@@ -21,3 +21,11 @@
     border-radius: 10px;
     background-color: #555555;
 }
+.loginBlock {
+    float: left;
+}
+.loginBlock a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}

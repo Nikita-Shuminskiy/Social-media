@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppDispatchType, AppStateType } from '../../../Redux/redux-store';
-import { addPost, postValueChange } from '../../../Redux/ProfileReducer';
+import { AppDispatchType, AppStateType } from '../../../Redux/Redux_Store';
+import { addPost, postValueChange } from '../../../Redux/Profile_Reducer';
 import { connect } from 'react-redux';
 import MyPost from './MyPost';
 import { PostType, ProfileUsersType } from '../../../Redux/React_Redux_StoreType/types/StateType';

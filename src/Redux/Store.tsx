@@ -1,6 +1,6 @@
-import { addPost, postValueChange, ProfileReducer } from './ProfileReducer';
-import { DialogReducer, messageValue, sendMessage } from './DialogReducer';
-import { SideBarReducer } from './SideBar-Reduser';
+import { addPost, postValueChange, Profile_Reducer } from './Profile_Reducer';
+import { Dialog_Reducer, messageValue, sendMessage } from './Dialog_Reducer';
+import { SideBarReducer } from './SideBar_Reduser';
 /*
 
 export type MessegeType = {

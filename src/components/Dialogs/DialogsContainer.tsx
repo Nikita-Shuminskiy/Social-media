@@ -1,9 +1,9 @@
 import React from 'react'
 import s from './Dialogs.module.css'
-import { messageValue, sendMessage } from '../../Redux/DialogReducer';
+import { messageValue, sendMessage } from '../../Redux/Dialog_Reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
-import { AppDispatchType, AppStateType } from '../../Redux/redux-store';
+import { AppStateType } from '../../Redux/Redux_Store';
 
 
 const mapStateToProps = (state: AppStateType) => {

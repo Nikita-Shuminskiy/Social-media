@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { AppDispatchType, AppStateType } from '../../../Redux/Redux_Store';
 import FriendsBlock from './FriendsBlock';
-import { AppDispatchType, AppStateType } from '../../../Redux/redux-store';
 
 
 const mapStateToProps = (state: AppStateType) => {

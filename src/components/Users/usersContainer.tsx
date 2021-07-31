@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppStateType } from '../../Redux/redux-store';
+import { AppStateType } from '../../Redux/Redux_Store';
 
 import {
     setCurrentPages,
@@ -15,8 +15,8 @@ import Loader from '../Loader/Loader';
 
 
 type UsersContainerApiType = {
-    follow: (userID: number) => void
-    unFollow: (userID: number) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     setUsers: (user: UserType[]) => void
     setCurrentPages: (pageNumberCurrent: number) => void
     users: UserType[]
@@ -36,7 +36,9 @@ class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
     componentDidMount() {
         this.props.setIsFetching(true)
         getUsers: {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true
+            })
                 .then(response => {
                     this.props.setIsFetching(false)
                     this.props.setUsers(response.data.items)
@@ -48,7 +50,9 @@ class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
     pageClickChange = (page: number) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPages(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)

@@ -1,9 +1,9 @@
-import { ActionsTypes } from './redux-store'
+import { ActionsTypes } from './Redux_Store'
 
 
-export const follow = (userID: number) => ({type: 'Follow', userID} as const)
+export const follow = (userId: number) => ({type: 'Follow', userId} as const)
 
-export const unFollow = (userID: number) => ({type: 'Un-Follow', userID} as const)
+export const unFollow = (userId: number) => ({type: 'Un-Follow', userId} as const)
 
 export const setUsers = (users: UserType[]) => ({type: 'Set-UsersContainerAPI', users} as const)
 
@@ -44,12 +44,12 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
         case 'Follow':
             return {
                 ...state,
-                dataUsers: state.dataUsers.map(u => u.id === action.userID ?  {...u, followed: true} :  u )
+                dataUsers: state.dataUsers.map(u => u.id === action.userId ?  {...u, followed: true} :  u )
             }
         case 'Un-Follow':
             return {
                 ...state,
-                dataUsers: state.dataUsers.map(u => u.id === action.userID ? {...u, followed: false} : u  )
+                dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: false} : u  )
             }
 
         case 'Set-UsersContainerAPI':

@@ -1,13 +1,13 @@
 import React from 'react'
 import s from './ProfileInfo.module.css'
 import { connect } from 'react-redux';
-import { AppStateType } from '../../Redux/redux-store';
+import { AppStateType } from '../../Redux/Redux_Store';
 import { State } from '../Users/usersContainer';
 import axios from 'axios';
-import { setProfileUser } from '../../Redux/ProfileReducer';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
 import { HeaderImg, ProfileUsersType } from '../../Redux/React_Redux_StoreType/types/StateType';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { setProfileUser } from '../../Redux/Profile_Reducer';
 
 
 type ProfileContainerAPIType = MapStateToPropsType & MapStateDispatchToPropsType

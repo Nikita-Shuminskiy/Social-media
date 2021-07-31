@@ -1,7 +1,7 @@
 import { combineReducers, createStore, Dispatch } from 'redux';
-import { DialogReducer, messageValue, sendMessage } from './DialogReducer';
-import { addPost, postValueChange, ProfileReducer, setProfileUser } from './ProfileReducer';
-import { SideBarReducer } from './SideBar-Reduser';
+import { Dialog_Reducer, messageValue, sendMessage } from './Dialog_Reducer';
+import { addPost, postValueChange, Profile_Reducer, setProfileUser } from './Profile_Reducer';
+import { SideBarReducer } from './SideBar_Reduser';
 import {
     setCurrentPages,
     follow,
@@ -11,6 +11,7 @@ import {
     UsersReducer,
     setIsFetching
 } from './UsersReducer';
+import { AuthReducer, setUserDataAuthMe } from './Auth_Reducer';
 
 export type ActionsTypes =
     ReturnType<typeof addPost>
@@ -24,14 +25,16 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUserCount>
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setProfileUser>
+    | ReturnType<typeof setUserDataAuthMe>
 
 
 
 const rootReducer = combineReducers({
-    dialogs: DialogReducer,
-    profile: ProfileReducer,
+    dialogs: Dialog_Reducer,
+    profile: Profile_Reducer,
     sideBar: SideBarReducer,
     usersData: UsersReducer,
+    authMe: AuthReducer,
 
 })
 
@@ -41,6 +44,7 @@ export type AppStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = Dispatch<ActionsTypes>
 
 /*export type StoreType = typeof store;*/
-/*window.store = store*/
+// @ts-ignore
+window.store = store
 
 export default store

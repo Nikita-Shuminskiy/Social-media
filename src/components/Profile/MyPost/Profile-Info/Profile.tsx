@@ -12,12 +12,6 @@ export const Profile: React.FC<ProfileType> = (props) => {
     if (!props.profile) {
         return <Loader/>
     }
-   /* const img = props.profileUsers.proFileHeader.headerImg
-        .filter(el => el.hasOwnProperty('img'))
-        .map(img => <img className={s.img} src={img.img} alt={'12'}/>)
-    const imgAvatar = props.profileUsers.proFileHeader.headerImg
-        .filter(el => el.hasOwnProperty('imgAvatar'))
-        .map(img => <img className={s.img_avatar} src={img.imgAvatar} alt={'sa'}/>)*/
     return (
         <div>
             <img className={s.img} src={props.profile.img} alt={'sa'}/>

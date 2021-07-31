@@ -3,7 +3,7 @@ import DialogItem from './DialogItem/DiolagItem'
 import s from './Dialogs.module.css'
 import Message from './Messege/Message'
 import { DialogPageType } from '../../Redux/React_Redux_StoreType/types/StateType';
-import { messageValue, sendMessage } from '../../Redux/DialogReducer';
+import { messageValue, sendMessage } from '../../Redux/Dialog_Reducer';
 
 
 export type DialogsType = {
