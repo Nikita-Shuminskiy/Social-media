@@ -9,5 +9,5 @@ const initialState:SidBarType = {
     ]
 }
 export const SideBarReducer = (state:SidBarType = initialState):SidBarType => {
- return state
+    return state
 };

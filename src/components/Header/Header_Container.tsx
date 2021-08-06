@@ -4,6 +4,7 @@ import axios from 'axios';
 import { DataTypeAuth, setUserDataAuthMe } from '../../Redux/Auth_Reducer';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
+import { usersAPI } from '../../Api/Api';
 
 
 export type HeaderContainerType = {
@@ -15,12 +16,9 @@ export type State = {}
 
 class HeaderContainer extends React.Component<HeaderContainerType, State> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
+            usersAPI.authMe().then(response => {
                if (response.data.resultCode === 0) {
-                   this.props.setUserDataAuthMe(response.data.data)
+                   this.props.setUserDataAuthMe(response.data)
                }
             })
     }

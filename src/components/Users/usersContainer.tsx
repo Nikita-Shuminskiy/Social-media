@@ -7,11 +7,12 @@ import {
     follow,
     setUsers,
     unFollow,
-    setTotalUserCount, UserType, setIsFetching
+    setTotalUserCount, UserType, setIsFetching,userDissableButton
 } from '../../Redux/UsersReducer';
 import axios from 'axios';
 import { User } from './User';
 import Loader from '../Loader/Loader';
+import { usersAPI } from '../../Api/Api';
 
 
 type UsersContainerApiType = {
@@ -26,36 +27,28 @@ type UsersContainerApiType = {
     setTotalUserCount: (totalCount: number) => void
     isFetching: boolean
     setIsFetching: (isFetching: boolean) => void
-
+    dissabledInProgressUser: Array<number>
+    userDissableButton:(dissFetching:boolean, idUser:number) => void
 }
 export type State = {
     getUsers: () => void
 }
-
 class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
     componentDidMount() {
         this.props.setIsFetching(true)
-        getUsers: {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-                withCredentials: true
-            })
-                .then(response => {
+            usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
                     this.props.setIsFetching(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUserCount(response.data.totalCount)
+                    this.props.setUsers(data.items)
+                    this.props.setTotalUserCount(data.totalCount)
                 })
-        }
     }
 
     pageClickChange = (page: number) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPages(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(response => {
+        usersAPI.getUsers(page, this.props.pageSize).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
@@ -70,7 +63,10 @@ class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
                   pageSize={this.props.pageSize}
                   follow={this.props.follow}
                   unFollow={this.props.unFollow}
-                  pageClickChange={this.pageClickChange}/>
+                  pageClickChange={this.pageClickChange}
+                  dissabledInProgressUser={this.props.dissabledInProgressUser}
+                  userDissableButton={this.props.userDissableButton}
+            />
         </>
     }
 }
@@ -81,7 +77,8 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersData.pageSize,
         currentPage: state.usersData.currentPage,
         totalCount: state.usersData.totalCount,
-        isFetching: state.usersData.isFetching
+        isFetching: state.usersData.isFetching,
+        dissabledInProgressUser: state.usersData.dissabledInProgressUser,
     }
 }
 
@@ -92,6 +89,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPages,
     setTotalUserCount,
-    setIsFetching
+    setIsFetching, userDissableButton
 })(UsersContainerAPI)
 

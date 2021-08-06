@@ -1,5 +1,6 @@
 import { ActionsTypes } from './Redux_Store'
 
+export const userDissableButton = (dissFetching:boolean, idUser:number) => ({type: 'TOGGLE-DISSABLED-BUTTON-USER',dissFetching,idUser}as const)
 
 export const follow = (userId: number) => ({type: 'Follow', userId} as const)
 
@@ -12,6 +13,8 @@ export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'CURRENT-P
 export const setTotalUserCount = (totalCount: number) => ({type: 'TOTAL-USER-COUNT', totalCount} as const)
 
 export const setIsFetching = (isFetching:boolean) => ({type: 'Toggle is fetching',isFetching} as const)
+
+
 
 export type UserType = {
     name: string
@@ -30,13 +33,15 @@ export type DataUsersTye = {
     currentPage: number
     pageSize: number
     isFetching:boolean
+    dissabledInProgressUser: Array<any>
 }
 const initialState:DataUsersTye = {
     dataUsers: [],
     totalCount: 10,
     currentPage: 2,
     pageSize: 5,
-    isFetching: false
+    isFetching: false,
+    dissabledInProgressUser: [],
 }
 
 export function UsersReducer(state: DataUsersTye = initialState, action: ActionsTypes): DataUsersTye {
@@ -51,7 +56,6 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
                 ...state,
                 dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: false} : u  )
             }
-
         case 'Set-UsersContainerAPI':
             return {...state, dataUsers: action.users}
         case 'CURRENT-PAGES':
@@ -62,6 +66,12 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
 
         case 'Toggle is fetching':
             return {...state, isFetching: action.isFetching}
+        case 'TOGGLE-DISSABLED-BUTTON-USER': {
+            return {
+                ...state,
+                dissabledInProgressUser: action.dissFetching ? [...state.dissabledInProgressUser, action.idUser] : [state.dissabledInProgressUser.filter(id => id !== action.idUser)]
+            }
+        }
         default:
             return state
     }
