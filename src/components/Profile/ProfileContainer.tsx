@@ -7,7 +7,8 @@ import axios from 'axios';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
 import { HeaderImg, ProfileUsersType } from '../../Redux/React_Redux_StoreType/types/StateType';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { setProfileUser } from '../../Redux/Profile_Reducer';
+import { userIdThunk} from '../../Redux/Profile_Reducer';
+import { usersAPI } from '../../Api/Api';
 
 
 type ProfileContainerAPIType = MapStateToPropsType & MapStateDispatchToPropsType
@@ -19,7 +20,7 @@ type MapStateToPropsType = {
     profile:HeaderImg
 }
 type MapStateDispatchToPropsType = {
-    setProfileUser: (profile: ProfileUsersType) => void
+    userIdThunk:(userId:number) => any
 }
 
 
@@ -31,10 +32,7 @@ class ProfileContainerAPI extends React.Component<PropsType, State> {
         if (!userId) {
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setProfileUser(response.data)
-            })
+        this.props.userIdThunk(userId)
     }
 
     render() {
@@ -53,10 +51,11 @@ const mapStateToProps = (state: AppStateType):MapStateToPropsType => ({
 
 })
 
+
+
 export default withRouter(connect(
     mapStateToProps,
-    {setProfileUser},
-)(ProfileContainerAPI));
+    {userIdThunk})(ProfileContainerAPI));
 
 
 

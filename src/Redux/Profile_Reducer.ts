@@ -1,5 +1,6 @@
+import { usersAPI } from '../Api/Api';
 import { PostType, ProfilePageType, ProfileUsersType } from './React_Redux_StoreType/types/StateType';
-import { ActionsTypes } from './Redux_Store';
+import { ActionsTypes, AppDispatchType } from './Redux_Store';
 
 
 export const addPost = (text: string) => ({type: 'ADD-POST', message: text} as const)
@@ -7,6 +8,14 @@ export const addPost = (text: string) => ({type: 'ADD-POST', message: text} as c
 export const postValueChange = (textValue: string) => ({type: 'POST-VALUE-CHANGE', newPost: textValue} as const)
 
 export const setProfileUser = (profile: ProfileUsersType) => ({type: 'SET-PROFILE-USER', profile} as const)
+
+export const userIdThunk = (userId: number) => {
+    return (dispatch: AppDispatchType) => {
+        usersAPI.userIdAPI(userId).then(response => {
+            dispatch(setProfileUser(response.data))
+        })
+    }
+}
 
 
 const initialState: ProfilePageType = {

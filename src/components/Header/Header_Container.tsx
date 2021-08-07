@@ -1,26 +1,22 @@
 import React from 'react';
 import Header from './Header';
 import axios from 'axios';
-import { DataTypeAuth, setUserDataAuthMe } from '../../Redux/Auth_Reducer';
+import { DataTypeAuth, setUserDataAuthMe,autMeThunk } from '../../Redux/Auth_Reducer';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
-import { usersAPI } from '../../Api/Api';
+import { authMeAPI, usersAPI } from '../../Api/Api';
 
 
 export type HeaderContainerType = {
-    setUserDataAuthMe: (data: DataTypeAuth) => void
     login:string
     isAuth:boolean
+    autMeThunk:() => any
 }
 export type State = {}
 
 class HeaderContainer extends React.Component<HeaderContainerType, State> {
     componentDidMount() {
-            usersAPI.authMe().then(response => {
-               if (response.data.resultCode === 0) {
-                   this.props.setUserDataAuthMe(response.data)
-               }
-            })
+        this.props.autMeThunk()
     }
 
     render() {
@@ -34,4 +30,4 @@ export const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.authMe.isAuth,
     login: state.authMe.data.login,
 })
-export default connect(mapStateToProps, {setUserDataAuthMe})(HeaderContainer);
+export default connect(mapStateToProps, {autMeThunk})(HeaderContainer);

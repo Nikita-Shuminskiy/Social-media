@@ -1,20 +1,6 @@
-import { ActionsTypes } from './Redux_Store'
-
-export const userDissableButton = (dissFetching:boolean, idUser:number) => ({type: 'TOGGLE-DISSABLED-BUTTON-USER',dissFetching,idUser}as const)
-
-export const follow = (userId: number) => ({type: 'Follow', userId} as const)
-
-export const unFollow = (userId: number) => ({type: 'Un-Follow', userId} as const)
-
-export const setUsers = (users: UserType[]) => ({type: 'Set-UsersContainerAPI', users} as const)
-
-export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'CURRENT-PAGES', pageNumberCurrent} as const)
-
-export const setTotalUserCount = (totalCount: number) => ({type: 'TOTAL-USER-COUNT', totalCount} as const)
-
-export const setIsFetching = (isFetching:boolean) => ({type: 'Toggle is fetching',isFetching} as const)
-
-
+import { Dispatch } from 'redux'
+import { usersAPI } from '../Api/Api'
+import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
 export type UserType = {
     name: string
@@ -32,10 +18,10 @@ export type DataUsersTye = {
     totalCount: number
     currentPage: number
     pageSize: number
-    isFetching:boolean
+    isFetching: boolean
     dissabledInProgressUser: Array<any>
 }
-const initialState:DataUsersTye = {
+const initialState: DataUsersTye = {
     dataUsers: [],
     totalCount: 10,
     currentPage: 2,
@@ -49,12 +35,12 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
         case 'Follow':
             return {
                 ...state,
-                dataUsers: state.dataUsers.map(u => u.id === action.userId ?  {...u, followed: true} :  u )
+                dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case 'Un-Follow':
             return {
                 ...state,
-                dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: false} : u  )
+                dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case 'Set-UsersContainerAPI':
             return {...state, dataUsers: action.users}
@@ -76,3 +62,59 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
             return state
     }
 }
+
+export const userDissableButton = (dissFetching: boolean, idUser: number) => ({
+    type: 'TOGGLE-DISSABLED-BUTTON-USER',
+    dissFetching,
+    idUser
+} as const)
+
+export const follow = (userId: number) => ({type: 'Follow', userId} as const)
+
+export const unFollow = (userId: number) => ({type: 'Un-Follow', userId} as const)
+
+export const setUsers = (users: UserType[]) => ({type: 'Set-UsersContainerAPI', users} as const)
+
+export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'CURRENT-PAGES', pageNumberCurrent} as const)
+
+export const setTotalUserCount = (totalCount: number) => ({type: 'TOTAL-USER-COUNT', totalCount} as const)
+
+export const setIsFetching = (isFetching: boolean) => ({type: 'Toggle is fetching', isFetching} as const)
+
+export const getUserThunk = (currentPage: number, pageSize: number) => {
+    return (dispatch: AppDispatchType) => {
+        dispatch(setIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUserCount(data.totalCount))
+        })
+    }
+}
+export const followThunk = (id: number) => {
+    return (dispatch: AppDispatchType) => {
+        dispatch(userDissableButton(true, id))
+
+            usersAPI.followApi(id).then(response => {
+                if (response.data.resultCode == 0) {
+                   dispatch( unFollow(id))
+                }
+                dispatch(userDissableButton(false, id))
+            })
+    }
+}
+
+export const unfollowThunk = (id: number) => {
+    return (dispatch: AppDispatchType) => {
+        dispatch(userDissableButton(true, id))
+
+            usersAPI.followApi(id).then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(userDissableButton(false, id))
+            })
+    }
+}
+

@@ -1,4 +1,5 @@
-import { ActionsTypes } from './Redux_Store'
+import { authMeAPI } from '../Api/Api'
+import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
 export type AuthMeType = {
     resultCode: number
@@ -36,6 +37,16 @@ export function AuthReducer(state = initialState, action: ActionsTypes): AuthMeT
         }
         default:
             return state
+    }
+}
+export const autMeThunk = () => {
+    return (dispatch: AppDispatchType) => {
+        authMeAPI.Me().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserDataAuthMe(response.data))
+            }
+        })
+
     }
 }
 

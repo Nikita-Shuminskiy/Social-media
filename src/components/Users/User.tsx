@@ -10,19 +10,17 @@ import { usersAPI } from '../../Api/Api';
 
 export type UserComponentType = {
     pageClickChange: (page: number) => void
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
     users: UserType[]
     pageSize: number
     currentPage: number
     totalCount: number
     dissabledInProgressUser: Array<number>
-    userDissableButton:(dissFetching:boolean, idUser:number) => void
+    followThunk: (id: number) => any
+    unfollowThunk: (id: number) => any
 }
 
 
 export const User = (props: UserComponentType) => {
-
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
 
     let pages = []
@@ -50,25 +48,13 @@ export const User = (props: UserComponentType) => {
                                      alt="121"/>
                             </NavLink>
                             {u.followed ?
-                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)} onClick={() => {
-                                    props.userDissableButton(true,u.id)
-                                    usersAPI.followApi(u.id).then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            props.unFollow(u.id)
-                                        }
-                                        props.userDissableButton(false,u.id)
-                                    })
-                                }} style={{width: '100px', height: '20px'}}>UnFollowed</button>
+                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
+                                        onClick={() => {
+                                            props.unfollowThunk(u.id)
+                                        }} style={{width: '100px', height: '20px'}}>UnFollowed</button>
                                 :
-                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)} onClick={() => {
-                                    props.userDissableButton(true,u.id)
-                                    usersAPI.unFollowApi(u.id).then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            props.follow(u.id)
-                                        }
-                                        props.userDissableButton(false,u.id)
-                                    })
-                                }} style={{width: '100px', height: '30px'}}>Followed</button>}
+                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
+                                        onClick={() => { props.followThunk(u.id)}} style={{width: '100px', height: '30px'}}>Followed</button>}
                         </div>
                         <div className={s.textUser}>
                             <span>{u.name}</span>

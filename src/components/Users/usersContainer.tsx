@@ -1,13 +1,9 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { AppStateType } from '../../Redux/Redux_Store';
+import { ActionsTypes, AppDispatchType, AppStateType } from '../../Redux/Redux_Store';
 
 import {
-    setCurrentPages,
-    follow,
-    setUsers,
-    unFollow,
-    setTotalUserCount, UserType, setIsFetching,userDissableButton
+    UserType, userDissableButton,getUserThunk,followThunk,unfollowThunk
 } from '../../Redux/UsersReducer';
 import axios from 'axios';
 import { User } from './User';
@@ -16,40 +12,26 @@ import { usersAPI } from '../../Api/Api';
 
 
 type UsersContainerApiType = {
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setUsers: (user: UserType[]) => void
-    setCurrentPages: (pageNumberCurrent: number) => void
+    isFetching: boolean
     users: UserType[]
     pageSize: number
     currentPage: number
     totalCount: number
-    setTotalUserCount: (totalCount: number) => void
-    isFetching: boolean
-    setIsFetching: (isFetching: boolean) => void
     dissabledInProgressUser: Array<number>
-    userDissableButton:(dissFetching:boolean, idUser:number) => void
+    getUserThunk: (currentPage: number, pageSize: number) => any
+    followThunk: (id: number) => any
+    unfollowThunk: (id: number) => any
+
 }
-export type State = {
-    getUsers: () => void
-}
+export type State = {}
+
 class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
     componentDidMount() {
-        this.props.setIsFetching(true)
-            usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
-                    this.props.setIsFetching(false)
-                    this.props.setUsers(data.items)
-                    this.props.setTotalUserCount(data.totalCount)
-                })
+        this.props.getUserThunk(this.props.currentPage, this.props.pageSize)
     }
 
     pageClickChange = (page: number) => {
-        this.props.setIsFetching(true)
-        this.props.setCurrentPages(page)
-        usersAPI.getUsers(page, this.props.pageSize).then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUserThunk(page, this.props.pageSize)
     }
 
     render() {
@@ -61,11 +43,11 @@ class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
                   totalCount={this.props.totalCount}
                   currentPage={this.props.currentPage}
                   pageSize={this.props.pageSize}
-                  follow={this.props.follow}
-                  unFollow={this.props.unFollow}
                   pageClickChange={this.pageClickChange}
                   dissabledInProgressUser={this.props.dissabledInProgressUser}
-                  userDissableButton={this.props.userDissableButton}
+                  unfollowThunk={this.props.unfollowThunk}
+                  followThunk={this.props.followThunk}
+
             />
         </>
     }
@@ -83,12 +65,6 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setUsers,
-    setCurrentPages,
-    setTotalUserCount,
-    setIsFetching, userDissableButton
-})(UsersContainerAPI)
+
+export default connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainerAPI)
 
