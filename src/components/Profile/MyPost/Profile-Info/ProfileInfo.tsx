@@ -7,8 +7,8 @@ import MyPostContainer from '../MyPostContainer';
 
 
 type ProfileInfoType = {
-    profile: HeaderImg
     profileUsers:ProfileUsersType
+    profile: HeaderImg
 }
 export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 

@@ -8,7 +8,10 @@
     color: white;
     text-decoration: none;
 }
-.item a.active {
+.item a.active  {
+    color: red;
+}
+.item a:hover {
     color: red;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import axios from 'axios';
-import { DataTypeAuth, setUserDataAuthMe,autMeThunk } from '../../Redux/Auth_Reducer';
+import { autMeThunk } from '../../Redux/Auth_Reducer';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { authMeAPI, usersAPI } from '../../Api/Api';
@@ -20,9 +20,7 @@ class HeaderContainer extends React.Component<HeaderContainerType, State> {
     }
 
     render() {
-        return <Header
-            img={'https://st4.depositphotos.com/9449108/25247/i/600/depositphotos_252470670-stock-photo-illustration-of-a-japanese-warrior.jpg'}
-            alt={'logo'} login={this.props.login}  isAuth={this.props.isAuth}/>
+        return <Header login={this.props.login}  isAuth={this.props.isAuth}/>
     }
 }
 

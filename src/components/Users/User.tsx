@@ -15,8 +15,8 @@ export type UserComponentType = {
     currentPage: number
     totalCount: number
     dissabledInProgressUser: Array<number>
-    followThunk: (id: number) => any
-    unfollowThunk: (id: number) => any
+    followThunk: (id: number) => void
+    unfollowThunk: (id: number) => void
 }
 
 
@@ -35,38 +35,32 @@ export const User = (props: UserComponentType) => {
                 {
                     pages.map((p: number, index) => {
                         const click = props.currentPage === p ? s.totalCount : ''
-                        return <span key={index} onClick={() => props.pageClickChange(p)} className={click}>{p}</span>
+                        return <span key={index} onClick={ () => props.pageClickChange(p)} className={click}>{p}</span>
                     })
                 }
             </div>
             {props.users.map(u => {
+                console.log(props.users)
                 return (
                     <div className={s.userBody} key={u.id}>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
-                                <img style={{width: '60px'}} src={u.photos.small === null ? Photos : u.photos.small}
-                                     alt="121"/>
+                                <img style={{width: '60px'}} src={u.photos.small !== null ? u.photos.small : Photos } alt="121"/>
                             </NavLink>
                             {u.followed ?
                                 <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
-                                        onClick={() => {
-                                            props.unfollowThunk(u.id)
-                                        }} style={{width: '100px', height: '20px'}}>UnFollowed</button>
+                                        onClick={() => {props.unfollowThunk(u.id)  }} style={{width: '100px', height: '20px'}}>UnFollowed</button>
                                 :
                                 <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
-                                        onClick={() => { props.followThunk(u.id)}} style={{width: '100px', height: '30px'}}>Followed</button>}
+                                        onClick={() => {props.followThunk(u.id) }} style={{width: '100px', height: '30px'}}>Followed</button>}
                         </div>
                         <div className={s.textUser}>
                             <span>{u.name}</span>
                             <span>{u.status}</span>
-                            <span>
-                          <p>{'u.location.title'}
-                              {'u.location.city'}</p>
-                         </span>
+                            <p>{u.error}</p>
                         </div>
                     </div>
                 )
-
             })
             }
         </div>

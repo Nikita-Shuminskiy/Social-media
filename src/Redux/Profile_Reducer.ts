@@ -25,14 +25,13 @@ const initialState: ProfilePageType = {
             id: 1,
             message: 'helo how are you',
             likesCount: 12,
-            imgLogo: 'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg',
-            img: 'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg',
+            img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
         },
     ],
     proFileHeader: {
         headerImg: {
             img: 'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg',
-            imgAvatar: 'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg',
+            imgAvatar: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
         },
     },
     profileUsers: {
@@ -49,8 +48,8 @@ const initialState: ProfilePageType = {
         },
         lookingForAJob: false,
         lookingForAJobDescription: null,
-        fullName: "andL",
-        userId: 18628,
+        fullName: '',
+        userId: null,
         photos: {
             small: '',
             large: ''
@@ -65,8 +64,7 @@ export function Profile_Reducer(state: ProfilePageType = initialState, action: A
                 id: new Date().getTime(),
                 message: action.message,
                 likesCount: 0,
-                img: 'https://illustrators.ru/uploads/illustration/image/1236582/main_Cat2.jpg',
-                imgLogo: 'https://cdn130.picsart.com/291236398052211.png?type=webp&to=min&r=640',
+                img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
             }
             return {
                 ...state,

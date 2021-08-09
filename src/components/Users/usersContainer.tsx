@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { ActionsTypes, AppDispatchType, AppStateType } from '../../Redux/Redux_Store';
 
@@ -9,47 +9,57 @@ import axios from 'axios';
 import { User } from './User';
 import Loader from '../Loader/Loader';
 import { usersAPI } from '../../Api/Api';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
+import { withRouter } from 'react-router-dom';
 
 
-type UsersContainerApiType = {
+type MapStateToProps = {
     isFetching: boolean
     users: UserType[]
     pageSize: number
     currentPage: number
     totalCount: number
     dissabledInProgressUser: Array<number>
-    getUserThunk: (currentPage: number, pageSize: number) => any
-    followThunk: (id: number) => any
-    unfollowThunk: (id: number) => any
 
 }
+type MapDispatchToProps = {
+    getUserThunk: (currentPage: number, pageSize: number) => void
+    followThunk: (id: number) => void
+    unfollowThunk: (id: number) => void
+}
+
+type UsersContainerType = MapDispatchToProps & MapStateToProps
+
 export type State = {}
 
-class UsersContainerAPI extends React.Component<UsersContainerApiType, State> {
+class UsersContainer extends React.Component<UsersContainerType, State> {
     componentDidMount() {
         this.props.getUserThunk(this.props.currentPage, this.props.pageSize)
     }
 
     pageClickChange = (page: number) => {
-        this.props.getUserThunk(page, this.props.pageSize)
+        this.props.getUserThunk( page, this.props.pageSize)
     }
 
     render() {
 
-        return <>
-            {this.props.isFetching ? <Loader/> : null}
+        return (
+            <>
+                {this.props.isFetching ? <Loader/> : null}
 
-            <User users={this.props.users}
-                  totalCount={this.props.totalCount}
-                  currentPage={this.props.currentPage}
-                  pageSize={this.props.pageSize}
-                  pageClickChange={this.pageClickChange}
-                  dissabledInProgressUser={this.props.dissabledInProgressUser}
-                  unfollowThunk={this.props.unfollowThunk}
-                  followThunk={this.props.followThunk}
+                <User users={this.props.users}
+                      totalCount={this.props.totalCount}
+                      currentPage={this.props.currentPage}
+                      pageSize={this.props.pageSize}
+                      pageClickChange={this.pageClickChange}
+                      dissabledInProgressUser={this.props.dissabledInProgressUser}
+                      unfollowThunk={this.props.unfollowThunk}
+                      followThunk={this.props.followThunk}
 
-            />
-        </>
+                />
+            </>
+        )
     }
 }
 
@@ -65,6 +75,8 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
+export default withAuthRedirect( connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer))
 
-export default connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainerAPI)
+
+
 

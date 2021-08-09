@@ -16,12 +16,17 @@ type MyPostType = {
 
 
 const MyPost = (props: MyPostType) => {
-    const PostElementData = props.postData.map(p => <Post key={p.id} post={p.message}  like={p.likesCount} img={ props.profileUsers.photos.large !== null ? props.profileUsers.photos.small : p.img}
-                                                          imgLogo={p.imgLogo}/>)
+    const PostElementData = props.postData.map(p => <Post key={p.id} post={p.message}
+                                                          like={p.likesCount}
+                                                          img={ props.profileUsers.photos.large !== null ? props.profileUsers.photos.small
+                                                              :
+                                                              p.img}/>)
 
 
     const onAddPost = () => {
-        props.addPost(props.newValue)
+        if (props.newValue !== '') {
+            props.addPost(props.newValue)
+        }
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const textValue = e.currentTarget.value

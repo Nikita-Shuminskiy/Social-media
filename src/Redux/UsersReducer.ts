@@ -2,16 +2,22 @@ import { Dispatch } from 'redux'
 import { usersAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
+export type PhotosType = {
+    small: string
+    large: string
+}
+
 export type UserType = {
     name: string
-    id: number,
+    id: number
     photos: {
         small: string
         large: string
     }
-    status: boolean
+    status: string | null
     followed: boolean
-
+    totalCount: number
+    error: null
 }
 export type DataUsersTye = {
     dataUsers: UserType[]
@@ -24,8 +30,8 @@ export type DataUsersTye = {
 const initialState: DataUsersTye = {
     dataUsers: [],
     totalCount: 10,
-    currentPage: 2,
-    pageSize: 5,
+    currentPage: 1,
+    pageSize: 10,
     isFetching: false,
     dissabledInProgressUser: [],
 }
@@ -96,25 +102,24 @@ export const followThunk = (id: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(userDissableButton(true, id))
 
-            usersAPI.followApi(id).then(response => {
-                if (response.data.resultCode == 0) {
-                   dispatch( unFollow(id))
-                }
-                dispatch(userDissableButton(false, id))
-            })
+        usersAPI.followApi(id).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(follow(id))
+            }
+            dispatch(userDissableButton(false, id))
+        })
     }
 }
 
 export const unfollowThunk = (id: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(userDissableButton(true, id))
-
-            usersAPI.followApi(id).then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(follow(id))
-                }
-                dispatch(userDissableButton(false, id))
-            })
+        usersAPI.unFollowApi(id).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unFollow(id))
+            }
+            dispatch(userDissableButton(false, id))
+        })
     }
 }
 

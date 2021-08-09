@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch: AppDispatchType) => {
     }
 }
 
-const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(FriendsBlock)
 
 
-export default FriendsContainer;
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsBlock);

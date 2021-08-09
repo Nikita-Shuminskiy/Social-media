@@ -4,30 +4,29 @@ export type PostType = {
     message: string
     likesCount: number
     img: string
-    imgLogo: string
 }
 export type ProFileHeaderType = {
     headerImg: HeaderImg
 }
 
 export type ProfileUsersType = {
-    "aboutMe": null,
+    "aboutMe": null
     "contacts": {
-        "facebook": null,
-        "website": null,
-        "vk": null,
-        "twitter": null,
-        "instagram": null,
-        "youtube": null,
-        "github": null,
+        "facebook": null
+        "website": null
+        "vk": null
+        "twitter": null
+        "instagram": null
+        "youtube": null
+        "github": null
         "mainLink": null
     },
-    "lookingForAJob": false,
-    "lookingForAJobDescription": null,
-    "fullName": "andL",
-    "userId": 18628,
+    "lookingForAJob": false
+    "lookingForAJobDescription": null
+    "fullName": string
+    "userId": number | null
     "photos": {
-        "small": string,
+        "small": string
         "large": string
     }
 }
