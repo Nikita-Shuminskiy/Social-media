@@ -9,12 +9,14 @@ import MyPostContainer from '../MyPostContainer';
 type ProfileInfoType = {
     profileUsers:ProfileUsersType
     profile: HeaderImg
+    status: string
+    updateStatusThunk: (status: string) => void
 }
 export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 
     return (
         <>
-            <Profile profileUsers={props.profileUsers} profile={props.profile} />
+            <Profile status={props.status} updateStatusThunk={props.updateStatusThunk} profileUsers={props.profileUsers} profile={props.profile} />
             <MyPostContainer/>
         </>
     )

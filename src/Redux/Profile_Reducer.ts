@@ -1,4 +1,4 @@
-import { usersAPI } from '../Api/Api';
+import { profileAPI, usersAPI } from '../Api/Api';
 import { PostType, ProfilePageType, ProfileUsersType } from './React_Redux_StoreType/types/StateType';
 import { ActionsTypes, AppDispatchType } from './Redux_Store';
 
@@ -9,11 +9,33 @@ export const postValueChange = (textValue: string) => ({type: 'POST-VALUE-CHANGE
 
 export const setProfileUser = (profile: ProfileUsersType) => ({type: 'SET-PROFILE-USER', profile} as const)
 
+export const setProfileStatus = (status: string) => ({type: 'SET-PROFILE-STATUS', status} as const)
+
 export const userIdThunk = (userId: number) => {
     return (dispatch: AppDispatchType) => {
-        usersAPI.userIdAPI(userId).then(response => {
+        usersAPI.userIdAPI(userId)
+            .then(response => {
             dispatch(setProfileUser(response.data))
         })
+    }
+}
+export const getStatusThunk = (userId: number) => {
+    return (dispatch: AppDispatchType) => {
+        profileAPI.getStatus(userId)
+            .then(response => {
+            dispatch(setProfileStatus(response.data))
+        })
+    }
+}
+
+export const updateStatusThunk = (status:string) => {
+    return (dispatch: AppDispatchType) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0){
+                    dispatch(setProfileStatus(status))
+                }
+            })
     }
 }
 
@@ -35,27 +57,29 @@ const initialState: ProfilePageType = {
         },
     },
     profileUsers: {
-        aboutMe: null,
+        aboutMe: '',
         contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: ''
         },
         lookingForAJob: false,
-        lookingForAJobDescription: null,
+        lookingForAJobDescription: '',
         fullName: '',
         userId: null,
         photos: {
             small: '',
             large: ''
         }
-    }
+    },
+    status:'',
 }
+
 
 export function Profile_Reducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
     switch (action.type) {
@@ -78,6 +102,9 @@ export function Profile_Reducer(state: ProfilePageType = initialState, action: A
             }
         case 'SET-PROFILE-USER':
             return {...state, profileUsers: action.profile}
+        case 'SET-PROFILE-STATUS':
+            return {...state, status: action.status}
+
 
 
         default:

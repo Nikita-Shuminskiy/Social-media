@@ -13,7 +13,7 @@
 }
 .info{
 	display: flex;
-	justify-content: space-between;
+	justify-content: right;
 }
 .ProfileInfo_img__1vrfx{
 	display: none;

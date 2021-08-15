@@ -1,17 +1,13 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { ActionsTypes, AppDispatchType, AppStateType } from '../../Redux/Redux_Store';
+import { AppStateType } from '../../Redux/Redux_Store';
 
 import {
-    UserType, userDissableButton,getUserThunk,followThunk,unfollowThunk
+    UserType, getUserThunk, followThunk, unfollowThunk
 } from '../../Redux/UsersReducer';
-import axios from 'axios';
 import { User } from './User';
 import Loader from '../Loader/Loader';
-import { usersAPI } from '../../Api/Api';
-import { compose } from 'redux';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
-import { withRouter } from 'react-router-dom';
 
 
 type MapStateToProps = {
@@ -39,7 +35,7 @@ class UsersContainer extends React.Component<UsersContainerType, State> {
     }
 
     pageClickChange = (page: number) => {
-        this.props.getUserThunk( page, this.props.pageSize)
+        this.props.getUserThunk(page, this.props.pageSize)
     }
 
     render() {
@@ -75,7 +71,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default withAuthRedirect( connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer))
+export default withAuthRedirect(connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer))
 
 
 

@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux'
 import { usersAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
@@ -95,6 +94,7 @@ export const getUserThunk = (currentPage: number, pageSize: number) => {
             dispatch(setIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUserCount(data.totalCount))
+            dispatch(setCurrentPages(currentPage))
         })
     }
 }

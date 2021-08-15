@@ -10,24 +10,24 @@ export type ProFileHeaderType = {
 }
 
 export type ProfileUsersType = {
-    "aboutMe": null
-    "contacts": {
-        "facebook": null
-        "website": null
-        "vk": null
-        "twitter": null
-        "instagram": null
-        "youtube": null
-        "github": null
-        "mainLink": null
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     },
-    "lookingForAJob": false
-    "lookingForAJobDescription": null
-    "fullName": string
-    "userId": number | null
-    "photos": {
-        "small": string
-        "large": string
+    lookingForAJob: false
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number | null
+    photos: {
+        small: string
+        large: string
     }
 }
 
@@ -36,6 +36,7 @@ export type ProfilePageType = {
     proFileHeader: ProFileHeaderType
     newValue: string
     profileUsers: ProfileUsersType
+    status:string
 
 }
 export type HeaderImg = {
