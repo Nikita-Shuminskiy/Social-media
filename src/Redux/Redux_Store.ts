@@ -14,6 +14,7 @@ import {
 import { AuthReducer, setUserDataAuthMe } from './Auth_Reducer';
 import { SideBarReducer } from './SideBar_Reducer';
 import ThunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from 'redux-form'
 
 export type ActionsTypes =
     ReturnType<typeof addPost>
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
     sideBar: SideBarReducer,
     usersData: UsersReducer,
     authMe: AuthReducer,
+    form: formReducer,
 
 })
 
