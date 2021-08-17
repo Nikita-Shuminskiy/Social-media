@@ -1,6 +1,6 @@
 
 export type PostType = {
-    id: number
+    id: string
     message: string
     likesCount: number
     img: string
@@ -34,14 +34,12 @@ export type ProfileUsersType = {
 export type ProfilePageType = {
     postData: Array<PostType>
     proFileHeader: ProFileHeaderType
-    newValue: string
     profileUsers: ProfileUsersType
     status:string
 
 }
 export type HeaderImg = {
     img: string
-    imgAvatar: string
 }
 export type MessegeType = {
     message: string
@@ -54,7 +52,6 @@ export type DialogType = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     message: Array<MessegeType>
-    newMessage: string
 }
 export type FriendsPageType = {
     img: string

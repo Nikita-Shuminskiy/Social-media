@@ -38,7 +38,7 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId && this.props.profileUsers) {
-            userId = /*Number(this.props.profileUsers.userId)*/ 1049
+            userId = /*Number(this.props.profileUsers.userId)*/ 18257
         }
         this.props.userIdThunk(userId)
         this.props.getStatusThunk(userId)

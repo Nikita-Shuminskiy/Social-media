@@ -8,7 +8,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UserContainer from './components/Users/usersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/Header_Container';
-import { Login } from './components/Login/LoginForm';
+import Login from './components/Login/LoginForm';
 
 
 function App() {

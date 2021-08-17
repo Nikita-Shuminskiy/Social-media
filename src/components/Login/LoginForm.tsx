@@ -1,45 +1,80 @@
-import React from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import React from 'react'
+import { maxLengthCreator, required } from '../../Utils/Validators/Validators';
+import { TextControlForm } from '../Common/FormControls/FormControls';
+import { connect } from 'react-redux';
+import { loginThunk } from '../../Redux/Auth_Reducer';
+import { Redirect } from 'react-router-dom';
+import { AppStateType } from '../../Redux/Redux_Store';
 
 
 type FormDataType = {
     login: string
-    password: string
+    password: number
     rememberMe: boolean
 }
+const maxLengthValidator = maxLengthCreator(30)
 
-const LoginForm/*: React.FC<InjectedFormProps<FormDataType>> */= () => {
+const MyForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
-        <form >
-            {/*<div>
-                <Field placeholder={'Login'} name={'login'} component='input'/>
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field
+                    validate={[required, maxLengthValidator]}
+                    placeholder={'Login'}
+                    name={'login'}
+                    component={TextControlForm}
+                    children={'input'}/>
+            </div>
+            <div>
+                <Field
+                    validate={[required, maxLengthValidator]}
+                    placeholder={'Password'}
+                    name={'password'}
+                    component={TextControlForm}
+                    type="password"
+                    children={'input'}
+                />
+            </div>
+            <div>
+                <Field
+                    validate={[required, maxLengthValidator]}
+                    name={'rememberMe'}
+                    component={'input'}
+                    type="checkBox"/>
+                <span>Remember Me</span>
+
             </div>
 
-            <div>
-                <Field placeholder={'Password'} name={'pasword'} compoment='input'/>
-            </div>
-
-            <div>
-                <Field type={'checkBox'} name={'RememberMe'} component='input'/> <span>Remember Me</span>
-            </div>*/}
-            <div>
-                <button>Sumbit</button>
-            </div>
+            <button>Send</button>
         </form>
-    );
-};
-
-/*const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)*/
-
-export const Login = () => {
-
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
-    }
-    return (
-        <div>
-            <h1>LOGIN</h1>
-            <LoginForm />
-        </div>
     )
 }
+
+const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(MyForm)
+
+type MapDispatchToPropsType = {
+    loginThunk: (email: string, password: number, rememberMe: boolean) => void
+}
+type MapStatePropsType = {
+    isAuth: boolean
+}
+
+const MapStateToProps = (state: AppStateType): MapStatePropsType => ({
+    isAuth: state.authMe.isAuth
+})
+
+type ConnectType = MapDispatchToPropsType & MapStatePropsType
+
+const Login = ({loginThunk, isAuth}: ConnectType) => {
+    const onSubmit = (formData: FormDataType) => {
+        loginThunk(formData.login, formData.password, formData.rememberMe)
+    }
+    if (isAuth) return <Redirect to={'/profile'}/>
+    return <div>
+        <h1>Login</h1>
+        <LoginReduxForm onSubmit={onSubmit}/>
+    </div>
+}
+
+export default connect(MapStateToProps, {loginThunk})(Login)

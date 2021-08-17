@@ -6,7 +6,7 @@ import {
     UserType, getUserThunk, followThunk, unfollowThunk
 } from '../../Redux/UsersReducer';
 import { User } from './User';
-import Loader from '../Loader/Loader';
+import Loader from '../Common/Loader/Loader';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 
 

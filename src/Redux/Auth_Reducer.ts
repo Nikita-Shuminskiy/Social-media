@@ -8,10 +8,10 @@ export type AuthMeType = {
     isAuth:boolean
 }
 
-export type DataTypeAuth = {
-    id: number
-    email: string
-    login: string
+export type DataTypeAuth  = {
+    id: number | null
+    email: string | null
+    login: string | null
 }
 
 
@@ -19,34 +19,57 @@ const initialState:AuthMeType = {
     resultCode: 0,
     messages: [],
     data: {
-        id: 2,
-        email: 'blabla@bla.bla',
-        login: 'samurai',
+        id: null,
+        email: null,
+        login: null,
     },
     isAuth: false
 }
-export const setUserDataAuthMe = (data:DataTypeAuth) => ({type: 'SET-USER-DATA', data}as const)
+
 export function AuthReducer(state = initialState, action: ActionsTypes): AuthMeType {
     switch (action.type) {
         case 'SET-USER-DATA': {
+            debugger
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
+                isAuth: action.isAuth
+
             }
         }
         default:
             return state
     }
 }
-export const autMeThunk = () => {
-    return (dispatch: AppDispatchType) => {
+export const setUserDataAuthMe = (payload:DataTypeAuth | null, isAuth:boolean) => ({type: 'SET-USER-DATA', payload,isAuth}as const)
+
+export const autMeThunk = () => (dispatch: AppDispatchType) => {
         authMeAPI.Me().then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setUserDataAuthMe(response.data))
+                dispatch(setUserDataAuthMe(response.data, true))
             }
         })
+    }
 
+export const loginThunk = (email:string,password:number,rememberMe:boolean) => {
+    return (dispatch: AppDispatchType) => {
+        authMeAPI.login(email,password,rememberMe)
+            .then(response => {
+            if (response.data.resultCode === 0) {
+                // @ts-ignore
+                dispatch(autMeThunk())
+            }
+        })
+    }
+}
+export const logoutThunk = () => {
+    return (dispatch: AppDispatchType) => {
+        authMeAPI.logout()
+            .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserDataAuthMe( null,false))
+            }
+        })
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import { HeaderImg, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
-import Loader from '../../../Loader/Loader';
+import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 import { ProfileStatus } from './ProfileStatus';

@@ -1,0 +1,13 @@
+.error textarea {
+	border: 2px solid #953d3d;
+}
+.error input {
+	border: 2px solid #953d3d;
+}
+.errorText{
+	color: red;
+	font-weight: bold;
+}
+.formControll textarea{
+	border: 1px solid black;
+}

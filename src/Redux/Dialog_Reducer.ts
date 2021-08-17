@@ -1,13 +1,13 @@
 import { DialogPageType } from './React_Redux_StoreType/types/StateType';
 import { ActionsTypes } from './Redux_Store';
+import { v1 } from 'uuid';
 
 
-export const sendMessage = (textMessage: string) => ({type: 'SEND-MESSAGE', message: textMessage} as const)
-export const messageValue = (textValue: string) => ({type: 'MESSAGE-VALUE', newMessagePost: textValue} as const)
+
+export const sendMessage = (value: string) => ({type: 'SEND-MESSAGE',   value} as const)
 
 
 let initialState:DialogPageType = {
-    newMessage: '',
     dialogs: [
         {name: 'nick', id: 1,},
         {name: 'Leks', id: 2,},
@@ -28,17 +28,12 @@ let initialState:DialogPageType = {
 export function Dialog_Reducer(state:DialogPageType  = initialState , action: ActionsTypes) {
     switch (action.type) {
         case 'SEND-MESSAGE':
-         const body = state.newMessage
+            const body = action.value
             return {
              ...state,
-                newMessage: '',
-                message: [...state.message, {id:4, message:body}]
+                message: [...state.message, {message:body, id:v1()}]
             }
-        case 'MESSAGE-VALUE':
-           return {
-                ...state,
-                newMessage: action.newMessagePost
-            }
+
         default:
             return state
 

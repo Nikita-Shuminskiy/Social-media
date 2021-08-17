@@ -1,6 +1,6 @@
-import React  from 'react'
+import React from 'react'
 import s from './Dialogs.module.css'
-import { messageValue, sendMessage } from '../../Redux/Dialog_Reducer';
+import { sendMessage } from '../../Redux/Dialog_Reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
@@ -8,38 +8,35 @@ import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { DialogPageType } from '../../Redux/React_Redux_StoreType/types/StateType';
 
 
-const mapStateToProps = (state: AppStateType):MapStateToPropsType => ({
-        dialogsPage: state.dialogs,
-        newValue: state.dialogs.newMessage,
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    dialogsPage: state.dialogs,
 })
 
 type MapStateToPropsType = {
     dialogsPage: DialogPageType
-    newValue: string
 
 }
 
 type MapStateDispatchToPropsType = {
-    messageValue: (body: string) => void
-    sendMessage: (text:string) => void
+    sendMessage: (value: string) => void
 }
 
 type DialogContainerType = MapStateToPropsType & MapStateDispatchToPropsType
 
-export type State = {}
 
-class DialogsContainer extends React.Component<DialogContainerType, State> {
+class DialogsContainer extends React.Component<DialogContainerType> {
     componentDidMount() {
 
     }
+
     render() {
         return (<>
-                <Dialogs {...this.props} dialogsPage={this.props.dialogsPage} newValue={this.props.newValue} />
+                <Dialogs {...this.props} dialogsPage={this.props.dialogsPage}/>
             </>
         )
     }
 }
 
 
-export default withAuthRedirect (connect(mapStateToProps, {messageValue, sendMessage})(DialogsContainer) )
+export default withAuthRedirect(connect(mapStateToProps, {sendMessage})(DialogsContainer))
 

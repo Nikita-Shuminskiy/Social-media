@@ -1,5 +1,5 @@
 import React from 'react';
-import LoaderImg from '../../img/1487.gif'
+import LoaderImg from '../../../img/1487.gif'
 export type LoaderType = {
 
 }

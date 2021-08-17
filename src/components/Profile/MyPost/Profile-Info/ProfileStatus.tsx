@@ -28,6 +28,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType, StateType>
         this.setState({
             editMode: false
         })
+
         if (this.state.status !== '') {
             this.props.updateStatusThunk(this.state.status)
         }
@@ -37,7 +38,6 @@ export class ProfileStatus extends React.Component<ProfileStatusType, StateType>
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<StateType>, snapshot?: any) {
-        debugger
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status

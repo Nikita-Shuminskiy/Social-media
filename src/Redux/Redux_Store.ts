@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
-import { Dialog_Reducer, messageValue, sendMessage } from './Dialog_Reducer';
-import { addPost, postValueChange, Profile_Reducer, setProfileStatus, setProfileUser } from './Profile_Reducer';
+import { Dialog_Reducer, sendMessage } from './Dialog_Reducer';
+import { addPost, Profile_Reducer, setProfileStatus, setProfileUser } from './Profile_Reducer';
 import {
     setCurrentPages,
     follow,
@@ -19,8 +19,6 @@ import {reducer as formReducer} from 'redux-form'
 export type ActionsTypes =
     ReturnType<typeof addPost>
     | ReturnType<typeof sendMessage>
-    | ReturnType<typeof messageValue>
-    | ReturnType<typeof postValueChange>
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof setUsers>
