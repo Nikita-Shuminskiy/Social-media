@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default withAuthRedirect(connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer))
+export default connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer)
 
 
 

@@ -1,27 +1,24 @@
 import { authMeAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
+import { stopSubmit } from 'redux-form';
 
 export type AuthMeType = {
-    resultCode: number
-    messages: []
     data: DataTypeAuth
-    isAuth:boolean
+    isAuth: boolean
 }
 
-export type DataTypeAuth  = {
-    id: number | null
-    email: string | null
-    login: string | null
+export type DataTypeAuth = {
+    id: number
+    email: string
+    login: string
 }
 
 
-const initialState:AuthMeType = {
-    resultCode: 0,
-    messages: [],
+const initialState: AuthMeType = {
     data: {
-        id: null,
-        email: null,
-        login: null,
+        id: 1,
+        email: '',
+        login: '',
     },
     isAuth: false
 }
@@ -29,7 +26,6 @@ const initialState:AuthMeType = {
 export function AuthReducer(state = initialState, action: ActionsTypes): AuthMeType {
     switch (action.type) {
         case 'SET-USER-DATA': {
-            debugger
             return {
                 ...state,
                 ...action.payload,
@@ -41,35 +37,44 @@ export function AuthReducer(state = initialState, action: ActionsTypes): AuthMeT
             return state
     }
 }
-export const setUserDataAuthMe = (payload:DataTypeAuth | null, isAuth:boolean) => ({type: 'SET-USER-DATA', payload,isAuth}as const)
 
-export const autMeThunk = () => (dispatch: AppDispatchType) => {
-        authMeAPI.Me().then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserDataAuthMe(response.data, true))
-            }
-        })
-    }
+export const setUserDataAuthMe = (payload: DataTypeAuth | null, isAuth: boolean) => ({
+    type: 'SET-USER-DATA',
+    payload,
+    isAuth
+} as const)
 
-export const loginThunk = (email:string,password:number,rememberMe:boolean) => {
+export const getUserAutMeThunk = () => (dispatch: AppDispatchType) => {
+    return authMeAPI.Me().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserDataAuthMe(response.data, true))
+        }
+    })
+}
+
+export const loginThunk = (email: string, password: number, rememberMe: boolean) => {
     return (dispatch: AppDispatchType) => {
-        authMeAPI.login(email,password,rememberMe)
+        authMeAPI.login(email, password, rememberMe)
             .then(response => {
-            if (response.data.resultCode === 0) {
-                // @ts-ignore
-                dispatch(autMeThunk())
-            }
-        })
+                if (response.data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(getUserAutMeThunk())
+                } else {
+                    const messages = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
+                    // @ts-ignore
+                    return dispatch(stopSubmit('login', {_error: messages}))
+                }
+            })
     }
 }
 export const logoutThunk = () => {
     return (dispatch: AppDispatchType) => {
         authMeAPI.logout()
             .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserDataAuthMe( null,false))
-            }
-        })
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserDataAuthMe(null, false))
+                }
+            })
     }
 }
 

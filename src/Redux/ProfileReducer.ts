@@ -10,7 +10,7 @@ export const setProfileUser = (profile: ProfileUsersType) => ({type: 'SET-PROFIL
 
 export const setProfileStatus = (status: string) => ({type: 'SET-PROFILE-STATUS', status} as const)
 
-export const userIdThunk = (userId: number) => {
+export const getUserProfileThunk = (userId: number) => {
     return (dispatch: AppDispatchType) => {
         usersAPI.userIdAPI(userId)
             .then(response => {
@@ -78,7 +78,7 @@ const initialState: ProfilePageType = {
 }
 
 
-export function Profile_Reducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
+export function ProfileReducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
     switch (action.type) {
         case 'ADD-POST':
             const postNew: PostType = {

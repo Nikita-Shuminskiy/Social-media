@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
-import { Dialog_Reducer, sendMessage } from './Dialog_Reducer';
-import { addPost, Profile_Reducer, setProfileStatus, setProfileUser } from './Profile_Reducer';
+import { DialogReducer, sendMessage } from './DialogReducer';
+import { addPost, ProfileReducer, setProfileStatus, setProfileUser } from './ProfileReducer';
 import {
     setCurrentPages,
     follow,
@@ -14,7 +14,8 @@ import {
 import { AuthReducer, setUserDataAuthMe } from './Auth_Reducer';
 import { SideBarReducer } from './SideBar_Reducer';
 import ThunkMiddleware from 'redux-thunk'
-import {reducer as formReducer} from 'redux-form'
+import { reducer as formReducer } from 'redux-form'
+import { AppReducer, initializedSuccess } from './App-reducer';
 
 export type ActionsTypes =
     ReturnType<typeof addPost>
@@ -29,17 +30,20 @@ export type ActionsTypes =
     | ReturnType<typeof setUserDataAuthMe>
     | ReturnType<typeof userDissableButton>
     | ReturnType<typeof setProfileStatus>
+    | ReturnType<typeof initializedSuccess>
+
 
 
 
 
 const rootReducer = combineReducers({
-    dialogs: Dialog_Reducer,
-    profile: Profile_Reducer,
+    dialogs: DialogReducer,
+    profile: ProfileReducer,
     sideBar: SideBarReducer,
     usersData: UsersReducer,
     authMe: AuthReducer,
     form: formReducer,
+    appReducer: AppReducer
 
 })
 

@@ -7,7 +7,7 @@ import { HeaderImg, ProfileUsersType } from '../../Redux/React_Redux_StoreType/t
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
-import { getStatusThunk, updateStatusThunk, userIdThunk } from '../../Redux/Profile_Reducer';
+import { getStatusThunk, updateStatusThunk, getUserProfileThunk } from '../../Redux/ProfileReducer';
 
 
 type PathParamsType = {
@@ -17,16 +17,16 @@ type MapStateToPropsType = {
     profileUsers: ProfileUsersType
     profile: HeaderImg // проверить зачем ?
     status: string
+    authID: number
 }
 type MapStateDispatchToPropsType = {
-    userIdThunk: (userId: number) => void
+    getUserProfileThunk: (userId: number) => void
     getStatusThunk: (userId: number) => void
     updateStatusThunk: (status: string) => void
 
 }
 
 type ProfileContainerType = MapStateToPropsType & MapStateDispatchToPropsType
-
 
 
 // @ts-ignore
@@ -37,10 +37,13 @@ export type State = {}
 class ProfileContainer extends React.Component<PropsProfileContainerType, State> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId && this.props.profileUsers) {
-            userId = /*Number(this.props.profileUsers.userId)*/ 18257
+        if (!userId) {
+            userId = this.props.authID
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
-        this.props.userIdThunk(userId)
+        this.props.getUserProfileThunk(userId)
         this.props.getStatusThunk(userId)
 
     }
@@ -60,14 +63,16 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profileUsers: state.profile.profileUsers,
     profile: state.profile.proFileHeader.headerImg,
-    status: state.profile.status
+    status: state.profile.status,
+    authID: state.authMe.data.id,
 })
 
 
-export default compose<ComponentType>(
-    connect(mapStateToProps, {userIdThunk, getStatusThunk, updateStatusThunk}),
-    withAuthRedirect,
-    withRouter)(ProfileContainer)
+export default compose<ComponentType>(connect(mapStateToProps, {
+    getUserProfileThunk,
+    getStatusThunk,
+    updateStatusThunk
+}), withAuthRedirect, withRouter)(ProfileContainer)
 
 
 

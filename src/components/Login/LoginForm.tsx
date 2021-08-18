@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { loginThunk } from '../../Redux/Auth_Reducer';
 import { Redirect } from 'react-router-dom';
 import { AppStateType } from '../../Redux/Redux_Store';
+import s from './LoginForm.module.css'
 
 
 type FormDataType = {
@@ -38,7 +39,6 @@ const MyForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             </div>
             <div>
                 <Field
-                    validate={[required, maxLengthValidator]}
                     name={'rememberMe'}
                     component={'input'}
                     type="checkBox"/>
@@ -47,6 +47,7 @@ const MyForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             </div>
 
             <button>Send</button>
+            {props.error && <div className={s.errorForm}>{props.error}</div>}
         </form>
     )
 }
