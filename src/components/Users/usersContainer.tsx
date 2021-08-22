@@ -1,22 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
-
 import {
     UserType, getUserThunk, followThunk, unfollowThunk
 } from '../../Redux/UsersReducer';
 import { User } from './User';
 import Loader from '../Common/Loader/Loader';
-import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
+import {
+    currentPageUsers,
+    getUsers,
+    isFetchingUsers,
+    pageSizeUsers,
+    progressDisabledUsers,
+    totalCountUsers
+} from './UserSelectors';
 
 
 type MapStateToProps = {
-    isFetching: boolean
-    users: UserType[]
-    pageSize: number
-    currentPage: number
-    totalCount: number
-    dissabledInProgressUser: Array<number>
+    isFetching: any
+    users: any
+    pageSize: any
+    currentPage: any
+    totalCount: any
+    dissabledInProgressUser: any
 
 }
 type MapDispatchToProps = {
@@ -61,12 +67,12 @@ class UsersContainer extends React.Component<UsersContainerType, State> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersData.dataUsers,
-        pageSize: state.usersData.pageSize,
-        currentPage: state.usersData.currentPage,
-        totalCount: state.usersData.totalCount,
-        isFetching: state.usersData.isFetching,
-        dissabledInProgressUser: state.usersData.dissabledInProgressUser,
+        users: getUsers(state),
+        pageSize: pageSizeUsers(state),
+        currentPage: currentPageUsers(state),
+        totalCount: totalCountUsers(state),
+        isFetching: isFetchingUsers(state),
+        dissabledInProgressUser:progressDisabledUsers(state),
     }
 }
 
