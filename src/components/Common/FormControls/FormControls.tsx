@@ -4,10 +4,10 @@ import s from './FormControls.module.css'
 
 export const TextControlForm = ({input, meta,children,  ...props}: any) => {
 
-    const classFormControll = meta.error && meta.touched
+    const classFormControl = meta.error && meta.touched
 
-    return <div className={classFormControll ? s.error : s.formControll}>
+    return <div className={classFormControl ? s.error : s.formControl}>
         {children === 'input' ? <input {...input} {...props}/> : <textarea {...input} {...props} /> }
-        {classFormControll && <div><span className={s.errorText}>{meta.error} </span></div>}
+        {classFormControl && <div><span className={s.errorText}>{meta.error} </span></div>}
     </div>
 }

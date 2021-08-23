@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
-import {
-    UserType, getUserThunk, followThunk, unfollowThunk
+import { getUserThunk, followThunk, unfollowThunk
 } from '../../Redux/UsersReducer';
 import { User } from './User';
 import Loader from '../Common/Loader/Loader';

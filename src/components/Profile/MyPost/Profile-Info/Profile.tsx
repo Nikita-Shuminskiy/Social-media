@@ -5,6 +5,7 @@ import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 import { ProfileStatus } from './ProfileStatus';
+import { ProfileStatuses } from './ProfileStatuses';
 
 
 export type ProfileType = {
@@ -22,7 +23,7 @@ export const Profile: React.FC<ProfileType> = (props) => {
             <img className={s.img} src={props.profile.img} alt={'sa'}/>
             <div className={s.info}>
                 <img className={s.img_avatar} src={props.profileUsers.photos.large !== null ? props.profileUsers.photos.large : Photos } alt={'12'}/>
-                <ProfileStatus updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
                 <div>
                     <span> {props.profileUsers.fullName}</span> <br/>
                     <span> {props.profileUsers.lookingForAJob}</span><br/>
