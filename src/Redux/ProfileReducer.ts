@@ -10,6 +10,8 @@ export const setProfileUser = (profile: ProfileUsersType) => ({type: 'SET-PROFIL
 
 export const setProfileStatus = (status: string) => ({type: 'SET-PROFILE-STATUS', status} as const)
 
+export const deletePost = (id: string) => ({type: 'DEL-POST-PROFILE', id} as const)
+
 export const getUserProfileThunk = (userId: number) => {
     return (dispatch: AppDispatchType) => {
         usersAPI.userIdAPI(userId)
@@ -47,6 +49,12 @@ const initialState: ProfilePageType = {
             likesCount: 12,
             img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
         },
+        {
+            id: '2',
+            message: 'Im learnin to React, React my first life)',
+            likesCount: 12,
+            img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
+        },
     ],
     proFileHeader: {
         headerImg: {
@@ -78,7 +86,7 @@ const initialState: ProfilePageType = {
 }
 
 
-export function ProfileReducer(state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType {
+export function ProfileReducer(state = initialState, action: ActionsTypes):ProfilePageType {
     switch (action.type) {
         case 'ADD-POST':
             const postNew: PostType = {
@@ -95,6 +103,8 @@ export function ProfileReducer(state: ProfilePageType = initialState, action: Ac
             return {...state, profileUsers: action.profile}
         case 'SET-PROFILE-STATUS':
             return {...state, status: action.status}
+        case 'DEL-POST-PROFILE':
+            return {...state, postData: state.postData.filter( (f) => f.id !== action.id)}
 
 
         default:
