@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore, Dispatch } from 'redux';
 import { DialogReducer, sendMessage } from './DialogReducer';
 import { addPost, deletePost, ProfileReducer, setProfileStatus, setProfileUser } from './ProfileReducer';
 import {
@@ -44,8 +44,11 @@ const rootReducer = combineReducers({
     authMe: AuthReducer,
     form: formReducer,
     appReducer: AppReducer
-
 })
+
+// @ts-ignore
+/*const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware) +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);*/
 
 const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 

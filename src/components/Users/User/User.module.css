@@ -1,0 +1,19 @@
+.follow {
+	width: 100px;
+	height: 20px;
+}
+.unFollow {
+	width: 100px;
+	height: 20px;
+}
+.userBody{
+	display: table-row;
+	width: 80%;
+}
+.SmallImg{
+	width: 60px;
+}
+.textUser{
+	border: 1px solid black;
+	border-radius: 10px;
+}

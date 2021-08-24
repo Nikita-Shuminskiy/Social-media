@@ -1,19 +1,20 @@
 ﻿import React, { ComponentType } from 'react';
 import './App.css'
-import Musick from './components/Musick/Musick';
-import NavBar from './components/Navbar/Navbar';
-import Settings from './components/Settings/Settings';
-import { NavLink, Route, withRouter } from 'react-router-dom'
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import UserContainer from './components/Users/usersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from './components/Header/Header_Container';
-import Login from './components/Login/LoginForm';
-import { connect } from 'react-redux';
-import { AppStateType } from './Redux/Redux_Store';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom'
+import { connect, Provider } from 'react-redux';
+import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
 import { initializeAppThunk } from './Redux/App-reducer';
 import Loader from './components/Common/Loader/Loader';
+import Login from './components/Login/LoginForm';
+import HeaderContainer from './components/Header/Header_Container';
+import NavBar from './components/Navbar/Navbar';
+import Settings from './components/Settings/Settings';
+
+const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'));
+const UserContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const Musick = React.lazy(() => import( './components/Musick/Musick'))
 
 type AppPropsType = {
     initializeThunk: () => void
@@ -35,14 +36,15 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'}
-                           render={() => <DialogsContainer/>}/>
-                    <Route path={'/profile/:userId?'}
-                           render={() => <ProfileContainer/>}/>
-                    <Route path={'/users'}
-                           render={() => <UserContainer/>}/>
-                    <Route path={'/login'}
-                           render={() => <Login/>}/>
+                    <React.Suspense fallback={<Loader/>}>
+                        <Switch>
+                            <Route path={'/dialogs'} component={DialogsContainer}/>
+                            <Route path={'/profile/:userId?'} component={ProfileContainer}/>
+                            <Route path={'/users'} component={UserContainer}/>
+                            <Route path={'/login'} component={Login}/>
+                            <Route path={'/musick'} component={Musick}/>
+                        </Switch>
+                    </React.Suspense>
                 </div>
                 <Settings/>
 
@@ -55,4 +57,13 @@ const mapStateToProps = (state: AppStateType) => ({
     initialized: state.appReducer.initialized
 })
 
-export default compose<ComponentType>(connect(mapStateToProps, {initializeThunk: initializeAppThunk}), withRouter)(App)
+const AppContainer = compose<ComponentType>(connect(mapStateToProps, {initializeThunk: initializeAppThunk}), withRouter)(App)
+
+const GlobalAppComponent = () => {
+    return (<BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>)
+}
+export default GlobalAppComponent

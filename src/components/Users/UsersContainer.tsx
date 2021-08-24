@@ -4,7 +4,7 @@ import { AppStateType } from '../../Redux/Redux_Store';
 import {
     getUserThunk, followThunk, unfollowThunk, UserType
 } from '../../Redux/UsersReducer';
-import { User } from './User';
+import { Users } from './Users';
 import Loader from '../Common/Loader/Loader';
 import {
     currentPageUsers,
@@ -50,14 +50,14 @@ class UsersContainer extends React.Component<UsersContainerType, State> {
             <>
                 {this.props.isFetching ? <Loader/> : null}
 
-                <User users={this.props.users}
-                      totalCount={this.props.totalCount}
-                      currentPage={this.props.currentPage}
-                      pageSize={this.props.pageSize}
-                      pageClickChange={this.pageClickChange}
-                      disabledInProgressUser={this.props.disabledInProgressUser}
-                      unfollowThunk={this.props.unfollowThunk}
-                      followThunk={this.props.followThunk}
+                <Users users={this.props.users}
+                       totalCount={this.props.totalCount}
+                       currentPage={this.props.currentPage}
+                       pageSize={this.props.pageSize}
+                       pageClickChange={this.pageClickChange}
+                       disabledInProgressUser={this.props.disabledInProgressUser}
+                       unfollowThunk={this.props.unfollowThunk}
+                       followThunk={this.props.followThunk}
 
                 />
             </>

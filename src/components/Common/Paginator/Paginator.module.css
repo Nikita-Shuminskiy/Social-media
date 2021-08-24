@@ -1,0 +1,16 @@
+.totalCount{
+	color: darkred;
+	font-weight: bold;
+	font-size: 20px;
+}
+.paginator {
+	margin: 10px;
+}
+.pageNumber {
+	padding: 2px;
+	border: 1px solid darkgrey;
+}
+.pageNumber.selectedPage {
+	font-weight: bolder;
+	border-color: black;
+}
