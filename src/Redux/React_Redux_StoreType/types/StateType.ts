@@ -41,17 +41,17 @@ export type ProfilePageType = {
 export type HeaderImg = {
     img: string
 }
-export type MessegeType = {
+export type MessageType = {
     message: string
-    id: number
+    id: string
 }
 export type DialogType = {
     name: string
-    id: number
+    id: string
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
-    message: Array<MessegeType>
+    message: Array<MessageType>
 }
 export type FriendsPageType = {
     img: string

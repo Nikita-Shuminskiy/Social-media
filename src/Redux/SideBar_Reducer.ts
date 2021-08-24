@@ -1,4 +1,3 @@
-import React from 'react';
 import { SidBarType } from './React_Redux_StoreType/types/StateType';
 
 const initialState:SidBarType = {

@@ -12,7 +12,7 @@ export type UserComponentType = {
     pageSize: number
     currentPage: number
     totalCount: number
-    dissabledInProgressUser: Array<number>
+    disabledInProgressUser: Array<number>
     followThunk: (id: number) => void
     unfollowThunk: (id: number) => void
 }
@@ -51,12 +51,12 @@ export const User = (props: UserComponentType) => {
                                      alt="121"/>
                             </NavLink>
                             {u.followed ?
-                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
+                                <button disabled={props.disabledInProgressUser.some(id => id === u.id)}
                                         onClick={() => {
                                             props.unfollowThunk(u.id)
                                         }} style={{width: '100px', height: '20px'}}>UnFollowed</button>
                                 :
-                                <button disabled={props.dissabledInProgressUser.some(id => id === u.id)}
+                                <button disabled={props.disabledInProgressUser.some(id => id === u.id)}
                                         onClick={() => {
                                             props.followThunk(u.id)
                                         }} style={{width: '100px', height: '30px'}}>Followed</button>}

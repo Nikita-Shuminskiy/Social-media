@@ -33,9 +33,8 @@ export type ActionsTypes =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePost>
 
-
-
-
+export type AppStateType = ReturnType<typeof rootReducer>
+export type AppDispatchType = Dispatch<ActionsTypes>
 
 const rootReducer = combineReducers({
     dialogs: DialogReducer,
@@ -48,10 +47,7 @@ const rootReducer = combineReducers({
 
 })
 
-let store = createStore(rootReducer,applyMiddleware(ThunkMiddleware))
-
-export type AppStateType = ReturnType<typeof rootReducer>
-export type AppDispatchType = Dispatch<ActionsTypes>
+const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 
 /*export type StoreType = typeof store;*/
 // @ts-ignore

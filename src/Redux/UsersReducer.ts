@@ -1,11 +1,6 @@
 import { usersAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
-export type PhotosType = {
-    small: string
-    large: string
-}
-
 export type UserType = {
     name: string
     id: number
@@ -24,7 +19,7 @@ export type DataUsersTye = {
     currentPage: number
     pageSize: number
     isFetching: boolean
-    dissabledInProgressUser: Array<any>
+    disabledInProgressUser: Array<number>
 }
 const initialState: DataUsersTye = {
     dataUsers: [],
@@ -32,35 +27,36 @@ const initialState: DataUsersTye = {
     currentPage: 1,
     pageSize: 10,
     isFetching: false,
-    dissabledInProgressUser: [],
+    disabledInProgressUser: [],
 }
 
 export function UsersReducer(state: DataUsersTye = initialState, action: ActionsTypes): DataUsersTye {
     switch (action.type) {
-        case 'Follow':
+        case 'USER/Follow':
             return {
                 ...state,
                 dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
-        case 'Un-Follow':
+        case 'USER/Un-Follow':
             return {
                 ...state,
                 dataUsers: state.dataUsers.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
-        case 'Set-UsersContainerAPI':
+        case 'USER/Set-UsersContainerAPI':
             return {...state, dataUsers: action.users}
-        case 'CURRENT-PAGES':
+        case 'USER/CURRENT-PAGES':
             return {...state, currentPage: action.pageNumberCurrent}
 
-        case 'TOTAL-USER-COUNT':
+        case 'USER/TOTAL-USER-COUNT':
             return {...state, totalCount: action.totalCount}
 
-        case 'Toggle is fetching':
+        case 'USER/Toggle is fetching':
             return {...state, isFetching: action.isFetching}
-        case 'TOGGLE-DISSABLED-BUTTON-USER': {
+        case 'USER/TOGGLE-DISABLED-BUTTON-USER': {
             return {
                 ...state,
-                dissabledInProgressUser: action.dissFetching ? [...state.dissabledInProgressUser, action.idUser] : [state.dissabledInProgressUser.filter(id => id !== action.idUser)]
+                //@ts-ignore
+                disabledInProgressUser: action.disFetching ? [...state.disabledInProgressUser, action.idUser] : [state.disabledInProgressUser.filter(id => id !== action.idUser)]
             }
         }
         default:
@@ -68,28 +64,27 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
     }
 }
 
-export const userDissableButton = (dissFetching: boolean, idUser: number) => ({
-    type: 'TOGGLE-DISSABLED-BUTTON-USER',
-    dissFetching,
+export const userDissableButton = (disFetching: boolean, idUser: number) => ({
+    type: 'USER/TOGGLE-DISABLED-BUTTON-USER',
+    disFetching,
     idUser
 } as const)
 
-export const follow = (userId: number) => ({type: 'Follow', userId} as const)
+export const follow = (userId: number) => ({type: 'USER/Follow', userId} as const)
 
-export const unFollow = (userId: number) => ({type: 'Un-Follow', userId} as const)
+export const unFollow = (userId: number) => ({type: 'USER/Un-Follow', userId} as const)
 
-export const setUsers = (users: UserType[]) => ({type: 'Set-UsersContainerAPI', users} as const)
+export const setUsers = (users: UserType[]) => ({type: 'USER/Set-UsersContainerAPI', users} as const)
 
-export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'CURRENT-PAGES', pageNumberCurrent} as const)
+export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'USER/CURRENT-PAGES', pageNumberCurrent} as const)
 
-export const setTotalUserCount = (totalCount: number) => ({type: 'TOTAL-USER-COUNT', totalCount} as const)
+export const setTotalUserCount = (totalCount: number) => ({type: 'USER/TOTAL-USER-COUNT', totalCount} as const)
 
-export const setIsFetching = (isFetching: boolean) => ({type: 'Toggle is fetching', isFetching} as const)
+export const setIsFetching = (isFetching: boolean) => ({type: 'USER/Toggle is fetching', isFetching} as const)
 
 export const getUserThunk = (currentPage: number, pageSize: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(setIsFetching(true))
-
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setIsFetching(false))
             dispatch(setUsers(data.items))
@@ -101,7 +96,6 @@ export const getUserThunk = (currentPage: number, pageSize: number) => {
 export const followThunk = (id: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(userDissableButton(true, id))
-
         usersAPI.followApi(id).then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(follow(id))
@@ -110,7 +104,6 @@ export const followThunk = (id: number) => {
         })
     }
 }
-
 export const unfollowThunk = (id: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(userDissableButton(true, id))
@@ -122,4 +115,3 @@ export const unfollowThunk = (id: number) => {
         })
     }
 }
-

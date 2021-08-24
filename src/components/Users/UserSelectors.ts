@@ -22,11 +22,10 @@ export function isFetchingUsers(state: AppStateType) {
 }
 
 export function progressDisabledUsers(state: AppStateType) {
-    return state.usersData.dissabledInProgressUser
+    return state.usersData.disabledInProgressUser
 }
 
-export const getUsers = createSelector(getUsersSelector, pageSizeUsers,
-    (dataUsers, pageSize) => {
+export const getUsers = createSelector(getUsersSelector,
+    (dataUsers) => {
         if (dataUsers) return dataUsers
-        if (pageSize) return pageSize
     })

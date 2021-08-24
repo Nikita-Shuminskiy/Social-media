@@ -1,4 +1,3 @@
-import { authMeAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 import { getUserAutMeThunk } from './Auth_Reducer';
 
@@ -6,19 +5,16 @@ import { getUserAutMeThunk } from './Auth_Reducer';
 type initType = {
     initialized: boolean
 }
-
-
 const initialState: initType = {
     initialized: false
 }
 
 export function AppReducer(state = initialState, action: ActionsTypes): initType {
     switch (action.type) {
-        case 'SET-INITIALIZED': {
+        case 'APP/SET-INITIALIZED': {
             return {
                 ...state,
                 initialized: true
-
             }
         }
         default:
@@ -26,7 +22,7 @@ export function AppReducer(state = initialState, action: ActionsTypes): initType
     }
 }
 
-export const initializedSuccess = () => ({type: 'SET-INITIALIZED'} as const)
+export const initializedSuccess = () => ({type: 'APP/SET-INITIALIZED'} as const)
 
 export const initializeAppThunk = () => (dispatch: AppDispatchType) => {
     // @ts-ignore

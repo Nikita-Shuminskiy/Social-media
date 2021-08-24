@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
-import { getUserThunk, followThunk, unfollowThunk
+import {
+    getUserThunk, followThunk, unfollowThunk, UserType
 } from '../../Redux/UsersReducer';
 import { User } from './User';
 import Loader from '../Common/Loader/Loader';
@@ -16,12 +17,12 @@ import {
 
 
 type MapStateToProps = {
-    isFetching: any
+    isFetching: boolean
     users: any
-    pageSize: any
-    currentPage: any
-    totalCount: any
-    dissabledInProgressUser: any
+    pageSize: number
+    currentPage: number
+    totalCount: number
+    disabledInProgressUser: Array<number>
 
 }
 type MapDispatchToProps = {
@@ -54,7 +55,7 @@ class UsersContainer extends React.Component<UsersContainerType, State> {
                       currentPage={this.props.currentPage}
                       pageSize={this.props.pageSize}
                       pageClickChange={this.pageClickChange}
-                      dissabledInProgressUser={this.props.dissabledInProgressUser}
+                      disabledInProgressUser={this.props.disabledInProgressUser}
                       unfollowThunk={this.props.unfollowThunk}
                       followThunk={this.props.followThunk}
 
@@ -71,7 +72,7 @@ const mapStateToProps = (state: AppStateType) => {
         currentPage: currentPageUsers(state),
         totalCount: totalCountUsers(state),
         isFetching: isFetchingUsers(state),
-        dissabledInProgressUser:progressDisabledUsers(state),
+        disabledInProgressUser:progressDisabledUsers(state),
     }
 }
 
