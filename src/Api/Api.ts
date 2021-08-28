@@ -4,10 +4,17 @@ import axios from 'axios';
 
 const instance = axios.create({
     withCredentials: true,
-    headers: {'API-KEY': '3da43f48-29d5-4d61-b2c7-abd19851182f'},
+    headers: {'API-KEY': '978dde1d-b974-4ee1-a942-d32857675e96'},
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
-
+export type UpdatePhotoType = {
+    resultCode: number
+    messages: Array<string>,
+    data: {
+        small:string
+        large:string
+    }
+}
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
@@ -30,6 +37,16 @@ export const profileAPI = {
     getProfile(userId:number) {
         console.warn('Obsolete method.Please profileAPI object')
         return  usersAPI.userIdAPI(userId)
+    },
+    updPhoto(image:string) {
+        const formData = new FormData()
+        formData.append('image',image)
+
+        return instance.put('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     },
     getStatus(userId:number){
         return instance.get( 'profile/status/' + userId)

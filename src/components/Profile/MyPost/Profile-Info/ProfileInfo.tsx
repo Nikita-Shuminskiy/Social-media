@@ -11,12 +11,14 @@ type ProfileInfoType = {
     profile: HeaderImg
     status: string
     updateStatusThunk: (status: string) => void
+    owner:number
+    updatePhoto: (photo: string) => void
 }
 export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 
     return (
         <>
-            <Profile status={props.status} updateStatusThunk={props.updateStatusThunk} profileUsers={props.profileUsers} profile={props.profile} />
+            <Profile owner={props.owner} updatePhoto={props.updatePhoto} status={props.status} updateStatusThunk={props.updateStatusThunk} profileUsers={props.profileUsers} profile={props.profile} />
             <MyPostContainer/>
         </>
     )

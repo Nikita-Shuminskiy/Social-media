@@ -7,7 +7,7 @@ import { HeaderImg, ProfileUsersType } from '../../Redux/React_Redux_StoreType/t
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
-import { getStatusThunk, updateStatusThunk, getUserProfileThunk } from '../../Redux/ProfileReducer';
+import { getStatusThunk, updateStatusThunk, getUserProfileThunk, updatePhotoThunk } from '../../Redux/ProfileReducer';
 
 
 type PathParamsType = {
@@ -23,6 +23,7 @@ type MapStateDispatchToPropsType = {
     getUserProfileThunk: (userId: number) => void
     getStatusThunk: (userId: number) => void
     updateStatusThunk: (status: string) => void
+    updatePhotoThunk: (photo: string) => void
 
 }
 
@@ -35,7 +36,7 @@ type PropsProfileContainerType = RouteComponentProps<PathParamsType> & ProfileCo
 export type State = {}
 
 class ProfileContainer extends React.Component<PropsProfileContainerType, State> {
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authID
@@ -45,14 +46,23 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
         }
         this.props.getUserProfileThunk(userId)
         this.props.getStatusThunk(userId)
+    }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsProfileContainerType>, prevState: Readonly<State>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
     }
 
 
     render() {
         return (
             <>
-                <ProfileInfo {...this.props} updateStatusThunk={this.props.updateStatusThunk} status={this.props.status}
+                <ProfileInfo {...this.props} updatePhoto={this.props.updatePhotoThunk} owner={this.props.match.params.userId} updateStatusThunk={this.props.updateStatusThunk} status={this.props.status}
                              profileUsers={this.props.profileUsers} profile={this.props.profile}/>
             </>
         )
@@ -71,7 +81,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 export default compose<ComponentType>(connect(mapStateToProps, {
     getUserProfileThunk,
     getStatusThunk,
-    updateStatusThunk
+    updateStatusThunk,
+    updatePhotoThunk
 }), withAuthRedirect, withRouter)(ProfileContainer)
 
 

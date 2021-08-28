@@ -1,6 +1,6 @@
 ﻿import React, { ComponentType } from 'react';
 import './App.css'
-import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Switch, withRouter } from 'react-router-dom'
 import { connect, Provider } from 'react-redux';
 import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
@@ -60,10 +60,10 @@ const mapStateToProps = (state: AppStateType) => ({
 const AppContainer = compose<ComponentType>(connect(mapStateToProps, {initializeThunk: initializeAppThunk}), withRouter)(App)
 
 const GlobalAppComponent = () => {
-    return (<BrowserRouter>
+    return (<HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </BrowserRouter>)
+    </HashRouter>)
 }
 export default GlobalAppComponent

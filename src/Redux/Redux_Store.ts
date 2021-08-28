@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore, Dispatch } from 'redux';
 import { DialogReducer, sendMessage } from './DialogReducer';
-import { addPost, deletePost, ProfileReducer, setProfileStatus, setProfileUser } from './ProfileReducer';
+import { addPost, deletePost, ProfileReducer, setProfileStatus, setProfileUser, updatePhoto } from './ProfileReducer';
 import {
     setCurrentPages,
     follow,
@@ -32,6 +32,7 @@ export type ActionsTypes =
     | ReturnType<typeof setProfileStatus>
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof updatePhoto>
 
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = Dispatch<ActionsTypes>
