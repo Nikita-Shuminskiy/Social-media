@@ -1,0 +1,16 @@
+.item{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 60%;
+	width: 100%;
+	height: auto;
+}
+.imgPost{
+	width: 45px;
+	height: auto;
+	border-radius: 22px;
+	position: relative;
+	top: 35px;
+	right: 49px;
+}

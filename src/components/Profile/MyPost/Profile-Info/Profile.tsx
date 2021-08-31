@@ -1,48 +1,59 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import React, { useState } from 'react';
 import s from './ProfileInfo.module.css';
-import { HeaderImg, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 import { ProfileStatuses } from './ProfileStatuses';
+import ProfileData from './ProfileData/ProfileData';
+import ProfileDataReduxForm  from './ProfileData/ProfileDataForm';
 
 
 export type ProfileType = {
-    profileUsers:ProfileUsersType
-    profile: HeaderImg
+    profileUsers: ProfileUsersType
     status: string
     updateStatusThunk: (status: string) => void
     updatePhoto: (photo: string) => void
-    owner:number
+    owner: number
+    updProfileData: (data: ProfileUsersType) => void
 }
 export const Profile: React.FC<ProfileType> = (props) => {
-    if (!props.profile) {
+    const [editMode,setEditMode] = useState(false)
+    if (!props.profileUsers) {
         return <Loader/>
     }
     const uploadPhoto = (e: any) => {
-       /* const target = e.target as HTMLInputElement;
-        // @ts-ignore
-        const files = target.files[0];
-            props.updatePhoto(files)*/
-         if (e.target.files.length){
-             props.updatePhoto(e.target.files[0])
-         }
+        if (e.target.files.length) {
+            props.updatePhoto(e.target.files[0])
+        }
     }
+
+    const onSubmit = (value:ProfileUsersType) => {
+        console.log(value)
+        setEditMode(false)
+        props.updProfileData(value)
+
+    }
+    const openEditMenu = () => setEditMode(true)
     return (
-        <div>
-            <img className={s.img} src={props.profile.img} alt={'sa'}/>
-            <div className={s.info}>
-                <img className={s.img_avatar} src={props.profileUsers.photos.small !== null ? props.profileUsers.photos.small : Photos } alt={'12'}/>
-                {!props.owner && <input type={'file'} onChange={uploadPhoto} />}
-                <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+        <div className={s.container}>
+            <div>
+                <img className={s.img_avatar}
+                     src={props.profileUsers.photos?.small !== null ? props.profileUsers.photos?.small : Photos}/>
                 <div>
-                    <span> {props.profileUsers.fullName}</span> <br/>
-                    <span> {props.profileUsers.lookingForAJob}</span><br/>
-                    <span> {props.profileUsers.lookingForAJobDescription}</span><br/>
-                    <span> {props.profileUsers.aboutMe}</span>
+                    {!props.owner && <input type={'file'} onChange={uploadPhoto}/>}
                 </div>
             </div>
-
+            <div className={s.info}>
+                <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                <div>
+                    {editMode ?
+                        //@ts-ignore
+                        <ProfileDataReduxForm profileUsers={props.profileUsers} /*initialValues={props.profileUsers.fullName}*/ onSubmit={onSubmit}/>
+                        :
+                        <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers} />}
+                </div>
+            </div>
         </div>
     )
 }

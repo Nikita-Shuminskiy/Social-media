@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React  from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
 import { PostType, ProfileUsersType } from '../../../Redux/React_Redux_StoreType/types/StateType';
@@ -27,10 +27,9 @@ const MyPost = (props: MyPostType) => {
     }
     return (
         <div className={s.item}>
-            <div className={s.post}>
+            <img className={s.imgPost} src={props.profileUsers.photos.small} />
                 <AddProfileReduxForm onSubmit={onSubmit}/>
                 {PostElementData}
-            </div>
         </div>
     )
 }
@@ -44,7 +43,7 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field
+              <Field
                 placeholder={'Enter Post'}
                 name={'postProfile'}
                 component={TextControlForm}

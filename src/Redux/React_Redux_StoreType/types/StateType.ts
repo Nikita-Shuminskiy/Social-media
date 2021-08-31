@@ -5,41 +5,46 @@ export type PostType = {
     likesCount: number
     img: string
 }
-export type ProFileHeaderType = {
-    headerImg: HeaderImg
+
+
+export type ContactUserType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+
 }
 
 export type ProfileUsersType = {
-    aboutMe: string
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    },
-    lookingForAJob: false
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number | null
-    photos: {
-        small: string
-        large: string
+    "aboutMe": string,
+    "contacts": {
+        "facebook": string
+        'website': string
+        'vk': string
+        'twitter': string
+        'instagram': string
+        'youtube': string
+        'github': string
+        'mainLink': string
+    }
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small": string,
+        "large": string
     }
 }
 
 export type ProfilePageType = {
     postData: Array<PostType>
-    proFileHeader: ProFileHeaderType
     profileUsers: ProfileUsersType
     status:string
-
-}
-export type HeaderImg = {
-    img: string
 }
 export type MessageType = {
     message: string

@@ -38,8 +38,8 @@ class App extends React.Component<AppPropsType> {
                 <div className={'app-wrapper-content'}>
                     <React.Suspense fallback={<Loader/>}>
                         <Switch>
-                            <Route path={'/dialogs'} component={DialogsContainer}/>
                             <Route path={'/profile/:userId?'} component={ProfileContainer}/>
+                            <Route path={'/dialogs'} component={DialogsContainer}/>
                             <Route path={'/users'} component={UserContainer}/>
                             <Route path={'/login'} component={Login}/>
                             <Route path={'/musick'} component={Musick}/>

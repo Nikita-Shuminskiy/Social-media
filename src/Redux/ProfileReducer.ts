@@ -1,6 +1,6 @@
 import { profileAPI, usersAPI } from '../Api/Api';
 import { PostType, ProfilePageType, ProfileUsersType } from './React_Redux_StoreType/types/StateType';
-import { ActionsTypes } from './Redux_Store';
+import { ActionsTypes, AppStateType } from './Redux_Store';
 import { v1 } from 'uuid';
 import { Dispatch } from 'redux';
 
@@ -9,22 +9,11 @@ const initialState: ProfilePageType = {
     postData: [
         {
             id: '1',
-            message: 'helo how are you',
-            likesCount: 12,
-            img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
-        },
-        {
-            id: '2',
-            message: 'Im learnin to React, React my first life)',
+            message: 'hello how are you',
             likesCount: 12,
             img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
         },
     ],
-    proFileHeader: {
-        headerImg: {
-            img: 'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg',
-        },
-    },
     profileUsers: {
         aboutMe: '',
         contacts: {
@@ -35,15 +24,15 @@ const initialState: ProfilePageType = {
             instagram: '',
             youtube: '',
             github: '',
-            mainLink: ''
+            mainLink: '',
         },
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
-        userId: null,
+        userId: 0,
         photos: {
             small: '',
-            large: ''
+                large: ''
         }
     },
     status: '',
@@ -57,8 +46,8 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
                 id: v1(),
                 message: action.newMessage,
                 likesCount: 0,
-                img: state.profileUsers.photos.small ?
-                    state.profileUsers.photos.small
+                img: state.profileUsers?.photos?.small ?
+                    state.profileUsers?.photos?.small
                     :
                     'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
             }
@@ -95,6 +84,16 @@ export const getUserProfileThunk = (userId: number) => {
         usersAPI.userIdAPI(userId)
             .then(response => {
                 dispatch(setProfileUser(response.data))
+            })
+    }
+}
+export const updProfileDataThunk = (data:ProfileUsersType) => {
+    return (dispatch: Dispatch, getState:AppStateType) => {
+        profileAPI.updateProfileData(data)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setProfileUser(response.data))
+                }
             })
     }
 }

@@ -9,5 +9,9 @@
 	font-weight: bold;
 }
 .formControl textarea{
-	border: 1px solid black;
+	border: 3px solid black;
+}
+.fromPostProfile{
+	padding: 10px;
+	border-radius: 8px ;
 }

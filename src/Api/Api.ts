@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ProfileUsersType } from '../Redux/React_Redux_StoreType/types/StateType';
 
 
 
@@ -11,8 +12,8 @@ export type UpdatePhotoType = {
     resultCode: number
     messages: Array<string>,
     data: {
-        small:string
-        large:string
+        small: string
+        large: string
     }
 }
 
@@ -53,6 +54,9 @@ export const profileAPI = {
     },
     updateStatus(status:string){
         return instance.put( 'profile/status', {status})
+    },
+    updateProfileData(profile:ProfileUsersType){
+        return instance.put( 'profile', {profile})
     }
 }
 export const authMeAPI= {

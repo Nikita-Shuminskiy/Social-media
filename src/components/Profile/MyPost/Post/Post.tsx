@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Post.module.css'
 
 type PostType = {
-    img: string
+    img?: string
     post: string
     like:number
 }
