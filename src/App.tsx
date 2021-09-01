@@ -6,7 +6,6 @@ import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
 import { initializeAppThunk } from './Redux/App-reducer';
 import Loader from './components/Common/Loader/Loader';
-import Login from './components/Login/LoginForm';
 import HeaderContainer from './components/Header/Header_Container';
 import NavBar from './components/Navbar/Navbar';
 import Settings from './components/Settings/Settings';
@@ -15,6 +14,7 @@ const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsC
 const UserContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const Musick = React.lazy(() => import( './components/Musick/Musick'))
+const Login = React.lazy(() => import( './components/Login/LoginForm'))
 
 type AppPropsType = {
     initializeThunk: () => void

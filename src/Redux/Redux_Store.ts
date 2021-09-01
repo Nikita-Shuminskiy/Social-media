@@ -11,7 +11,7 @@ import {
     setIsFetching,
     userDissableButton
 } from './UsersReducer';
-import { AuthReducer, setUserDataAuthMe } from './Auth_Reducer';
+import { AuthReducer, captchaUrl,setUserDataAuthMe } from './Auth_Reducer';
 import { SideBarReducer } from './SideBar_Reducer';
 import ThunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
@@ -33,6 +33,7 @@ export type ActionsTypes =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof updatePhoto>
+    | ReturnType<typeof captchaUrl>
 
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = Dispatch<ActionsTypes>

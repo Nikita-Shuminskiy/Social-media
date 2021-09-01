@@ -7,7 +7,7 @@ export type PostType = {
 }
 
 
-export type ContactUserType = {
+/*export type ContactUserType = {
     facebook: string
     website: string
     vk: string
@@ -17,11 +17,11 @@ export type ContactUserType = {
     github: string
     mainLink: string
 
-}
+}*/
 
 export type ProfileUsersType = {
-    "aboutMe": string,
-    "contacts": {
+    aboutMe: string,
+    contacts: {
         "facebook": string
         'website': string
         'vk': string
@@ -31,13 +31,13 @@ export type ProfileUsersType = {
         'github': string
         'mainLink': string
     }
-    "lookingForAJob": boolean,
-    "lookingForAJobDescription": string,
-    "fullName": string,
-    "userId": number,
-    "photos": {
-        "small": string,
-        "large": string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
     }
 }
 

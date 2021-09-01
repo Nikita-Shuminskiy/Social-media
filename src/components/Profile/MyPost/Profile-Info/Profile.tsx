@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './ProfileInfo.module.css';
-import { ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
@@ -10,7 +10,7 @@ import ProfileDataReduxForm  from './ProfileData/ProfileDataForm';
 
 
 export type ProfileType = {
-    profileUsers: ProfileUsersType
+    profileUsers: ProfilePageType
     status: string
     updateStatusThunk: (status: string) => void
     updatePhoto: (photo: string) => void
@@ -32,14 +32,13 @@ export const Profile: React.FC<ProfileType> = (props) => {
         console.log(value)
         setEditMode(false)
         props.updProfileData(value)
-
     }
     const openEditMenu = () => setEditMode(true)
     return (
         <div className={s.container}>
             <div>
                 <img className={s.img_avatar}
-                     src={props.profileUsers.photos?.small !== null ? props.profileUsers.photos?.small : Photos}/>
+                     src={props.profileUsers.profileUsers.photos.small !== null ? props.profileUsers.profileUsers.photos.small : Photos}/>
                 <div>
                     {!props.owner && <input type={'file'} onChange={uploadPhoto}/>}
                 </div>
@@ -48,10 +47,11 @@ export const Profile: React.FC<ProfileType> = (props) => {
                 <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
                 <div>
                     {editMode ?
-                        //@ts-ignore
-                        <ProfileDataReduxForm profileUsers={props.profileUsers} /*initialValues={props.profileUsers.fullName}*/ onSubmit={onSubmit}/>
+
+                        // @ts-ignore
+                        <ProfileDataReduxForm initialValues={props.profileUsers} profileUsers={props.profileUsers} onSubmit={onSubmit}/>
                         :
-                        <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers} />}
+                        <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
                 </div>
             </div>
         </div>

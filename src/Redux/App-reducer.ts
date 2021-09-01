@@ -1,5 +1,6 @@
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 import { getUserAutMeThunk } from './Auth_Reducer';
+import { Dispatch } from 'redux';
 
 
 type initType = {
@@ -24,7 +25,7 @@ export function AppReducer(state = initialState, action: ActionsTypes): initType
 
 export const initializedSuccess = () => ({type: 'APP/SET-INITIALIZED'} as const)
 
-export const initializeAppThunk = () => (dispatch: AppDispatchType) => {
+export const initializeAppThunk = () => (dispatch: Dispatch) => {
     // @ts-ignore
     let promise = dispatch(getUserAutMeThunk())
     Promise.all([promise])

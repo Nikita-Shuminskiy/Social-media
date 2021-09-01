@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ProfileUsersType } from '../Redux/React_Redux_StoreType/types/StateType';
 
 
 
@@ -15,6 +14,23 @@ export type UpdatePhotoType = {
         small: string
         large: string
     }
+}
+export type ProfileUserDataType = {
+    "aboutMe": string,
+    "contacts": {
+        "facebook": string
+        'website': string
+        'vk': string
+        'twitter': string
+        'instagram': string
+        'youtube': string
+        'github': string
+        'mainLink': string
+    }
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
 }
 
 export const usersAPI = {
@@ -55,19 +71,23 @@ export const profileAPI = {
     updateStatus(status:string){
         return instance.put( 'profile/status', {status})
     },
-    updateProfileData(profile:ProfileUsersType){
-        return instance.put( 'profile', {profile})
+    updateProfileData(profile:ProfileUserDataType){
+        return instance.put( 'profile', profile)
     }
 }
 export const authMeAPI= {
     Me() {
         return instance.get(`auth/me`,)
     },
-    login(email:string,password:number,rememberMe:boolean){
-        return instance.post('auth/login', {email,password,rememberMe})
+    login(email:string,password:number,rememberMe:boolean,captcha:string | null){
+        return instance.post('auth/login', {email,password,rememberMe,captcha})
     },
     logout(){
         return instance.delete('auth/login')
+    },
+    captcha(){
+        return instance.get<{url:string}>('security/get-captcha-url')
     }
 }
+
 

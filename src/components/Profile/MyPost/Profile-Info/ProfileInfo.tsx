@@ -1,12 +1,12 @@
 import React from 'react'
-import { ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import s from './ProfileInfo.module.css';
 import { Profile } from './Profile';
 import MyPostContainer from '../MyPostContainer';
 
 
 type ProfileInfoType = {
-    profileUsers: ProfileUsersType
+    profileUsers: ProfilePageType
     status: string
     updateStatusThunk: (status: string) => void
     owner: number

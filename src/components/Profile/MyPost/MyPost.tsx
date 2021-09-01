@@ -1,7 +1,7 @@
 import React  from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { PostType, ProfileUsersType } from '../../../Redux/React_Redux_StoreType/types/StateType';
+import { PostType, ProfilePageType } from '../../../Redux/React_Redux_StoreType/types/StateType';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../../Utils/Validators/Validators';
 import { TextControlForm } from '../../Common/FormControls/FormControls';
@@ -10,14 +10,14 @@ import { TextControlForm } from '../../Common/FormControls/FormControls';
 type MyPostType = {
     addPost: (text: string) => void
     postData: PostType[]
-    profileUsers: ProfileUsersType
+    profileUsers: ProfilePageType
 }
 
 
 const MyPost = (props: MyPostType) => {
     const PostElementData = props.postData.map(p => <Post key={p.id} post={p.message}
                                                           like={p.likesCount}
-                                                          img={props.profileUsers.photos.large !== null ? props.profileUsers.photos.small
+                                                          img={props.profileUsers.profileUsers.photos.large !== null ? props.profileUsers.profileUsers.photos.large
                                                               :
                                                               p.img}/>)
 
@@ -27,7 +27,7 @@ const MyPost = (props: MyPostType) => {
     }
     return (
         <div className={s.item}>
-            <img className={s.imgPost} src={props.profileUsers.photos.small} />
+            <img className={s.imgPost} src={props.profileUsers.profileUsers.photos.small} />
                 <AddProfileReduxForm onSubmit={onSubmit}/>
                 {PostElementData}
         </div>

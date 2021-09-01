@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css'
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
-import { ProfileUsersType } from '../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType, ProfileUsersType } from '../../Redux/React_Redux_StoreType/types/StateType';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
@@ -18,12 +18,12 @@ import {
 
 
 type PathParamsType = {
-    userId: number
+    userId: string | undefined
 }
 type MapStateToPropsType = {
-    profileUsers: ProfileUsersType
+    profileUsers: ProfilePageType
     status: string
-    authID: number
+    authID:any
 }
 type MapStateDispatchToPropsType = {
     getUserProfileThunk: (userId: number) => void
@@ -37,7 +37,7 @@ type MapStateDispatchToPropsType = {
 type ProfileContainerType = MapStateToPropsType & MapStateDispatchToPropsType
 
 
-// @ts-ignore
+
 type PropsProfileContainerType = RouteComponentProps<PathParamsType> & ProfileContainerType
 
 export type State = {}
@@ -51,8 +51,8 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
                 this.props.history.push('/login')
             }
         }
-        this.props.getUserProfileThunk(userId)
-        this.props.getStatusThunk(userId)
+        this.props.getUserProfileThunk(Number(userId))
+        this.props.getStatusThunk(Number(userId))
     }
 
     componentDidMount() {
@@ -69,7 +69,10 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
     render() {
         return (
             <>
-                <ProfileInfo {...this.props} updProfileData={this.props.updProfileDataThunk} updatePhoto={this.props.updatePhotoThunk} owner={this.props.match.params.userId} updateStatusThunk={this.props.updateStatusThunk} status={this.props.status}
+                <ProfileInfo {...this.props} updProfileData={this.props.updProfileDataThunk}
+                             updatePhoto={this.props.updatePhotoThunk}
+                             owner={Number(this.props.match.params.userId)}
+                             updateStatusThunk={this.props.updateStatusThunk} status={this.props.status}
                              profileUsers={this.props.profileUsers}/>
             </>
         )
@@ -78,9 +81,9 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
 
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    profileUsers: state.profile.profileUsers,
+    profileUsers: state.profile,
     status: state.profile.status,
-    authID: state.authMe.data.id,
+    authID: state.authMe.id,
 })
 
 

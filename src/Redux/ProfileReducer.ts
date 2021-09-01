@@ -32,8 +32,8 @@ const initialState: ProfilePageType = {
         userId: 0,
         photos: {
             small: '',
-                large: ''
-        }
+            large: ''
+        },
     },
     status: '',
 }
@@ -46,8 +46,8 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
                 id: v1(),
                 message: action.newMessage,
                 likesCount: 0,
-                img: state.profileUsers?.photos?.small ?
-                    state.profileUsers?.photos?.small
+                img: state.profileUsers.photos.small ?
+                    state.profileUsers.photos.small
                     :
                     'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
             }
@@ -63,7 +63,7 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
             return {...state, postData: state.postData.filter((f) => f.id !== action.id)}
 
         case 'PROFILE/UPDATE-PHOTO-USER':
-            return {...state, profileUsers: {...state.profileUsers, photos: action.photo}}
+            return {...state, profileUsers:{...state.profileUsers,  photos: action.photo}}
         default:
             return state
     }
@@ -87,6 +87,18 @@ export const getUserProfileThunk = (userId: number) => {
             })
     }
 }
+/*export const saveProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const response = await profileAPI.saveProfile(profile);
+
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfile(userId));
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
+        return Promise.reject(response.data.messages[0]);
+    }
+}*/
+
 export const updProfileDataThunk = (data:ProfileUsersType) => {
     return (dispatch: Dispatch, getState:AppStateType) => {
         profileAPI.updateProfileData(data)
