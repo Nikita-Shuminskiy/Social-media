@@ -1,6 +1,6 @@
 ﻿import React, { ComponentType } from 'react';
 import './App.css'
-import { BrowserRouter, HashRouter, Route, Switch, withRouter } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { connect, Provider } from 'react-redux';
 import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
@@ -17,13 +17,21 @@ const Musick = React.lazy(() => import( './components/Musick/Musick'))
 const Login = React.lazy(() => import( './components/Login/LoginForm'))
 
 type AppPropsType = {
-    initializeThunk: () => void
+    initializeAppThunk: () => void
     initialized: boolean
 }
 
 class App extends React.Component<AppPropsType> {
+
+    catchAllErrors = ( () => {
+        alert('Errors Global')
+    })
     componentDidMount() {
-        this.props.initializeThunk()
+        this.props.initializeAppThunk()
+        window.addEventListener('unhandledrejection', this.catchAllErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllErrors)
     }
 
     render() {
@@ -38,11 +46,13 @@ class App extends React.Component<AppPropsType> {
                 <div className={'app-wrapper-content'}>
                     <React.Suspense fallback={<Loader/>}>
                         <Switch>
+                            <Route exact path={'/'} render={() => <Redirect to={'/profile'} />}/>
                             <Route path={'/profile/:userId?'} component={ProfileContainer}/>
                             <Route path={'/dialogs'} component={DialogsContainer}/>
                             <Route path={'/users'} component={UserContainer}/>
                             <Route path={'/login'} component={Login}/>
                             <Route path={'/musick'} component={Musick}/>
+                            <Route path={'*'} render={() => <div>404 not found</div>}/>
                         </Switch>
                     </React.Suspense>
                 </div>
@@ -57,13 +67,16 @@ const mapStateToProps = (state: AppStateType) => ({
     initialized: state.appReducer.initialized
 })
 
-const AppContainer = compose<ComponentType>(connect(mapStateToProps, {initializeThunk: initializeAppThunk}), withRouter)(App)
+const AppContainer = compose<ComponentType>
+(connect(mapStateToProps,
+    {initializeAppThunk}),
+    withRouter)(App)
 
 const GlobalAppComponent = () => {
-    return (<HashRouter>
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </HashRouter>)
+    </HashRouter>
 }
 export default GlobalAppComponent

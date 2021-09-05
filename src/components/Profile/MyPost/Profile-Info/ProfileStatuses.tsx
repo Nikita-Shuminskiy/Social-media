@@ -9,19 +9,18 @@ export const ProfileStatuses = (props: ProfileStatusesType) => {
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(props.status)
 
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
     const activateEditModeSpan = () => {
-        setEditMode(!false)
+        setEditMode(true)
         setStatus(props.status)
     }
     const deactivateEditMode = () => {
         setEditMode(false)
         props.updateStatusThunk(status)
     }
-
-    useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
 
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-
 const instance = axios.create({
     withCredentials: true,
     headers: {'API-KEY': '978dde1d-b974-4ee1-a942-d32857675e96'},
@@ -16,27 +15,28 @@ export type UpdatePhotoType = {
     }
 }
 export type ProfileUserDataType = {
-    "aboutMe": string,
-    "contacts": {
-        "facebook": string
-        'website': string
-        'vk': string
-        'twitter': string
-        'instagram': string
-        'youtube': string
-        'github': string
-        'mainLink': string
+    aboutMe: string,
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     }
-    "lookingForAJob": boolean,
-    "lookingForAJobDescription": string,
-    "fullName": string,
-    "userId": number,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
 }
+
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => {
-            return response.data
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(res => {
+            return res.data
         })
     },
     followApi(id: number) {
@@ -69,7 +69,7 @@ export const profileAPI = {
         return instance.get( 'profile/status/' + userId)
     },
     updateStatus(status:string){
-        return instance.put( 'profile/status', {status})
+        return instance.put( 'profile/status', status)
     },
     updateProfileData(profile:ProfileUserDataType){
         return instance.put( 'profile', profile)

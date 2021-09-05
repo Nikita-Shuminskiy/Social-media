@@ -113,8 +113,12 @@ export const getStatusThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                dispatch(setProfileStatus(response.data))
-            })
+                if(response.data.resultCode === 0){
+                    dispatch(setProfileStatus(response.data))
+                }
+            }).catch(rej =>{
+                alert(rej.data.messages)
+        })
     }
 }
 

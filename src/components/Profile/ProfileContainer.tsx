@@ -23,7 +23,7 @@ type PathParamsType = {
 type MapStateToPropsType = {
     profileUsers: ProfilePageType
     status: string
-    authID:any
+    authID: number | null
 }
 type MapStateDispatchToPropsType = {
     getUserProfileThunk: (userId: number) => void
@@ -31,13 +31,9 @@ type MapStateDispatchToPropsType = {
     updateStatusThunk: (status: string) => void
     updatePhotoThunk: (photo: string) => void
     updProfileDataThunk: (data: ProfileUsersType) => void
-
 }
 
 type ProfileContainerType = MapStateToPropsType & MapStateDispatchToPropsType
-
-
-
 type PropsProfileContainerType = RouteComponentProps<PathParamsType> & ProfileContainerType
 
 export type State = {}
@@ -46,7 +42,7 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
     refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = this.props.authID
+            userId = String(this.props.authID)
             if (!userId) {
                 this.props.history.push('/login')
             }

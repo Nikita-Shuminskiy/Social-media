@@ -14,7 +14,7 @@ export type UserType = {
     error: null
 }
 export type DataUsersTye = {
-    dataUsers: UserType[]
+    dataUsers:  UserType[]
     totalCount: number
     currentPage: number
     pageSize: number
@@ -22,7 +22,7 @@ export type DataUsersTye = {
     disabledInProgressUser: Array<number>
 }
 const initialState: DataUsersTye = {
-    dataUsers: [],
+    dataUsers:  [],
     totalCount: 10,
     currentPage: 1,
     pageSize: 10,
