@@ -27,7 +27,7 @@ const MyPost = (props: MyPostType) => {
     }
     return (
         <div className={s.item}>
-            <img className={s.imgPost} src={props.profileUsers.profileUsers.photos.small} />
+            <img className={s.imgPost} src={props.profileUsers.profileUsers.photos.small !== null ? props.profileUsers.profileUsers.photos.small : '' } />
                 <AddProfileReduxForm onSubmit={onSubmit}/>
                 {PostElementData}
         </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ProfileUsersType } from '../../../../../Redux/React_Redux_StoreType/types/StateType';
+import { GetProfileUserType } from '../../../../../Api/Api';
 
 type ProfileDataType = {
-    profileUsers: ProfileUsersType
+    profileUsers: GetProfileUserType
     openEditMenu: () => void
 }
 

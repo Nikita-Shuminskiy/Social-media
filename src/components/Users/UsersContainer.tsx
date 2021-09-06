@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
-import {
-    getUserThunk, followThunk, unfollowThunk, UserType
-} from '../../Redux/UsersReducer';
+import { followThunk, getUserThunk, unfollowThunk } from '../../Redux/UsersReducer';
 import { Users } from './Users';
 import Loader from '../Common/Loader/Loader';
 import {
@@ -14,11 +12,12 @@ import {
     progressDisabledUsers,
     totalCountUsers
 } from './UserSelectors';
+import { ApiUserType } from '../../Api/Api';
 
 
 type MapStateToProps = {
+    users: ApiUserType[]
     isFetching: boolean
-    users: any
     pageSize: number
     currentPage: number
     totalCount: number
@@ -30,16 +29,13 @@ type MapDispatchToProps = {
     followThunk: (id: number) => void
     unfollowThunk: (id: number) => void
 }
-
 type UsersContainerType = MapDispatchToProps & MapStateToProps
 
-export type State = {}
 
-class UsersContainer extends React.Component<UsersContainerType, State> {
+class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
         this.props.getUserThunk(this.props.currentPage, this.props.pageSize)
     }
-
     pageClickChange = (page: number) => {
         this.props.getUserThunk(page, this.props.pageSize)
     }
@@ -49,7 +45,6 @@ class UsersContainer extends React.Component<UsersContainerType, State> {
         return (
             <>
                 {this.props.isFetching ? <Loader/> : null}
-
                 <Users users={this.props.users}
                        totalCount={this.props.totalCount}
                        currentPage={this.props.currentPage}
@@ -77,7 +72,8 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default connect(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer)
+// @ts-ignore
+export default connect<MapStateToProps,MapDispatchToProps>(mapStateToProps, {getUserThunk, followThunk, unfollowThunk})(UsersContainer)
 
 
 

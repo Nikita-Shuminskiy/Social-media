@@ -1,24 +1,24 @@
-import { applyMiddleware, combineReducers, compose, createStore, Dispatch } from 'redux';
+import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
 import { DialogReducer, sendMessage } from './DialogReducer';
 import { addPost, deletePost, ProfileReducer, setProfileStatus, setProfileUser, updatePhoto } from './ProfileReducer';
 import {
-    setCurrentPages,
     follow,
+    setCurrentPages,
+    setIsFetching,
+    setTotalUserCount,
     setUsers,
     unFollow,
-    setTotalUserCount,
-    UsersReducer,
-    setIsFetching,
-    userDissableButton
+    userDissableButton,
+    UsersReducer
 } from './UsersReducer';
-import { AuthReducer, captchaUrl,setUserDataAuthMe } from './Auth_Reducer';
+import { AuthReducer, captchaUrl, setUserDataAuthMe } from './Auth_Reducer';
 import { SideBarReducer } from './SideBar_Reducer';
 import ThunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import { AppReducer, initializedSuccess } from './App-reducer';
 
 export type ActionsTypes =
-    ReturnType<typeof addPost>
+    | ReturnType<typeof addPost>
     | ReturnType<typeof sendMessage>
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
@@ -54,7 +54,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 
-/*export type StoreType = typeof store;*/
+
 // @ts-ignore
 window.store = store
 

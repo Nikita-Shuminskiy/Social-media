@@ -1,36 +1,21 @@
-import { usersAPI } from '../Api/Api'
+import { ApiUserType, usersAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
-export type UserType = {
-    name: string
-    id: number
-    photos: {
-        small: string
-        large: string
-    }
-    status: string | null
-    followed: boolean
-    totalCount: number
-    error: null
-}
-export type DataUsersTye = {
-    dataUsers:  UserType[]
-    totalCount: number
-    currentPage: number
-    pageSize: number
-    isFetching: boolean
-    disabledInProgressUser: Array<number>
-}
-const initialState: DataUsersTye = {
-    dataUsers:  [],
+
+
+type InitStateType = typeof initialState
+
+const initialState = {
+    dataUsers:  [] as ApiUserType[],
     totalCount: 10,
     currentPage: 1,
     pageSize: 10,
     isFetching: false,
-    disabledInProgressUser: [],
+    disabledInProgressUser: [] as Array<number>,
 }
 
-export function UsersReducer(state: DataUsersTye = initialState, action: ActionsTypes): DataUsersTye {
+
+export function UsersReducer(state = initialState, action: ActionsTypes): InitStateType {
     switch (action.type) {
         case 'USER/Follow':
             return {
@@ -64,24 +49,25 @@ export function UsersReducer(state: DataUsersTye = initialState, action: Actions
     }
 }
 
+
+
+//action
 export const userDissableButton = (disFetching: boolean, idUser: number) => ({
     type: 'USER/TOGGLE-DISABLED-BUTTON-USER',
     disFetching,
     idUser
 } as const)
-
 export const follow = (userId: number) => ({type: 'USER/Follow', userId} as const)
-
 export const unFollow = (userId: number) => ({type: 'USER/Un-Follow', userId} as const)
-
-export const setUsers = (users: UserType[]) => ({type: 'USER/Set-UsersContainerAPI', users} as const)
-
+export const setUsers = (users: ApiUserType[]) => ({type: 'USER/Set-UsersContainerAPI', users} as const)
 export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'USER/CURRENT-PAGES', pageNumberCurrent} as const)
-
 export const setTotalUserCount = (totalCount: number) => ({type: 'USER/TOTAL-USER-COUNT', totalCount} as const)
-
 export const setIsFetching = (isFetching: boolean) => ({type: 'USER/Toggle is fetching', isFetching} as const)
 
+
+
+
+//thunk
 export const getUserThunk = (currentPage: number, pageSize: number) => {
     return (dispatch: AppDispatchType) => {
         dispatch(setIsFetching(true))

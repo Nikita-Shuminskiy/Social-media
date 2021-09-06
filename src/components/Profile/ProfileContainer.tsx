@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css'
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
-import { ProfilePageType, ProfileUsersType } from '../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType } from '../../Redux/React_Redux_StoreType/types/StateType';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
@@ -14,6 +14,7 @@ import {
     updatePhotoThunk,
     updProfileDataThunk
 } from '../../Redux/ProfileReducer';
+import { GetProfileUserType } from '../../Api/Api';
 
 
 
@@ -30,7 +31,7 @@ type MapStateDispatchToPropsType = {
     getStatusThunk: (userId: number) => void
     updateStatusThunk: (status: string) => void
     updatePhotoThunk: (photo: string) => void
-    updProfileDataThunk: (data: ProfileUsersType) => void
+    updProfileDataThunk: (data: GetProfileUserType) => void
 }
 
 type ProfileContainerType = MapStateToPropsType & MapStateDispatchToPropsType

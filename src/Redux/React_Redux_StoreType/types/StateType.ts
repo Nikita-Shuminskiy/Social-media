@@ -1,3 +1,4 @@
+import { GetProfileUserType } from '../../../Api/Api';
 
 export type PostType = {
     id: string
@@ -6,44 +7,9 @@ export type PostType = {
     img: string
 }
 
-
-/*export type ContactUserType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-
-}*/
-
-export type ProfileUsersType = {
-    aboutMe: string,
-    contacts: {
-        "facebook": string
-        'website': string
-        'vk': string
-        'twitter': string
-        'instagram': string
-        'youtube': string
-        'github': string
-        'mainLink': string
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
-}
-
 export type ProfilePageType = {
     postData: Array<PostType>
-    profileUsers: ProfileUsersType
+    profileUsers: GetProfileUserType
     status:string
 }
 export type MessageType = {

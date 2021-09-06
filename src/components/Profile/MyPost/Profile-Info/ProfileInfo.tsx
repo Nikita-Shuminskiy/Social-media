@@ -1,8 +1,9 @@
 import React from 'react'
-import { ProfilePageType, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import s from './ProfileInfo.module.css';
 import { Profile } from './Profile';
 import MyPostContainer from '../MyPostContainer';
+import { GetProfileUserType } from '../../../../Api/Api';
 
 
 type ProfileInfoType = {
@@ -11,7 +12,7 @@ type ProfileInfoType = {
     updateStatusThunk: (status: string) => void
     owner: number
     updatePhoto: (photo: string) => void
-    updProfileData: (data: ProfileUsersType) => void
+    updProfileData: (data: GetProfileUserType) => void
 }
 export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 

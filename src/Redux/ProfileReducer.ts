@@ -1,5 +1,5 @@
-import { profileAPI, usersAPI } from '../Api/Api';
-import { PostType, ProfilePageType, ProfileUsersType } from './React_Redux_StoreType/types/StateType';
+import { GetProfileUserType, profileAPI, usersAPI } from '../Api/Api';
+import { PostType, ProfilePageType } from './React_Redux_StoreType/types/StateType';
 import { ActionsTypes, AppStateType } from './Redux_Store';
 import { v1 } from 'uuid';
 import { Dispatch } from 'redux';
@@ -71,7 +71,7 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
 
 export const addPost = (newMessage: string) => ({type: 'PROFILE/ADD-POST', newMessage} as const)
 
-export const setProfileUser = (profile: ProfileUsersType) => ({type: 'PROFILE/SET-PROFILE-USER', profile} as const)
+export const setProfileUser = (profile: GetProfileUserType) => ({type: 'PROFILE/SET-PROFILE-USER', profile} as const)
 
 export const setProfileStatus = (status: string) => ({type: 'PROFILE/SET-PROFILE-STATUS', status} as const)
 
@@ -99,12 +99,12 @@ export const getUserProfileThunk = (userId: number) => {
     }
 }*/
 
-export const updProfileDataThunk = (data:ProfileUsersType) => {
+export const updProfileDataThunk = (data:GetProfileUserType) => {
     return (dispatch: Dispatch, getState:AppStateType) => {
         profileAPI.updateProfileData(data)
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    dispatch(setProfileUser(response.data))
+                    dispatch(setProfileUser(response.data.data))
                 }
             })
     }
@@ -113,11 +113,9 @@ export const getStatusThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                if(response.data.resultCode === 0){
                     dispatch(setProfileStatus(response.data))
-                }
-            }).catch(rej =>{
-                alert(rej.data.messages)
+            }).catch( () => {
+                alert('err status')
         })
     }
 }
@@ -136,7 +134,7 @@ export const updatePhotoThunk = (photo:string) => (dispatch:Dispatch) => {
     profileAPI.updPhoto(photo)
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(updatePhoto(response.data.data.photos))
+                dispatch(updatePhoto(response.data.data))
             }
         })
 }

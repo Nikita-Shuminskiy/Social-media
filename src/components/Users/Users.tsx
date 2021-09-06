@@ -1,13 +1,13 @@
 import React from 'react';
 import s from './Users.module.css';
-import { UserType } from '../../Redux/UsersReducer';
 import { User } from './User/User';
 import { Paginator } from '../Common/Paginator/Paginator';
+import { ApiUserType } from '../../Api/Api';
 
 
 export type UserComponentType = {
     pageClickChange: (page: number) => void
-    users: UserType[]
+    users: ApiUserType[]
     pageSize: number
     currentPage: number
     totalCount: number

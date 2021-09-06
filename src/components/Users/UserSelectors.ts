@@ -1,9 +1,18 @@
 import { createSelector } from 'reselect';
 import { AppStateType } from '../../Redux/Redux_Store';
 
+
+
+
+
 function getUsersSelector(state: AppStateType) {
     return state.usersData.dataUsers
 }
+
+export const getUsers = createSelector(getUsersSelector, (dataUsers) => {
+    return dataUsers.filter( user => true)
+})
+
 
 export function pageSizeUsers(state: AppStateType) {
     return state.usersData.pageSize
@@ -25,7 +34,3 @@ export function progressDisabledUsers(state: AppStateType) {
     return state.usersData.disabledInProgressUser
 }
 
-export const getUsers = createSelector(getUsersSelector,
-    (dataUsers) => {
-        if (dataUsers) return dataUsers
-    })

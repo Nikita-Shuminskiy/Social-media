@@ -6,36 +6,11 @@ const instance = axios.create({
     headers: {'API-KEY': '978dde1d-b974-4ee1-a942-d32857675e96'},
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
-export type UpdatePhotoType = {
-    resultCode: number
-    messages: Array<string>,
-    data: {
-        small: string
-        large: string
-    }
-}
-export type ProfileUserDataType = {
-    aboutMe: string,
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    }
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-}
 
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(res => {
+        return instance.get<GetUserType>(`users?page=${currentPage}&count=${pageSize}`).then(res => {
             return res.data
         })
     },
@@ -47,19 +22,18 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`)
     },
     userIdAPI(userId:number) {
-        return  instance.get( 'profile/' + userId)
+        return  instance.get<GetProfileUserType>( 'profile/' + userId)
     }
 }
 export const profileAPI = {
-    getProfile(userId:number) {
+    /*getProfile(userId:number) {
         console.warn('Obsolete method.Please profileAPI object')
         return  usersAPI.userIdAPI(userId)
-    },
+    },*/
     updPhoto(image:string) {
         const formData = new FormData()
         formData.append('image',image)
-
-        return instance.put('profile/photo', formData, {
+        return instance.put<GeneralType<PhotosProfileType>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -69,21 +43,21 @@ export const profileAPI = {
         return instance.get( 'profile/status/' + userId)
     },
     updateStatus(status:string){
-        return instance.put( 'profile/status', status)
+        return instance.put<GeneralType>( 'profile/status', {status})
     },
-    updateProfileData(profile:ProfileUserDataType){
-        return instance.put( 'profile', profile)
+    updateProfileData(profile:GetProfileUserType){
+        return instance.put<GeneralType<GetProfileUserType>>( 'profile', profile)
     }
 }
 export const authMeAPI= {
     Me() {
-        return instance.get(`auth/me`,)
+        return instance.get<GeneralType<MeType>>(`auth/me`)
     },
     login(email:string,password:number,rememberMe:boolean,captcha:string | null){
-        return instance.post('auth/login', {email,password,rememberMe,captcha})
+        return instance.post<GeneralType<{userId:number}>>('auth/login', {email,password,rememberMe,captcha})
     },
     logout(){
-        return instance.delete('auth/login')
+        return instance.delete<GeneralType>('auth/login')
     },
     captcha(){
         return instance.get<{url:string}>('security/get-captcha-url')
@@ -91,3 +65,54 @@ export const authMeAPI= {
 }
 
 
+
+
+type ProfileContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+export type PhotosProfileType = {
+    small: string
+    large: string
+}
+export type GetProfileUserType = {
+    aboutMe: string
+    contacts: ProfileContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosProfileType
+}
+
+export  type ApiUserType = {
+    name: string
+    id: number
+    uniqueUrlName: null | string
+    photos: PhotosProfileType
+    status: null | string
+    followed: boolean
+}
+
+type GetUserType = {
+    items: Array<ApiUserType>
+    totalCount: number
+    error: string
+}
+type MeType = {
+    id: number
+    login: string
+    email: string
+}
+type GeneralType<D = {}> = {
+    data: D
+    messages: Array<string>
+    fieldsErrors?: Array<string>
+    resultCode: number
+}

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import s from './ProfileInfo.module.css';
-import { ProfilePageType, ProfileUsersType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
+import { ProfilePageType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 import { ProfileStatuses } from './ProfileStatuses';
 import ProfileData from './ProfileData/ProfileData';
 import ProfileDataReduxForm  from './ProfileData/ProfileDataForm';
+import { GetProfileUserType } from '../../../../Api/Api';
 
 
 export type ProfileType = {
@@ -15,7 +16,7 @@ export type ProfileType = {
     updateStatusThunk: (status: string) => void
     updatePhoto: (photo: string) => void
     owner: number
-    updProfileData: (data: ProfileUsersType) => void
+    updProfileData: (data: GetProfileUserType) => void
 }
 export const Profile: React.FC<ProfileType> = (props) => {
     const [editMode,setEditMode] = useState(false)
@@ -28,7 +29,7 @@ export const Profile: React.FC<ProfileType> = (props) => {
         }
     }
 
-    const onSubmit = (value:ProfileUsersType) => {
+    const onSubmit = (value:GetProfileUserType) => {
         console.log(value)
         setEditMode(false)
         props.updProfileData(value)

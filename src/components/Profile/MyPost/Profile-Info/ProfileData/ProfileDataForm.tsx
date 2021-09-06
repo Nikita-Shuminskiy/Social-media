@@ -1,12 +1,11 @@
 import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { TextControlForm } from '../../../../Common/FormControls/FormControls';
-import { maxLengthCreator, required } from '../../../../../Utils/Validators/Validators';
-import { ProfileUsersType } from '../../../../../Redux/React_Redux_StoreType/types/StateType';
+import { GetProfileUserType } from '../../../../../Api/Api';
 
 type FormData = {
-    profileUsers: ProfileUsersType
-    initialValues:ProfileUsersType
+    profileUsers: GetProfileUserType
+    initialValues:GetProfileUserType
 }
 
 const ProfileDataForm: React.FC<FormData & InjectedFormProps<{}, FormData>> = (props: FormData & InjectedFormProps<{}, FormData>) => {
