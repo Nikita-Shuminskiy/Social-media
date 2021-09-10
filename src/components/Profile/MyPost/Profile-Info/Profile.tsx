@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import s from './ProfileInfo.module.css';
 import { ProfilePageType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
-import Loader from '../../../Common/Loader/Loader';
 import Photos
     from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 import { ProfileStatuses } from './ProfileStatuses';
-import ProfileData from './ProfileData/ProfileData';
-import ProfileDataReduxForm  from './ProfileData/ProfileDataForm';
 import { GetProfileUserType } from '../../../../Api/Api';
+import Button from '@material-ui/core/Button';
+import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
+import ProfileData from './ProfileData/ProfileData';
+import ProfileFormikDataForm from './ProfileData/ProfileFormikDataForm';
 
 
 export type ProfileType = {
@@ -18,10 +19,24 @@ export type ProfileType = {
     owner: number
     updProfileData: (data: GetProfileUserType) => void
 }
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: 'none',
+    },
+}));
+
 export const Profile: React.FC<ProfileType> = (props) => {
-    const [editMode,setEditMode] = useState(false)
+    const classes = useStyles();
+    const [editMode, setEditMode] = useState(false)
     if (!props.profileUsers) {
-        return <Loader/>
+        return <CircularProgress/>
     }
     const uploadPhoto = (e: any) => {
         if (e.target.files.length) {
@@ -29,32 +44,46 @@ export const Profile: React.FC<ProfileType> = (props) => {
         }
     }
 
-    const onSubmit = (value:GetProfileUserType) => {
-        console.log(value)
-        setEditMode(false)
-        props.updProfileData(value)
-    }
     const openEditMenu = () => setEditMode(true)
-    return (
-        <div className={s.container}>
-            <div>
-                <img className={s.img_avatar}
-                     src={props.profileUsers.profileUsers.photos.small !== null ? props.profileUsers.profileUsers.photos.small : Photos}/>
-                <div>
-                    {!props.owner && <input type={'file'} onChange={uploadPhoto}/>}
-                </div>
-            </div>
-            <div className={s.info}>
-                <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
-                <div>
-                    {editMode ?
 
-                        // @ts-ignore
-                        <ProfileDataReduxForm initialValues={props.profileUsers} profileUsers={props.profileUsers} onSubmit={onSubmit}/>
-                        :
-                        <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
-                </div>
-            </div>
-        </div>
+    return (
+        <Grid >
+           <Grid item xs={4}>
+               <div>
+                   <img className={s.img_avatar}
+                        src={props.profileUsers.photos.small
+                            ? props.profileUsers.photos.small
+                            : Photos}/>
+
+                   <div>
+                       {!props.owner &&
+                       <div>
+                           <input
+                               accept="image/*"
+                               className={classes.input}
+                               id="contained-button-file"
+                               multiple
+                               type="file"
+                               onChange={uploadPhoto}
+                           />
+                           <label htmlFor="contained-button-file">
+                               <Button variant="contained" color="primary" component="span">
+                                   Upload
+                               </Button>
+                           </label>
+                       </div>}
+                   </div>
+               </div>
+               <div className={s.info}>
+                   <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                   <div>
+                       {editMode ?
+                           <ProfileFormikDataForm setEditMode={setEditMode} updProfileData={props.updProfileData}/>
+                           :
+                           <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
+                   </div>
+               </div>
+           </Grid>
+        </Grid>
     )
 }

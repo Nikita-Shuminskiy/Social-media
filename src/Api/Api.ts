@@ -53,8 +53,8 @@ export const authMeAPI= {
     Me() {
         return instance.get<GeneralType<MeType>>(`auth/me`)
     },
-    login(email:string,password:number,rememberMe:boolean,captcha:string | null){
-        return instance.post<GeneralType<{userId:number}>>('auth/login', {email,password,rememberMe,captcha})
+    login( data:LoginUserDataType){
+        return instance.post<GeneralType<{userId:number}>>('auth/login', data)
     },
     logout(){
         return instance.delete<GeneralType>('auth/login')
@@ -65,9 +65,14 @@ export const authMeAPI= {
 }
 
 
+export type LoginUserDataType = {
+    email:string
+    password: null | number
+    rememberMe:boolean
+    captcha:string | null
+}
 
-
-type ProfileContactsType = {
+export type ProfileContactsType = {
     facebook: string
     website: string
     vk: string
@@ -77,18 +82,27 @@ type ProfileContactsType = {
     github: string
     mainLink: string
 }
+
+export type GetProfileUserType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    fullName: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    }
+}
 export type PhotosProfileType = {
     small: string
     large: string
-}
-export type GetProfileUserType = {
-    aboutMe: string
-    contacts: ProfileContactsType
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: PhotosProfileType
 }
 
 export  type ApiUserType = {

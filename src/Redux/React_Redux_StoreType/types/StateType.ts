@@ -1,4 +1,4 @@
-import { GetProfileUserType } from '../../../Api/Api';
+import { GetProfileUserType, PhotosProfileType } from '../../../Api/Api';
 
 export type PostType = {
     id: string
@@ -10,6 +10,7 @@ export type PostType = {
 export type ProfilePageType = {
     postData: Array<PostType>
     profileUsers: GetProfileUserType
+    photos:PhotosProfileType
     status:string
 }
 export type MessageType = {

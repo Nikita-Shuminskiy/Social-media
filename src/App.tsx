@@ -14,7 +14,7 @@ const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsC
 const UserContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const Musick = React.lazy(() => import( './components/Musick/Musick'))
-const Login = React.lazy(() => import( './components/Login/LoginForm'))
+const LoginContainer = React.lazy(() => import('./components/Login/LoginContainer'))
 
 type AppPropsType = {
     initializeAppThunk: () => void
@@ -50,7 +50,7 @@ class App extends React.Component<AppPropsType> {
                             <Route path={'/profile/:userId?'} component={ProfileContainer}/>
                             <Route path={'/dialogs'} component={DialogsContainer}/>
                             <Route path={'/users'} component={UserContainer}/>
-                            <Route path={'/login'} component={Login}/>
+                            <Route path={'/login'} component={LoginContainer}/>
                             <Route path={'/musick'} component={Musick}/>
                             <Route path={'*'} render={() => <div>404 not found</div>}/>
                         </Switch>

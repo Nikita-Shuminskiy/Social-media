@@ -1,4 +1,4 @@
-import { authMeAPI } from '../Api/Api'
+import { authMeAPI, LoginUserDataType } from '../Api/Api'
 import { ActionsTypes } from './Redux_Store'
 import { stopSubmit } from 'redux-form';
 import { Dispatch } from 'redux';
@@ -19,7 +19,6 @@ export function AuthReducer(state = initialState, action: ActionsTypes): initial
 
     switch (action.type) {
         case 'AUTH/SET-USER-DATA': {
-            debugger
             return {...state, ...action.payload}
         }
         case 'AUTH/GET-CAPTCHA-URL':{
@@ -39,15 +38,14 @@ export const captchaUrl = (url: string) => ({type: 'AUTH/GET-CAPTCHA-URL',  url}
 export const getUserAutMeThunk = () => (dispatch: Dispatch) => {
     return authMeAPI.Me().then(response => {
         if (response.data.resultCode === 0) {
-
             dispatch(setUserDataAuthMe(response.data.data.id, response.data.data.email, response.data.data.login, true))
         }
     })
 }
 
-export const loginThunk = (email: string, password: number, rememberMe: boolean, captcha: string | null) => {
+export const loginThunk = (data:LoginUserDataType) => {
     return (dispatch: Dispatch) => {
-        authMeAPI.login(email, password, rememberMe,captcha)
+        authMeAPI.login(data)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     // @ts-ignore

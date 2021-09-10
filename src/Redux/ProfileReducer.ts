@@ -11,7 +11,7 @@ const initialState: ProfilePageType = {
             id: '1',
             message: 'hello how are you',
             likesCount: 12,
-            img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
+            img: '',
         },
     ],
     profileUsers: {
@@ -30,10 +30,10 @@ const initialState: ProfilePageType = {
         lookingForAJobDescription: '',
         fullName: '',
         userId: 0,
-        photos: {
-            small: '',
-            large: ''
-        },
+    },
+    photos: {
+        small: '',
+        large: ''
     },
     status: '',
 }
@@ -46,10 +46,7 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
                 id: v1(),
                 message: action.newMessage,
                 likesCount: 0,
-                img: state.profileUsers.photos.small ?
-                    state.profileUsers.photos.small
-                    :
-                    'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
+                img: state.photos.small
             }
             return {...state, postData: [postNew,...state.postData]}
 
@@ -63,7 +60,7 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Prof
             return {...state, postData: state.postData.filter((f) => f.id !== action.id)}
 
         case 'PROFILE/UPDATE-PHOTO-USER':
-            return {...state, profileUsers:{...state.profileUsers,  photos: action.photo}}
+            return {...state,  photos: action.photo}
         default:
             return state
     }
@@ -87,17 +84,7 @@ export const getUserProfileThunk = (userId: number) => {
             })
     }
 }
-/*export const saveProfile = (profile) => async (dispatch, getState) => {
-    const userId = getState().auth.userId;
-    const response = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfile(userId));
-    } else {
-        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
-        return Promise.reject(response.data.messages[0]);
-    }
-}*/
 
 export const updProfileDataThunk = (data:GetProfileUserType) => {
     return (dispatch: Dispatch, getState:AppStateType) => {
