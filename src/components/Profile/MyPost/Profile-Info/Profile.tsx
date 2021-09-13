@@ -47,13 +47,13 @@ export const Profile: React.FC<ProfileType> = (props) => {
     const openEditMenu = () => setEditMode(true)
 
     return (
-        <Grid >
-           <Grid item xs={4}>
+        <div className={s.container} >
                <div>
                    <img className={s.img_avatar}
                         src={props.profileUsers.photos.small
                             ? props.profileUsers.photos.small
                             : Photos}/>
+                   <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
 
                    <div>
                        {!props.owner &&
@@ -75,7 +75,6 @@ export const Profile: React.FC<ProfileType> = (props) => {
                    </div>
                </div>
                <div className={s.info}>
-                   <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
                    <div>
                        {editMode ?
                            <ProfileFormikDataForm setEditMode={setEditMode} updProfileData={props.updProfileData}/>
@@ -83,7 +82,6 @@ export const Profile: React.FC<ProfileType> = (props) => {
                            <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
                    </div>
                </div>
-           </Grid>
-        </Grid>
+        </div>
     )
 }

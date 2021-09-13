@@ -21,7 +21,6 @@ const Post = (props: PostType) => {
             <IconButton  onClick={ () => props.deletePost(props.id)}  aria-label="delete">
                 <DeleteIcon  />
             </IconButton>
-
                 <span>  {props.post}</span>
             <span>. {props.like}</span>
         </div>
