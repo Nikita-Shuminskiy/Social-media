@@ -1,10 +1,11 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
 import { PostType, ProfilePageType } from '../../../Redux/React_Redux_StoreType/types/StateType';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Photos from '../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
+import Photos
+    from '../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
 
 
 type MyPostType = {
@@ -37,12 +38,11 @@ const MyPost = (props: MyPostType) => {
                                                           id={p.id}
                                                           post={p.message}
                                                           like={p.likesCount}
-                                                          img={props.profileUsers.photos.large !== null ? props.profileUsers.photos.large
+                                                          img={props.profileUsers?.profileUsers?.photos?.small !== undefined ? props.profileUsers?.profileUsers?.photos.small
                                                               :
                                                               Photos }/>)
 
     return <div className={s.item}>
-            <img className={s.imgPost}  src={props.profileUsers.photos.small !== null ? props.profileUsers.photos.small : ''}/>
             <div>
                 <TextField
                     onChange={onChangePost}

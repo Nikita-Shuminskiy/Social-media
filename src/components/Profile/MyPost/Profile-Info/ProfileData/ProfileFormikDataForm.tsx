@@ -12,8 +12,7 @@ type FormDataProfileType = {
 }
 
 const ProfileFormikDataForm = (props:FormDataProfileType) => {
-    // @ts-ignore
-    const contact = useSelector<AppStateType,ProfileContactsType>(state => state.profile.profileUsers.contacts)
+  /*  const contact = useSelector<AppStateType,ProfileContactsType>(state => state.profile.profileUsers.contacts)*/
 
     const formik = useFormik({
         initialValues: {
@@ -33,32 +32,26 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
             fullName: '',
             userId: 0,
         },
-        validate: (values) => {
-        },
-
         onSubmit: values => {
-            console.log(values)
-            props.setEditMode(false)
             props.updProfileData(values)
-            formik.resetForm()
-        },
+            props.setEditMode(false)
+        }
     })
 
-    return <Grid item xs={10}>
-        <form onSubmit={formik.handleSubmit}>
+    return<form onSubmit={formik.handleSubmit}>
             <FormControl>
                 <FormGroup>
                     <div>
                         <Button type={'submit'} size={'small'} variant={'outlined'} color={'secondary'}>Save Form</Button>
                     </div>
                     <b> Full Name:</b> <TextField
-                    placeholder={'Name - Profile'}
+                    placeholder={'Name'}
                     type={'input'}
                     {...formik.getFieldProps('fullName')}
                 />
 
                     <b>looking For A Job:</b> <FormControlLabel
-                    label={'loking'}
+                    label={'looking For A Job'}
                     control={<Checkbox
                         checked={formik.values.lookingForAJob}
                         {...formik.getFieldProps('lookingForAJob')}
@@ -71,17 +64,14 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                 />
 
                     <b>About Me:</b> <TextField
-                    placeholder={'About - Me'}
+                    placeholder={'About Me'}
                     type={'input'}
                     {...formik.getFieldProps('aboutMe')}
                 />
-
-
                 </FormGroup>
             </FormControl>
                 <div>
             </div>
         </form>
-        </Grid>
 }
 export default ProfileFormikDataForm

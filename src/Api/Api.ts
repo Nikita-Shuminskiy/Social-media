@@ -33,7 +33,7 @@ export const profileAPI = {
     updPhoto(image:string) {
         const formData = new FormData()
         formData.append('image',image)
-        return instance.put<GeneralType<PhotosProfileType>>('profile/photo', formData, {
+        return instance.put<GeneralType<SavePhotoResponseDataType>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -46,7 +46,7 @@ export const profileAPI = {
         return instance.put<GeneralType>( 'profile/status', {status})
     },
     updateProfileData(profile:GetProfileUserType){
-        return instance.put<GeneralType<GetProfileUserType>>( 'profile', profile)
+        return instance.put<GeneralType<GetProfileUserType>>( 'profile', profile).then(res => res.data)
     }
 }
 export const authMeAPI= {
@@ -64,6 +64,10 @@ export const authMeAPI= {
     }
 }
 
+
+type SavePhotoResponseDataType = {
+    photos: PhotosProfileType
+}
 
 export type LoginUserDataType = {
     email:string
@@ -99,7 +103,9 @@ export type GetProfileUserType = {
         github: string
         mainLink: string
     }
+    photos?:PhotosProfileType
 }
+
 export type PhotosProfileType = {
     small: string
     large: string
@@ -130,3 +136,4 @@ type GeneralType<D = {}> = {
     fieldsErrors?: Array<string>
     resultCode: number
 }
+

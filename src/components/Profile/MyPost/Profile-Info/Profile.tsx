@@ -6,7 +6,7 @@ import Photos
 import { ProfileStatuses } from './ProfileStatuses';
 import { GetProfileUserType } from '../../../../Api/Api';
 import Button from '@material-ui/core/Button';
-import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles } from '@material-ui/core';
 import ProfileData from './ProfileData/ProfileData';
 import ProfileFormikDataForm from './ProfileData/ProfileFormikDataForm';
 
@@ -50,11 +50,8 @@ export const Profile: React.FC<ProfileType> = (props) => {
         <div className={s.container} >
                <div>
                    <img className={s.img_avatar}
-                        src={props.profileUsers.photos.small
-                            ? props.profileUsers.photos.small
-                            : Photos}/>
+                        src={props.profileUsers?.profileUsers?.photos?.large !== undefined ? props.profileUsers?.profileUsers?.photos?.large : Photos}/>
                    <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
-
                    <div>
                        {!props.owner &&
                        <div>
@@ -75,12 +72,10 @@ export const Profile: React.FC<ProfileType> = (props) => {
                    </div>
                </div>
                <div className={s.info}>
-                   <div>
                        {editMode ?
                            <ProfileFormikDataForm setEditMode={setEditMode} updProfileData={props.updProfileData}/>
                            :
                            <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
-                   </div>
                </div>
         </div>
     )

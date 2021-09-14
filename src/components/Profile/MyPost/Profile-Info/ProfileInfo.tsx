@@ -17,7 +17,7 @@ type ProfileInfoType = {
 export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
 
     return (
-        <>
+        <div className={s.container}>
             <Profile owner={props.owner}
                      updatePhoto={props.updatePhoto}
                      status={props.status}
@@ -25,7 +25,7 @@ export const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
                      profileUsers={props.profileUsers}
                      updProfileData={props.updProfileData}/>
             <MyPostContainer/>
-        </>
+        </div>
     )
 }
 

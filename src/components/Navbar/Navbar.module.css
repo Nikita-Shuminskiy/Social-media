@@ -1,8 +1,8 @@
 .nav{
-    grid-area: n ;
-    background-color: rgba(18, 57, 139, 0.68);
-    padding: 50px;
-    padding-top: 30px;
+    background-color: rgb(103, 62, 231);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .item a{
     color: white;

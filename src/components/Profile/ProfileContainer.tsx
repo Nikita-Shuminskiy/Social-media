@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react'
-import s from './ProfileInfo.module.css'
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
@@ -9,13 +8,12 @@ import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
 import {
     getStatusThunk,
-    updateStatusThunk,
     getUserProfileThunk,
     updatePhotoThunk,
+    updateStatusThunk,
     updProfileDataThunk
 } from '../../Redux/ProfileReducer';
 import { GetProfileUserType } from '../../Api/Api';
-
 
 
 type PathParamsType = {

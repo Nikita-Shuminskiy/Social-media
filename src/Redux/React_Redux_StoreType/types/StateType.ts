@@ -1,16 +1,15 @@
-import { GetProfileUserType, PhotosProfileType } from '../../../Api/Api';
+import { GetProfileUserType } from '../../../Api/Api';
 
 export type PostType = {
     id: string
     message: string
     likesCount: number
-    img: string
+    img: string | undefined
 }
 
 export type ProfilePageType = {
     postData: Array<PostType>
     profileUsers: GetProfileUserType
-    photos:PhotosProfileType
     status:string
 }
 export type MessageType = {
