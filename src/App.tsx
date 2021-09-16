@@ -6,7 +6,6 @@ import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
 import { initializeAppThunk } from './Redux/App-reducer';
 import Loader from './components/Common/Loader/Loader';
-import HeaderContainer from './components/Header/Header_Container';
 import NavBar from './components/Navbar/Navbar';
 import Settings from './components/Settings/Settings';
 
@@ -41,7 +40,7 @@ class App extends React.Component<AppPropsType> {
 
         return (
             <div className={'app-wrapper'}>
-                <HeaderContainer/>
+
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
                     <React.Suspense fallback={<Loader/>}>
