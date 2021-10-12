@@ -1,5 +1,4 @@
-import React from 'react';
-import { AppDispatchType, AppStateType } from '../../../Redux/Redux_Store';
+import { AppStateType } from '../../../Redux/Redux_Store';
 import { addPost, deletePost } from '../../../Redux/ProfileReducer';
 import { connect } from 'react-redux';
 import MyPost from './MyPost';
@@ -17,12 +16,6 @@ const mapStateToProps = (state: AppStateType):mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatchType) => {
-    return {
-        addPost: (text:string) => {dispatch(addPost(text))},
-        deletePost:(id:string) => {dispatch(deletePost(id))}
-    }
-}
 
 const MyPostContainer = connect(mapStateToProps, {addPost,deletePost})(MyPost)
 

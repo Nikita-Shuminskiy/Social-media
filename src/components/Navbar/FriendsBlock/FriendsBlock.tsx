@@ -14,7 +14,7 @@ const FriendsBlock= (props:friendsBlockType) => {
 
     let FriendsElementAdd = props.friendsPage.friendsPage.map(e => <Friends key={e.id} img={e.img} alt={e.alt} name={e.name}/>)
     return (
-        <div>
+        <div className={s.container}>
             <h1>Friends</h1>
             {FriendsElementAdd}
         </div>

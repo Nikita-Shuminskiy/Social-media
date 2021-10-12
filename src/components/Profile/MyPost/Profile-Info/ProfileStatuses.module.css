@@ -1,6 +1,12 @@
-.status{
-	padding: 10px;
+.container{
+
 }
-.status span {
-	font-size: 20px;
+
+.status{
+	width: 50%;
+	word-wrap: break-word;
+}
+.status b {
+	font-size: 18px;
+	font-weight: bold;
 }

@@ -21,8 +21,8 @@ export const Users = (props: UserComponentType) => {
 
 
 
-    return (<div>
-            <div style={{margin: '100px'}}>
+    return (<div className={s.container}>
+            <div >
                 <Paginator pageClickChange={props.pageClickChange}
                            currentPage={props.currentPage}
                            pageSize={props.pageSize}

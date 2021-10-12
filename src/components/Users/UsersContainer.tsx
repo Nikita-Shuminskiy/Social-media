@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { followThunk, getUserThunk, unfollowThunk } from '../../Redux/UsersReducer';
 import { Users } from './Users';
-import Loader from '../Common/Loader/Loader';
 import {
     currentPageUsers,
     getUsers,
@@ -13,6 +12,7 @@ import {
     totalCountUsers
 } from './UserSelectors';
 import { ApiUserType } from '../../Api/Api';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 
 
 type MapStateToProps = {
@@ -44,17 +44,18 @@ class UsersContainer extends React.Component<UsersContainerType> {
 
         return (
             <>
-                {this.props.isFetching ? <Loader/> : null}
-                <Users users={this.props.users}
-                       totalCount={this.props.totalCount}
-                       currentPage={this.props.currentPage}
-                       pageSize={this.props.pageSize}
-                       pageClickChange={this.pageClickChange}
-                       disabledInProgressUser={this.props.disabledInProgressUser}
-                       unfollowThunk={this.props.unfollowThunk}
-                       followThunk={this.props.followThunk}
+                {this.props.isFetching ? <div style={{position: 'relative', left: '50%'}}><CircularProgress/></div>
+                    : <Users users={this.props.users}
+                             totalCount={this.props.totalCount}
+                             currentPage={this.props.currentPage}
+                             pageSize={this.props.pageSize}
+                             pageClickChange={this.pageClickChange}
+                             disabledInProgressUser={this.props.disabledInProgressUser}
+                             unfollowThunk={this.props.unfollowThunk}
+                             followThunk={this.props.followThunk}
 
-                />
+                    />}
+
             </>
         )
     }

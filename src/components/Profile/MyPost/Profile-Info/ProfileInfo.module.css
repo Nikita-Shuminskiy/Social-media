@@ -1,13 +1,15 @@
 
 .container{
 	display: flex;
-	justify-content: space-around;
-	margin-top: 5%;
+	justify-content: space-evenly;
+	margin-top: 3%;
+	flex-wrap: wrap;
 }
-.img_avatar {
-	width: 200px;
-	height: auto;
+@media (max-width: 950px) {
+	.container{
+		flex-direction: column;
+	}
+}
 
-}
 .info{
 }

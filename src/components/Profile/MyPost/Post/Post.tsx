@@ -2,9 +2,8 @@ import React from 'react';
 import s from './Post.module.css'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import { CircularProgress } from '@material-ui/core';
 import Photos
-    from '../../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
+    from '../../../../img/user.png';
 
 type PostType = {
     img?: string
@@ -18,7 +17,7 @@ const Post = (props: PostType) => {
     return (
         <div className={s.item}>
             <img className={s.img} src={props.img ? props.img : Photos}/>
-            <IconButton  onClick={ () => props.deletePost(props.id)}  aria-label="delete">
+            <IconButton  onClick={ () => props.deletePost(props.id)} color={'secondary'}  aria-label="delete">
                 <DeleteIcon  />
             </IconButton>
                 <span>  {props.post}</span>

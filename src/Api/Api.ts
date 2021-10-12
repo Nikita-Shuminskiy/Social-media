@@ -26,10 +26,6 @@ export const usersAPI = {
     }
 }
 export const profileAPI = {
-    /*getProfile(userId:number) {
-        console.warn('Obsolete method.Please profileAPI object')
-        return  usersAPI.userIdAPI(userId)
-    },*/
     updPhoto(image:string) {
         const formData = new FormData()
         formData.append('image',image)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ProfilePageType } from '../../../../Redux/React_Redux_StoreType/types/StateType';
 import s from './ProfileInfo.module.css';
-import { Profile } from './Profile';
+import { Profile } from './Profile/Profile';
 import MyPostContainer from '../MyPostContainer';
 import { GetProfileUserType } from '../../../../Api/Api';
 

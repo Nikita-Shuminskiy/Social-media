@@ -5,7 +5,9 @@ import { PostType, ProfilePageType } from '../../../Redux/React_Redux_StoreType/
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Photos
-    from '../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
+    from '../../../img/user.png';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 
 type MyPostType = {
@@ -16,15 +18,20 @@ type MyPostType = {
 }
 
 
-
-
+export const useStyles = makeStyles((theme) => ({
+    input: {
+        color: 'white',
+        border: '0'
+    },
+}));
 const MyPost = (props: MyPostType) => {
+    const classes = useStyles();
     const [value, setValue] = useState('')
 
     const deletePost = (id: string) => {
         props.postData.find(i => i.id === id ? props.deletePost(id) : '')
     }
-    const onChangePost = (e:ChangeEvent<HTMLInputElement>) => {
+    const onChangePost = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
     const addPost = () => {
@@ -42,16 +49,19 @@ const MyPost = (props: MyPostType) => {
                                                               :
                                                               Photos }/>)
 
-    return <div className={s.item}>
-            <div>
-                <TextField
-                    onChange={onChangePost}
-                    placeholder={'Enter Post'}
-                    value={value}
-                />
-                <Button  onClick={addPost} type={'submit'} variant="contained" color="default" size={'small'}>
-                    Send Post
-                </Button>
+    return <div className={s.container}>
+        <div>
+            <TextField
+                InputProps={{
+                    className: classes.input,
+                }}
+                onChange={onChangePost}
+                placeholder={'Enter Post'}
+                value={value}
+            />
+            <Button onClick={addPost} type={'submit'} variant="contained" color="secondary" size={'small'}>
+                Send Post
+            </Button>
             </div>
            <div>
                {PostElementData}

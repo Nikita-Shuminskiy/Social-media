@@ -1,21 +1,35 @@
-.nav{
+.nav {
 
 }
-.container{
-    background-color: rgba(98, 206, 193, 0.68);
+
+.loginBlock {
+    display: flex;
+    justify-content: space-evenly;
+    width: 170%;
+
+    align-items: center;
+}
+
+.loginBlock img {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.container {
     display: inline-flex;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     height: 70px;
 }
-.item a{
+
+.item a {
     color: white;
     text-decoration: none;
     font-size: 16px;
     font-family: Arial, sans-serif;
     font-weight: bolder;
-
 }
 .item a.active  {
     color: red;

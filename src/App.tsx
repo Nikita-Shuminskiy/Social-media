@@ -5,9 +5,11 @@ import { connect, Provider } from 'react-redux';
 import store, { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
 import { initializeAppThunk } from './Redux/App-reducer';
-import Loader from './components/Common/Loader/Loader';
 import NavBar from './components/Navbar/Navbar';
 import Settings from './components/Settings/Settings';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
+import Loader from './components/Common/Loader/Loader';
+
 
 const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'));
 const UserContainer = React.lazy(() => import('./components/Users/UsersContainer'));
@@ -38,14 +40,15 @@ class App extends React.Component<AppPropsType> {
             return <Loader/>
         }
 
+
         return (
             <div className={'app-wrapper'}>
 
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
-                    <React.Suspense fallback={<Loader/>}>
+                    <React.Suspense fallback={<CircularProgress/>}>
                         <Switch>
-                            <Route exact path={'/'} render={() => <Redirect to={'/profile'} />}/>
+                            <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                             <Route path={'/profile/:userId?'} component={ProfileContainer}/>
                             <Route path={'/dialogs'} component={DialogsContainer}/>
                             <Route path={'/users'} component={UserContainer}/>

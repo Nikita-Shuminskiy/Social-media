@@ -1,35 +1,39 @@
 .dialogs {
-	display: grid;
-	grid-template-columns: 2fr 10fr;
-	padding-top: 10px;
+	display: flex;
+	justify-content: space-around;
 }
 
 .dialog_item {
 	padding: 10px;
-	border-right: 1px solid black;
-	margin-left: 40px;
+	border-right: 1px solid red;
+	margin-right: 10px;
 }
 .dialog {
 
 }
 .dialog_item  a {
-	color: green;
+	color: white;
 	text-decoration: none;
 	font-weight: 800;
 	font-size: 20px;
 }
 .dialog_item .active {
-	color: black;
+	color: red;
 }
 .messages_item {
-	padding: 10px;
-	padding-left: 20px;
+	width: 65%;
+	height: auto;
 }
-
 .messages {
-	font-size: 20px;
-	border: 1px solid blueviolet;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid red;
 	border-radius: 10px;
-	width: 100px;
+	word-wrap: break-word;
+	width: 90%;
+	margin-bottom: 10px;
+}
+.textFieldBlock{
+	width: 90%;
 }
 

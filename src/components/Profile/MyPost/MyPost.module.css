@@ -1,5 +1,8 @@
-.item{
 
+@media (max-width: 950px) {
+	.container{
+		margin-top: 50px;
+	}
 }
 .imgPost{
 

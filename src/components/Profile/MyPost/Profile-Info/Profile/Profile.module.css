@@ -1,0 +1,14 @@
+.container{
+	display: flex;
+	margin-right: 10px;
+}
+
+.info{
+	width: 220px;
+	height: auto;
+}
+.img_avatar {
+	width: 200px;
+	height: auto;
+
+}

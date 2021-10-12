@@ -1,9 +1,9 @@
 import React from 'react';
-import { GetProfileUserType, ProfileContactsType } from '../../../../../Api/Api';
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField } from '@material-ui/core';
+import { GetProfileUserType } from '../../../../../../Api/Api';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { AppStateType } from '../../../../../Redux/Redux_Store';
-import { useSelector } from 'react-redux';
+import s from './ProfileDataForm.module.css'
+import { useStyles } from '../../../MyPost';
 
 
 type FormDataProfileType = {
@@ -12,6 +12,7 @@ type FormDataProfileType = {
 }
 
 const ProfileFormikDataForm = (props:FormDataProfileType) => {
+    const classes = useStyles();
   /*  const contact = useSelector<AppStateType,ProfileContactsType>(state => state.profile.profileUsers.contacts)*/
 
     const formik = useFormik({
@@ -38,13 +39,16 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
         }
     })
 
-    return<form onSubmit={formik.handleSubmit}>
+    return<form className={s.container} onSubmit={formik.handleSubmit}>
             <FormControl>
                 <FormGroup>
                     <div>
                         <Button type={'submit'} size={'small'} variant={'outlined'} color={'secondary'}>Save Form</Button>
                     </div>
                     <b> Full Name:</b> <TextField
+                    InputProps={{
+                        className: classes.input,
+                    }}
                     placeholder={'Name'}
                     type={'input'}
                     {...formik.getFieldProps('fullName')}
@@ -59,11 +63,17 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                 />
 
                     <b> My Profession Skills:</b> <TextField
+                    InputProps={{
+                        className: classes.input,
+                    }}
                     placeholder={'Profession skills'}
                     {...formik.getFieldProps('lookingForAJobDescription')}
                 />
 
                     <b>About Me:</b> <TextField
+                    InputProps={{
+                        className: classes.input,
+                    }}
                     placeholder={'About Me'}
                     type={'input'}
                     {...formik.getFieldProps('aboutMe')}

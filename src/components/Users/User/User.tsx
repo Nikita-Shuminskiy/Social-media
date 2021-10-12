@@ -1,7 +1,7 @@
+import Button from '@material-ui/core/Button/Button';
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import Photos
-    from '../../../img/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png';
+import Photos from '../../../img/user.png';
 import s from './User.module.css'
 
 type UserType = {
@@ -13,30 +13,27 @@ type UserType = {
     followThunk:(id:number) => void
     nameUser:string
     status:string | null
-
-
 }
-
-
 export const User = ({idUser,smallImg,disabledInProgressUser,followed,unfollowThunk,followThunk,nameUser,status}:UserType) => {
-
     return (
         <div className={s.userBody} >
             <div>
                 <NavLink to={'/profile/' + idUser}>
-                    <img className={s.SmallImg} src={smallImg !== null ? smallImg : Photos}
+                    <img className={s.smallImg} src={smallImg !== null ? smallImg : Photos}
                          alt="121"/>
                 </NavLink>
                 {followed ?
-                    <button className={s.unFollow} disabled={disabledInProgressUser.some(id => id === idUser)}
-                            onClick={() => unfollowThunk(idUser)} >UnFollowed</button>
+                    <Button variant="contained" color="secondary"  className={s.unFollow}
+                            disabled={disabledInProgressUser.some(id => id === idUser)}
+                            onClick={() => unfollowThunk(idUser)}>UnFollowed</Button>
                     :
-                    <button className={s.follow}  disabled={disabledInProgressUser.some(id => id === idUser)}
-                            onClick={() => followThunk(idUser)} >Followed</button>}
+                    <Button variant="contained" size={'large'} color="secondary" className={s.follow}
+                            disabled={disabledInProgressUser.some(id => id === idUser)}
+                            onClick={() => followThunk(idUser)}>Followed</Button>}
             </div>
             <div className={s.textUser}>
-                <span>{nameUser}</span>
-                <span>{status}</span>
+                <span><b>Name:</b>&nbsp;&nbsp;{nameUser}</span>
+                <span><b>Status:</b>&nbsp;&nbsp;{status}</span>
             </div>
         </div>
     )

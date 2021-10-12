@@ -25,7 +25,6 @@ export const  Paginator = (props: PaginatorType) => {
 
     const rightPortionPageNumber = portionNumber * props.pageSize
 
-
     return <div  className={cn({paginator: s.paginator, otherClass: s.other})}>
         {portionNumber > 1 && <button onClick={() => {
             setPortionNumber(portionNumber - 1)
