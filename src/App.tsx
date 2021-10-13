@@ -21,7 +21,7 @@ type AppPropsType = {
     initializeAppThunk: () => void
     initialized: boolean
 }
-
+//test
 class App extends React.Component<AppPropsType> {
 
     catchAllErrors = ( () => {
