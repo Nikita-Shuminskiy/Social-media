@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import s from './Profile.module.css';
-import { ProfilePageType } from '../../../../../Redux/React_Redux_StoreType/types/StateType';
-import Photos
-    from '../../../../../img/user.png';
+import Photos from '../../../../../img/user.png';
 import { ProfileStatuses } from '../ProfileStatuses';
-import { GetProfileUserType } from '../../../../../Api/Api';
+import { PhotosProfileType, ProfileType } from '../../../../../Api/Api';
 import Button from '@material-ui/core/Button';
-import {  makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import ProfileData from '../ProfileData/InfoProfile/ProfileData';
 import ProfileFormikDataForm from '../ProfileData/ProfileDataForm/ProfileFormikDataForm';
 import Box from '@material-ui/core/Box/Box';
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 
 
-export type ProfileType = {
-    profileUsers: ProfilePageType
+export type ProfileComponentType = {
+    profileUsers: ProfileType
     status: string
     updateStatusThunk: (status: string) => void
     updatePhoto: (photo: string) => void
     owner: number
-    updProfileData: (data: GetProfileUserType) => void
+    updProfileData: (data: ProfileType) => void
+    photos: PhotosProfileType
 }
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Profile: React.FC<ProfileType> = (props) => {
+export const Profile: React.FC<ProfileComponentType> = (props) => {
     const classes = useStyles();
     const [editMode, setEditMode] = useState(false)
     if (!props.profileUsers) {
@@ -51,7 +50,7 @@ export const Profile: React.FC<ProfileType> = (props) => {
         <div className={s.container} >
                <div>
                    <img className={s.img_avatar}
-                        src={props.profileUsers?.profileUsers?.photos?.large !== undefined ? props.profileUsers?.profileUsers?.photos?.large : Photos}/>
+                        src={props.photos?.large  ? props.photos.large : Photos}/>
                    <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>
                    <div>
                        {!props.owner &&
@@ -77,7 +76,7 @@ export const Profile: React.FC<ProfileType> = (props) => {
                        {editMode ?
                            <ProfileFormikDataForm setEditMode={setEditMode} updProfileData={props.updProfileData}/>
                            :
-                           <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers.profileUsers} />}
+                           <ProfileData openEditMenu={openEditMenu} profileUsers={props.profileUsers} />}
                </div>
         </div>
     )

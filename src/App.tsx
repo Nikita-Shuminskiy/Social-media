@@ -21,7 +21,7 @@ type AppPropsType = {
     initializeAppThunk: () => void
     initialized: boolean
 }
-//test
+
 class App extends React.Component<AppPropsType> {
 
     catchAllErrors = ( () => {
@@ -43,7 +43,6 @@ class App extends React.Component<AppPropsType> {
 
         return (
             <div className={'app-wrapper'}>
-
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
                     <React.Suspense fallback={<CircularProgress/>}>

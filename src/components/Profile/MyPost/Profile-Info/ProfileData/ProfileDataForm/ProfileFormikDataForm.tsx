@@ -1,19 +1,22 @@
 import React from 'react';
-import { GetProfileUserType } from '../../../../../../Api/Api';
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
 import s from './ProfileDataForm.module.css'
 import { useStyles } from '../../../MyPost';
+import { PhotosProfileType, ProfileType } from '../../../../../../Api/Api';
+import { useSelector } from 'react-redux';
+import { AppStateType } from '../../../../../../Redux/Redux_Store';
 
 
 type FormDataProfileType = {
     setEditMode:(edit:boolean) => void
-    updProfileData:(value:GetProfileUserType) => void
+    updProfileData:(value:ProfileType) => void
 }
 
 const ProfileFormikDataForm = (props:FormDataProfileType) => {
     const classes = useStyles();
-  /*  const contact = useSelector<AppStateType,ProfileContactsType>(state => state.profile.profileUsers.contacts)*/
+    // @ts-ignore
+    const photos = useSelector<AppStateType,PhotosProfileType>(state => state.profile.profileUsers.photos)
 
     const formik = useFormik({
         initialValues: {
@@ -34,7 +37,7 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
             userId: 0,
         },
         onSubmit: values => {
-            props.updProfileData(values)
+            props.updProfileData({...values, photos})
             props.setEditMode(false)
         }
     })

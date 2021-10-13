@@ -31,7 +31,7 @@ export const Users = (props: UserComponentType) => {
             {props.users.map(u => {
                     return (<User key={u.id}
                                   idUser={u.id}
-                                  smallImg={u.photos.small}
+                                  smallImgUser={u.photos.small}
                                   disabledInProgressUser={props.disabledInProgressUser}
                                   followed={u.followed}
                                   unfollowThunk={props.unfollowThunk}

@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
+import { Action, applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
 import { DialogReducer, sendMessage } from './DialogReducer';
 import { addPost, deletePost, ProfileReducer, setProfileStatus, setProfileUser, updatePhoto } from './ProfileReducer';
 import {
@@ -13,7 +13,7 @@ import {
 } from './UsersReducer';
 import { AuthReducer, captchaUrl, setUserDataAuthMe } from './Auth_Reducer';
 import { SideBarReducer } from './SideBar_Reducer';
-import ThunkMiddleware from 'redux-thunk'
+import ThunkMiddleware, { ThunkAction } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import { AppReducer, initializedSuccess } from './App-reducer';
 
@@ -53,7 +53,8 @@ const rootReducer = combineReducers({
 );*/
 
 const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
-
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // @ts-ignore
 window.store = store

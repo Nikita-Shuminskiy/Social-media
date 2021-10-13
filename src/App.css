@@ -4,6 +4,7 @@ body{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	min-height: 100vh;
 	z-index: 10;
 	color: white;
 	font-size: 16px;
@@ -17,6 +18,7 @@ span{
 	display: flex;
 	flex-direction: column;
 }
+
 .app-wrapper-content {
 
 }

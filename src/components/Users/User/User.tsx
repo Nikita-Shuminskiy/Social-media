@@ -6,7 +6,7 @@ import s from './User.module.css'
 
 type UserType = {
     idUser:number
-    smallImg:string
+    smallImgUser:string
     disabledInProgressUser:Array<number>
     followed:Boolean
     unfollowThunk:(id:number) => void
@@ -14,12 +14,12 @@ type UserType = {
     nameUser:string
     status:string | null
 }
-export const User = ({idUser,smallImg,disabledInProgressUser,followed,unfollowThunk,followThunk,nameUser,status}:UserType) => {
+export const User = ({idUser,smallImgUser,disabledInProgressUser,followed,unfollowThunk,followThunk,nameUser,status}:UserType) => {
     return (
         <div className={s.userBody} >
             <div>
                 <NavLink to={'/profile/' + idUser}>
-                    <img className={s.smallImg} src={smallImg !== null ? smallImg : Photos}
+                    <img className={s.smallImg} src={smallImgUser !== null ? smallImgUser : Photos}
                          alt="121"/>
                 </NavLink>
                 {followed ?

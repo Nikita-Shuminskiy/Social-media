@@ -1,19 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import s from './MyPost.module.css'
 import Post from './Post/Post';
-import { PostType, ProfilePageType } from '../../../Redux/React_Redux_StoreType/types/StateType';
+import { PostType } from '../../../Redux/React_Redux_StoreType/types/StateType';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Photos
-    from '../../../img/user.png';
+import Photos from '../../../img/user.png';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { PhotosProfileType } from '../../../Api/Api';
 
 
 type MyPostType = {
     addPost: (text: string) => void
     postData: PostType[]
-    profileUsers: ProfilePageType
+    photos: PhotosProfileType
     deletePost: (id: string) => void
 }
 
@@ -45,7 +44,7 @@ const MyPost = (props: MyPostType) => {
                                                           id={p.id}
                                                           post={p.message}
                                                           like={p.likesCount}
-                                                          img={props.profileUsers?.profileUsers?.photos?.small !== undefined ? props.profileUsers?.profileUsers?.photos.small
+                                                          img={props.photos?.small !== undefined ? props.photos.small
                                                               :
                                                               Photos }/>)
 

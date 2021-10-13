@@ -1,0 +1,13 @@
+.container{
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+.headForm{
+	background: white;
+	width: 38%;
+	height: 500px;
+	opacity: 0.7;
+	display: flex;
+	align-items: center;
+}

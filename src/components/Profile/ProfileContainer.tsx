@@ -2,7 +2,6 @@ import React, { ComponentType } from 'react'
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { ProfileInfo } from './MyPost/Profile-Info/ProfileInfo';
-import { ProfilePageType } from '../../Redux/React_Redux_StoreType/types/StateType';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../Hoc/WithAuthRedirect';
 import { compose } from 'redux';
@@ -13,23 +12,24 @@ import {
     updateStatusThunk,
     updProfileDataThunk
 } from '../../Redux/ProfileReducer';
-import { GetProfileUserType } from '../../Api/Api';
+import {PhotosProfileType, ProfileType } from '../../Api/Api';
 
 
 type PathParamsType = {
     userId: string | undefined
 }
 type MapStateToPropsType = {
-    profileUsers: ProfilePageType
+    profileUsers: any
     status: string
     authID: number | null
+    photos: any
 }
 type MapStateDispatchToPropsType = {
     getUserProfileThunk: (userId: number) => void
     getStatusThunk: (userId: number) => void
     updateStatusThunk: (status: string) => void
     updatePhotoThunk: (photo: string) => void
-    updProfileDataThunk: (data: GetProfileUserType) => void
+    updProfileDataThunk: (data: ProfileType) => void
 }
 
 type ProfileContainerType = MapStateToPropsType & MapStateDispatchToPropsType
@@ -68,7 +68,7 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
                              updatePhoto={this.props.updatePhotoThunk}
                              owner={Number(this.props.match.params.userId)}
                              updateStatusThunk={this.props.updateStatusThunk} status={this.props.status}
-                             profileUsers={this.props.profileUsers}/>
+                             profileUsers={this.props.profileUsers} photos={this.props.photos}/>
             </>
         )
     }
@@ -76,9 +76,10 @@ class ProfileContainer extends React.Component<PropsProfileContainerType, State>
 
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    profileUsers: state.profile,
+    profileUsers: state.profile.profileUsers,
     status: state.profile.status,
     authID: state.authMe.id,
+    photos: state.profile?.profileUsers?.photos
 })
 
 

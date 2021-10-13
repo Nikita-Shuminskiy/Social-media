@@ -1,10 +1,10 @@
 import React from 'react';
-import { GetProfileUserType } from '../../../../../../Api/Api';
 import { Button } from '@material-ui/core';
 import s from './ProfileData.module.css'
+import { ProfileType } from '../../../../../../Api/Api';
 
 type ProfileDataType = {
-    profileUsers: GetProfileUserType
+    profileUsers: ProfileType
     openEditMenu: () => void
 }
 

@@ -22,7 +22,7 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`)
     },
     userIdAPI(userId:number) {
-        return  instance.get<GetProfileUserType>( 'profile/' + userId)
+        return  instance.get<ProfileType>( 'profile/' + userId).then(res => res.data)
     }
 }
 export const profileAPI = {
@@ -41,8 +41,8 @@ export const profileAPI = {
     updateStatus(status:string){
         return instance.put<GeneralType>( 'profile/status', {status})
     },
-    updateProfileData(profile:GetProfileUserType){
-        return instance.put<GeneralType<GetProfileUserType>>( 'profile', profile).then(res => res.data)
+    updateProfileData(profile:ProfileType){
+        return instance.put<GeneralType>( 'profile', profile).then(res => res.data)
     }
 }
 export const authMeAPI= {
@@ -72,40 +72,38 @@ export type LoginUserDataType = {
     captcha:string | null
 }
 
-export type ProfileContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-}
-
-export type GetProfileUserType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    aboutMe: string
-    fullName: string
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    }
-    photos?:PhotosProfileType
-}
-
 export type PhotosProfileType = {
     small: string
     large: string
 }
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosProfileType
+    aboutMe: string
+}
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type UserType = {
+    id: number
+    name: string
+    status: string
+    photos: PhotosProfileType
+    followed: boolean
+}
+
+
 
 export  type ApiUserType = {
     name: string

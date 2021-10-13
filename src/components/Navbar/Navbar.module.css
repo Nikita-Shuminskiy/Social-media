@@ -1,12 +1,28 @@
-.nav {
 
+.navBarMenu{
+    margin-left: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+a{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+@media (max-width: 900px) {
+    .navBarMenu {
+
+    }
+    .loginHeader{
+        width: 40px;
+    }
 }
 
 .loginBlock {
     display: flex;
     justify-content: space-evenly;
-    width: 170%;
-
+    width: 60%;
     align-items: center;
 }
 
@@ -20,8 +36,7 @@
     display: inline-flex;
     justify-content: space-evenly;
     align-items: center;
-    flex-wrap: wrap;
-    height: 70px;
+    height: 110px;
 }
 
 .item a {
@@ -36,8 +51,4 @@
 }
 .item a:hover {
     color: red;
-}
-
-.setting{
-
 }
