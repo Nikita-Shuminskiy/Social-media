@@ -6,7 +6,14 @@ import { useStyles } from '../../../MyPost';
 import { PhotosProfileType, ProfileType } from '../../../../../../Api/Api';
 import { useSelector } from 'react-redux';
 import { AppStateType } from '../../../../../../Redux/Redux_Store';
+import Alert from '@material-ui/lab/Alert/Alert';
 
+
+type FormikErrorType = {
+    aboutMe?: string
+    lookingForAJobDescription?: string
+    fullName?: string
+}
 
 type FormDataProfileType = {
     setEditMode:(edit:boolean) => void
@@ -15,7 +22,6 @@ type FormDataProfileType = {
 
 const ProfileFormikDataForm = (props:FormDataProfileType) => {
     const classes = useStyles();
-    // @ts-ignore
     const photos = useSelector<AppStateType,PhotosProfileType>(state => state.profile.profileUsers.photos)
 
     const formik = useFormik({
@@ -36,9 +42,22 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
             fullName: '',
             userId: 0,
         },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.aboutMe){
+                errors.aboutMe = 'Required';
+            }
+            if (!values.fullName){
+                errors.fullName = 'Required';
+            }
+            if (!values.lookingForAJobDescription){
+                errors.lookingForAJobDescription = 'Required';
+            }
+            return errors;
+        },
         onSubmit: values => {
-            props.updProfileData({...values, photos})
-            props.setEditMode(false)
+                props.updProfileData({...values, photos})
+                props.setEditMode(false)
         }
     })
 
@@ -56,6 +75,9 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                     type={'input'}
                     {...formik.getFieldProps('fullName')}
                 />
+                    {
+                        formik.touched.fullName &&
+                        formik.errors.fullName ? <div style={{ color: 'red' }}> {formik.errors.fullName}</div> : null}
 
                     <b>looking For A Job:</b> <FormControlLabel
                     label={'looking For A Job'}
@@ -64,7 +86,6 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                         {...formik.getFieldProps('lookingForAJob')}
                     />}
                 />
-
                     <b> My Profession Skills:</b> <TextField
                     InputProps={{
                         className: classes.input,
@@ -72,6 +93,9 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                     placeholder={'Profession skills'}
                     {...formik.getFieldProps('lookingForAJobDescription')}
                 />
+                    {
+                        formik.touched.lookingForAJobDescription &&
+                        formik.errors.lookingForAJobDescription ? <div style={{ color: 'red' }}> {formik.errors.lookingForAJobDescription}</div> : null}
 
                     <b>About Me:</b> <TextField
                     InputProps={{
@@ -81,6 +105,9 @@ const ProfileFormikDataForm = (props:FormDataProfileType) => {
                     type={'input'}
                     {...formik.getFieldProps('aboutMe')}
                 />
+                    {
+                        formik.touched.aboutMe &&
+                        formik.errors.aboutMe ? <div style={{ color: 'red' }}> {formik.errors.aboutMe}</div> : null}
                 </FormGroup>
             </FormControl>
                 <div>

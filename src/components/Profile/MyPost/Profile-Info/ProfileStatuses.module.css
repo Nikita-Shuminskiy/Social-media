@@ -3,8 +3,8 @@
 }
 
 .status{
-	width: 50%;
-	word-wrap: break-word;
+	width: 80%;
+	overflow-wrap: break-word;
 }
 .status b {
 	font-size: 18px;

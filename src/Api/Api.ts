@@ -60,18 +60,16 @@ export const authMeAPI= {
     }
 }
 
-
+//types
 type SavePhotoResponseDataType = {
     photos: PhotosProfileType
 }
-
 export type LoginUserDataType = {
     email:string
     password: null | number
     rememberMe:boolean
     captcha:string | null
 }
-
 export type PhotosProfileType = {
     small: string
     large: string
@@ -102,9 +100,6 @@ export type UserType = {
     photos: PhotosProfileType
     followed: boolean
 }
-
-
-
 export  type ApiUserType = {
     name: string
     id: number
@@ -113,7 +108,6 @@ export  type ApiUserType = {
     status: null | string
     followed: boolean
 }
-
 type GetUserType = {
     items: Array<ApiUserType>
     totalCount: number

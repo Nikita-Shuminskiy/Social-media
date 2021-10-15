@@ -1,6 +1,16 @@
 .container{
 	display: flex;
 	margin-right: 10px;
+	justify-content: center;
+}
+@media (max-width: 900px) {
+	.container{
+		justify-content: left;
+	}
+}
+.blockImg{
+	width: 27%;
+	height: auto;
 }
 
 .info{

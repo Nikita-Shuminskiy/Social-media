@@ -6,7 +6,6 @@ export type PostType = {
     likesCount: number
     img: string | undefined
 }
-
 export type MessageType = {
     message: string
     id: string

@@ -6,6 +6,7 @@ import { AppStateType } from '../../Redux/Redux_Store';
 import { initialStateType, logoutThunk } from '../../Redux/Auth_Reducer';
 import Button from '@material-ui/core/Button/Button';
 import Photos from '../../img/user.png'
+import Alert from '@material-ui/lab/Alert/Alert';
 
 
 export type  NavBarType = {}
@@ -32,10 +33,12 @@ const NavBar = (props: NavBarType) => {
                     <div>
                         <Button variant="contained" size={'small'} color="secondary"
                                 onClick={logoutUser}>Logout</Button>
+
                     </div>
                 </div>
                 :
                 <div>
+
                     <Button variant="contained" size={'small'} color="secondary" onClick={loginUser}>Login</Button>
                 </div>
             }

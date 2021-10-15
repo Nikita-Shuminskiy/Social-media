@@ -48,7 +48,7 @@ export const Profile: React.FC<ProfileComponentType> = (props) => {
 
     return (
         <div className={s.container} >
-               <div>
+               <div  className={s.blockImg}  >
                    <img className={s.img_avatar}
                         src={props.photos?.large  ? props.photos.large : Photos}/>
                    <ProfileStatuses updateStatusThunk={props.updateStatusThunk} status={props.status}/>

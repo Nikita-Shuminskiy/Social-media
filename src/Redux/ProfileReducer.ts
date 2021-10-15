@@ -15,7 +15,7 @@ const initialState = {
             img: '',
         },
     ] as PostType[],
-    profileUsers: null as ProfileType | null,
+    profileUsers: null as unknown as ProfileType,
     status: '',
 }
 export type InitialStateType = typeof initialState
@@ -32,11 +32,9 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Init
                 likesCount: 0,
                 img: state.profileUsers?.photos?.small
             }
-            // @ts-ignore
             return {...state, postData: [postNew,...state.postData]}
 
         case 'PROFILE/SET-PROFILE-USER':
-            debugger
             return {...state, profileUsers: action.profile}
 
         case 'PROFILE/SET-PROFILE-STATUS':
@@ -65,7 +63,6 @@ export const updatePhoto = (photos: PhotosProfileType) => ({type: 'PROFILE/UPDAT
 
 export const getUserProfileThunk = (userId: number): ThunkType => async (dispatch) => {
     const data = await usersAPI.userIdAPI(userId)
-    // @ts-ignore
     dispatch(setProfileUser(data))
 }
 export const updProfileDataThunk = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
@@ -78,8 +75,6 @@ export const updProfileDataThunk = (profile: ProfileType): ThunkType => async (d
             throw new Error("userId can't be null")
         }
     } else {
-       /* dispatch(stopSubmit("edit-profile", {_error: data.messages[0] }))
-        return Promise.reject(data.messages[0])*/
         alert('error upd user')
     }
 }
