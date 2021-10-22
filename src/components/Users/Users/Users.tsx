@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Users.module.css';
-import { User } from './User/User';
-import { Paginator } from '../Common/Paginator/Paginator';
-import { ApiUserType } from '../../Api/Api';
+import { User } from '../User/User';
+import { Paginator } from '../../Common/Paginator/Paginator';
+import { ApiUserType } from '../../../Api/Api';
 
 
 export type UserComponentType = {

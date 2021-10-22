@@ -1,10 +1,7 @@
 import { ApiUserType, usersAPI } from '../Api/Api'
 import { ActionsTypes, AppDispatchType } from './Redux_Store'
 
-
-
 type InitStateType = typeof initialState
-
 const initialState = {
     dataUsers:  [] as ApiUserType[],
     totalCount: 10,
@@ -13,7 +10,6 @@ const initialState = {
     isFetching: false,
     disabledInProgressUser: [] as Array<number>,
 }
-
 
 export function UsersReducer(state = initialState, action: ActionsTypes): InitStateType {
     switch (action.type) {
@@ -48,9 +44,6 @@ export function UsersReducer(state = initialState, action: ActionsTypes): InitSt
             return state
     }
 }
-
-
-
 //action
 export const userDissableButton = (disFetching: boolean, idUser: number) => ({
     type: 'USER/TOGGLE-DISABLED-BUTTON-USER',
@@ -63,10 +56,6 @@ export const setUsers = (users: ApiUserType[]) => ({type: 'USER/Set-UsersContain
 export const setCurrentPages = (pageNumberCurrent: number) => ({type: 'USER/CURRENT-PAGES', pageNumberCurrent} as const)
 export const setTotalUserCount = (totalCount: number) => ({type: 'USER/TOTAL-USER-COUNT', totalCount} as const)
 export const setIsFetching = (isFetching: boolean) => ({type: 'USER/Toggle is fetching', isFetching} as const)
-
-
-
-
 //thunk
 export const getUserThunk = (currentPage: number, pageSize: number) => {
     return (dispatch: AppDispatchType) => {

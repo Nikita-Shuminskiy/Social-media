@@ -1,10 +1,6 @@
 import { createSelector } from 'reselect';
 import { AppStateType } from '../../Redux/Redux_Store';
 
-
-
-
-
 function getUsersSelector(state: AppStateType) {
     return state.usersData.dataUsers
 }
