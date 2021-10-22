@@ -1,8 +1,8 @@
 ﻿import React, { ComponentType } from 'react';
 import './App.css'
-import { BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom'
-import { connect, Provider } from 'react-redux';
-import store, { AppStateType } from './Redux/Redux_Store';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { AppStateType } from './Redux/Redux_Store';
 import { compose } from 'redux';
 import { initializeAppThunk } from './Redux/App-reducer';
 import NavBar from './components/Navbar/Navbar';
@@ -68,16 +68,8 @@ const mapStateToProps = (state: AppStateType) => ({
     initialized: state.appReducer.initialized
 })
 
-const AppContainer = compose<ComponentType>
+export const AppContainer = compose<ComponentType>
 (connect(mapStateToProps,
     {initializeAppThunk}),
     withRouter)(App)
 
-const GlobalAppComponent = () => {
-    return <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </BrowserRouter>
-}
-export default GlobalAppComponent

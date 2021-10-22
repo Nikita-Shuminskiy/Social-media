@@ -48,9 +48,7 @@ const rootReducer = combineReducers({
     appReducer: AppReducer
 })
 
-// @ts-ignore
-/*const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware) +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);*/
+
 
 const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never

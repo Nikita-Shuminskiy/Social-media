@@ -2,9 +2,6 @@ import { authMeAPI, LoginUserDataType } from '../Api/Api'
 import { ActionsTypes } from './Redux_Store'
 import { stopSubmit } from 'redux-form';
 import { Dispatch } from 'redux';
-
-
-
 const initialState = {
     id: null as (number | null),
     email: null as string | null,
@@ -16,7 +13,6 @@ const initialState = {
 export type initialStateType = typeof initialState
 
 export function AuthReducer(state = initialState, action: ActionsTypes): initialStateType {
-
     switch (action.type) {
         case 'AUTH/SET-USER-DATA': {
             return {...state, ...action.payload}
@@ -61,12 +57,6 @@ export const loginThunk = (data:LoginUserDataType) => {
     }
 }
 
-
-/*export const getCaptchaUrl = () => async (dispatch:Dispatch) => {
-    const response = await  authMeAPI.captcha()
-    const captcha = response.data.url;
-    dispatch(captchaUrl(captcha));
-}*/
 
 export const getCaptchaUrl = () => {
     return (dispatch: Dispatch) => {

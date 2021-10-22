@@ -22,7 +22,7 @@ type MapStateToPropsType = {
     profileUsers: any
     status: string
     authID: number | null
-    photos: any
+    photos: PhotosProfileType
 }
 type MapStateDispatchToPropsType = {
     getUserProfileThunk: (userId: number) => void

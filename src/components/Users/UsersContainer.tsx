@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../Redux/Redux_Store';
 import { followThunk, getUserThunk, unfollowThunk } from '../../Redux/UsersReducer';
-import { Users } from './Users';
 import {
     currentPageUsers,
     getUsers,
@@ -13,6 +12,7 @@ import {
 } from './UserSelectors';
 import { ApiUserType } from '../../Api/Api';
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
+import { Users } from './Users/Users';
 
 
 type MapStateToProps = {

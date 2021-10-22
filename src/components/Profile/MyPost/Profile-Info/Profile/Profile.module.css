@@ -16,6 +16,8 @@
 .info{
 	width: 220px;
 	height: auto;
+	position: relative;
+	left: 25%;
 }
 .img_avatar {
 	width: 200px;
