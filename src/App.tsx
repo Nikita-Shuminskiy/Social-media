@@ -1,4 +1,4 @@
-﻿import React, { ComponentType } from 'react';
+﻿ import React, { ComponentType } from 'react';
 import './App.css'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';

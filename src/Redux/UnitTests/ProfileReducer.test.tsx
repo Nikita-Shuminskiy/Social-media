@@ -1,7 +1,7 @@
 import { addPost, deletePost, ProfileReducer } from '../ProfileReducer';
-import { PostType, ProfilePageType } from '../React_Redux_StoreType/types/StateType';
+import { PostType } from '../React_Redux_StoreType/types/StateType';
 
-let initialState: ProfilePageType
+let initialState: any
 beforeEach(() => {
     initialState = {
         postData: [
