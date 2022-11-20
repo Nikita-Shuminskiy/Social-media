@@ -1,9 +1,9 @@
-import { PhotosProfileType, profileAPI, ProfileType, usersAPI } from '../Api/Api';
-import { ActionsTypes, BaseThunkType, InferActionsTypes } from './Redux_Store';
-import { v1 } from 'uuid';
-import { Dispatch } from 'redux';
-import { FormAction } from 'redux-form';
-import { PostType } from './React_Redux_StoreType/types/StateType';
+import {PhotosProfileType, profileAPI, ProfileType, usersAPI} from '../Api/Api';
+import {ActionsTypes, BaseThunkType, InferActionsTypes} from './Redux_Store';
+import {v1} from 'uuid';
+import {Dispatch} from 'redux';
+import {FormAction} from 'redux-form';
+import {PostType} from './React_Redux_StoreType/types/StateType';
 
 
 const initialState = {
@@ -32,7 +32,7 @@ export function ProfileReducer(state = initialState, action: ActionsTypes): Init
                 likesCount: 0,
                 img: state.profileUsers?.photos?.small
             }
-            return {...state, postData: [postNew,...state.postData]}
+            return {...state, postData: [postNew, ...state.postData]}
 
         case 'PROFILE/SET-PROFILE-USER':
             return {...state, profileUsers: action.profile}
@@ -82,9 +82,9 @@ export const getStatusThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                    dispatch(setProfileStatus(response.data))
-            }).catch( () => {
-                alert('err status')
+                dispatch(setProfileStatus(response.data))
+            }).catch(() => {
+            alert('err status')
         })
     }
 }
@@ -98,11 +98,11 @@ export const updateStatusThunk = (status: string) => {
             })
     }
 }
-export const updatePhotoThunk = (photo:string) => async (dispatch:Dispatch) => {
-   let res = await profileAPI.updPhoto(photo)
-            if (res.data.resultCode === 0) {
-                dispatch(updatePhoto(res.data.data.photos))
-            } else{
-                alert(res.data.messages)
-            }
+export const updatePhotoThunk = (photo: string) => async (dispatch: Dispatch) => {
+    let res = await profileAPI.updPhoto(photo)
+    if (res.data.resultCode === 0) {
+        dispatch(updatePhoto(res.data.data.photos))
+    } else {
+        alert(res.data.messages)
+    }
 }

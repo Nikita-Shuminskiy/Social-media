@@ -1,28 +1,10 @@
-import { addPost, deletePost, ProfileReducer } from '../ProfileReducer';
-import { PostType } from '../React_Redux_StoreType/types/StateType';
+import {addPost, deletePost, InitialStateType, ProfileReducer} from '../ProfileReducer';
+import {PostType} from '../React_Redux_StoreType/types/StateType';
 
-let initialState: any
+let initialState: InitialStateType
 beforeEach(() => {
     initialState = {
-        postData: [
-            {
-                id: '1',
-                message: 'helo how are you',
-                likesCount: 12,
-                img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
-            },
-            {
-                id: '2',
-                message: 'Im learnin to React, React my first life)',
-                likesCount: 12,
-                img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
-            },
-        ],
-        proFileHeader: {
-            headerImg: {
-                img: 'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg',
-            },
-        },
+        postData: [],
         profileUsers: {
             aboutMe: '',
             contacts: {
@@ -38,16 +20,24 @@ beforeEach(() => {
             lookingForAJob: false,
             lookingForAJobDescription: '',
             fullName: '',
-            userId: null,
+            userId: null as unknown as number,
             photos: {
                 small: '',
                 large: ''
             }
         },
-        status:'',
+        status: '',
     }
 })
+test('Add post', () => {
 
+    const action = addPost('New Pos12121t')
+
+    const endState = ProfileReducer(initialState, action)
+
+    expect(endState.postData.length).toBe(1)
+    expect(endState.postData[0].message).toBe('New Pos12121t')
+})
 
 test('Delete post', () => {
 
@@ -56,19 +46,7 @@ test('Delete post', () => {
     const endState = ProfileReducer(initialState, action)
 
     expect(endState).toEqual({
-        postData: [
-            {
-                id: '2',
-                message: 'Im learnin to React, React my first life)',
-                likesCount: 12,
-                img: 'https://cdn5.vectorstock.com/i/1000x1000/65/59/hacker-with-computer-avatar-character-vector-14776559.jpg',
-            },
-        ],
-        proFileHeader: {
-            headerImg: {
-                img: 'https://image.freepik.com/free-photo/the-color-and-beauty-of-the-sky-at-sunset_51141-13.jpg',
-            },
-        },
+        postData: [],
         profileUsers: {
             aboutMe: '',
             contacts: {
@@ -90,15 +68,6 @@ test('Delete post', () => {
                 large: ''
             }
         },
-        status:'',
+        status: '',
     })
-})
-test('Add post', () => {
-
-    const action = addPost('New Post')
-
-    const endState = ProfileReducer(initialState, action)
-
-    expect(endState.postData.length).toBe(3)
-    expect(endState.postData[2].message).toBe('New Post')
 })
